@@ -1,0 +1,13 @@
+{
+  "name": "vinted-shopify-sync",
+  "version": "1.0.0",
+  "description": "Synchronisation automatique du stock entre Vinted Pro et Shopify",
+  "scripts": {
+    "import": "node scripts/import.js",
+    "register-webhooks": "node scripts/register-webhooks.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.0",
+    "dotenv": "^16.4.0"
+  }
+}
