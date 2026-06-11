@@ -14,7 +14,7 @@
     }
     body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
-    /* ── LOGIN ── */
+    /* LOGIN */
     #loginScreen{position:fixed;inset:0;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;z-index:999}
     .login-box{background:#fff;border-radius:20px;padding:40px 36px;width:min(380px,92vw);text-align:center;box-shadow:0 25px 60px rgba(0,0,0,.3)}
     .login-logo{font-size:52px;margin-bottom:8px}
@@ -26,12 +26,12 @@
     .login-box button:hover{opacity:.88}
     .login-err{color:var(--danger);font-size:13px;margin-top:10px;min-height:18px}
 
-    /* ── LOADING ── */
+    /* LOADING */
     #loading{position:fixed;inset:0;background:rgba(255,255,255,.75);display:none;align-items:center;justify-content:center;z-index:500;backdrop-filter:blur(2px)}
     .spinner{width:44px;height:44px;border:4px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
 
-    /* ── MODAL PRIX D'ACHAT ── */
+    /* MODAL PRIX ACHAT */
     .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:400}
     .modal{background:#fff;border-radius:16px;padding:28px;width:min(360px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.2)}
     .modal h3{font-size:18px;font-weight:700;margin-bottom:6px}
@@ -42,7 +42,7 @@
     .btn-cancel{padding:10px 20px;background:var(--bg);border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:14px}
     .btn-save{padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px}
 
-    /* ── NAV ── */
+    /* NAV */
     #app{display:none}
     nav{background:#fff;border-bottom:1px solid var(--border);padding:0 20px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
     .nav-brand{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px;white-space:nowrap}
@@ -51,29 +51,35 @@
     .btn-refresh{padding:7px 14px;background:var(--primary);color:#fff;border:none;border-radius:7px;cursor:pointer;font-size:13px;font-weight:700}
     .btn-logout{padding:7px 10px;background:none;border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:14px}
 
-    /* ── MAIN ── */
+    /* ONGLETS VUE */
+    .view-tabs{background:#fff;border-bottom:1px solid var(--border);padding:0 20px;display:flex;gap:4px}
+    .vtab{padding:12px 20px;background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-size:14px;font-weight:600;color:var(--muted);transition:all .2s;margin-bottom:-1px}
+    .vtab.active{color:var(--primary);border-bottom-color:var(--primary)}
+    .vtab:hover:not(.active){color:var(--text)}
+
+    /* MAIN */
     main{padding:20px;max-width:1440px;margin:0 auto}
     .section-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:6px}
 
-    /* ── KPI GRID ── */
+    /* KPI GRID */
     .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:22px}
     .kpi{background:var(--card);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow);border:1px solid var(--border);position:relative;overflow:hidden}
     .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent,var(--primary));border-radius:14px 14px 0 0}
-    .kpi.success{--accent:var(--success)}
-    .kpi.danger{--accent:var(--danger)}
-    .kpi.warning{--accent:var(--warning)}
+    .kpi.success{--accent:var(--success)}.kpi.danger{--accent:var(--danger)}.kpi.warning{--accent:var(--warning)}
+    .kpi.clickable{cursor:pointer;transition:transform .15s,box-shadow .15s}
+    .kpi.clickable:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.12)}
     .kpi-icon{font-size:24px;margin-bottom:8px}
     .kpi-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:6px}
     .kpi-value{font-size:26px;font-weight:800;line-height:1;margin-bottom:4px;color:var(--text)}
     .kpi-sub{font-size:11px;color:var(--muted)}
 
-    /* ── CHARTS ── */
+    /* CHARTS */
     .charts-row{display:grid;grid-template-columns:3fr 2fr;gap:14px;margin-bottom:22px}
     @media(max-width:700px){.charts-row{grid-template-columns:1fr}}
     .chart-card{background:var(--card);border-radius:14px;padding:20px;box-shadow:var(--shadow);border:1px solid var(--border)}
     .chart-wrap{position:relative;height:230px}
 
-    /* ── STOCK TABLE ── */
+    /* TABLES */
     .table-card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--border);overflow:hidden;margin-bottom:22px}
     .table-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
     .table-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -93,30 +99,47 @@
     .prod-name{font-weight:600;font-size:13px;line-height:1.3}
     .prod-variant{font-size:11px;color:var(--muted);margin-top:1px}
     .badge{display:inline-block;padding:3px 8px;border-radius:5px;font-size:11px;font-weight:700}
-    .badge-out{background:#fee2e2;color:var(--danger)}
-    .badge-in{background:#d1fae5;color:var(--success)}
-    .cost-wrap{display:flex;align-items:center;gap:5px}
+    .badge-out{background:#fee2e2;color:var(--danger)}.badge-in{background:#d1fae5;color:var(--success)}
     .btn-cost{background:none;border:1px dashed #d1d5db;padding:4px 8px;border-radius:5px;cursor:pointer;font-size:11px;color:var(--muted);white-space:nowrap}
     .btn-cost:hover{border-color:var(--primary);color:var(--primary)}
-    .mg-good{color:var(--success);font-weight:700}
-    .mg-ok{color:var(--warning);font-weight:700}
-    .mg-bad{color:var(--danger);font-weight:700}
-    .mg-na{color:#d1d5db}
+    .mg-good{color:var(--success);font-weight:700}.mg-ok{color:var(--warning);font-weight:700}
+    .mg-bad{color:var(--danger);font-weight:700}.mg-na{color:#d1d5db}
 
-    /* ── ORDERS ── */
+    /* COMMANDES */
     .orders-card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--border);overflow:hidden;margin-bottom:22px}
     .orders-header{padding:16px 20px;border-bottom:1px solid var(--border)}
 
-    /* ── ALERT BANNER ── */
+    /* ALERT */
     .alert-banner{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:12px 16px;margin-bottom:22px;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:#92400e}
 
-    /* ── EMPTY STATE ── */
+    /* EMPTY */
     .empty{text-align:center;padding:40px;color:var(--muted);font-size:14px}
 
-    /* ── RESPONSIVE ── */
+    /* ── VENTES & RAPPORTS ── */
+    .period-bar{background:var(--card);border-radius:14px;padding:16px 20px;box-shadow:var(--shadow);border:1px solid var(--border);margin-bottom:18px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+    .period-bar-label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-right:4px}
+    .ptabs{display:flex;gap:4px;flex-wrap:wrap}
+    .ptab{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--muted);transition:all .15s}
+    .ptab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .ptab:hover:not(.active){border-color:var(--primary);color:var(--primary)}
+    .custom-range{display:none;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px;width:100%}
+    .custom-range input[type="date"]{padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none}
+    .custom-range input[type="date"]:focus{border-color:var(--primary)}
+    .btn-apply{padding:8px 18px;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700}
+
+    .sales-kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-bottom:22px}
+
+    .sales-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:16px 20px;background:var(--card);border-radius:14px 14px 0 0;border:1px solid var(--border);border-bottom:none}
+    .sales-title{font-size:14px;font-weight:700;color:var(--text)}
+    .sales-count{font-size:12px;color:var(--muted)}
+    .btn-csv{padding:9px 18px;background:var(--success);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px}
+    .btn-csv:hover{opacity:.88}
+    .sales-table-wrap{background:var(--card);border-radius:0 0 14px 14px;border:1px solid var(--border);border-top:none;overflow:hidden;margin-bottom:22px}
+
+    /* RESPONSIVE */
     @media(max-width:600px){
       main{padding:12px}
-      .kpi-grid{grid-template-columns:repeat(2,1fr)}
+      .kpi-grid,.sales-kpi-grid{grid-template-columns:repeat(2,1fr)}
       .kpi-value{font-size:20px}
       .last-upd{display:none}
       th:nth-child(5),td:nth-child(5){display:none}
@@ -128,9 +151,9 @@
 <!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-box">
-    <div class="login-logo">🏪</div>
+    <div class="login-logo">&#1283304;</div>
     <h1>BM Shop</h1>
-    <p>Tableau de bord — Stock &amp; Ventes</p>
+    <p>Tableau de bord &#8212; Stock &amp; Ventes</p>
     <input type="password" id="pwdInput" placeholder="Mot de passe" autocomplete="current-password">
     <button onclick="login()">Se connecter</button>
     <div class="login-err" id="loginErr"></div>
@@ -142,10 +165,10 @@
   <div class="spinner"></div>
 </div>
 
-<!-- MODAL PRIX D'ACHAT -->
+<!-- MODAL PRIX ACHAT -->
 <div class="modal-overlay" id="costModal">
   <div class="modal">
-    <h3>💸 Prix d'achat</h3>
+    <h3>&#128248; Prix d'achat</h3>
     <div class="modal-sub" id="modalSub"></div>
     <input type="number" id="costInput" placeholder="0.00" step="0.01" min="0">
     <div class="modal-btns">
@@ -158,84 +181,123 @@
 <!-- APP -->
 <div id="app">
   <nav>
-    <div class="nav-brand">🏪 <span>BM Shop — Dashboard</span></div>
+    <div class="nav-brand">&#1283304; <span>BM Shop &#8212; Dashboard</span></div>
     <div class="nav-right">
       <span class="last-upd" id="lastUpd"></span>
-      <button class="btn-refresh" onclick="refresh()">⟳ Actualiser</button>
-      <button class="btn-logout" onclick="logout()" title="Déconnexion">🚪</button>
+      <button class="btn-refresh" onclick="refresh()">Actualiser</button>
+      <button class="btn-logout" onclick="logout()" title="Deconnexion">&#128088;&#43;</button>
     </div>
   </nav>
 
+  <!-- ONGLETS VUE -->
+  <div class="view-tabs">
+    <button class="vtab active" onclick="showView('dashboard')">&#128202; Tableau de bord</button>
+    <button class="vtab" onclick="showView('ventes')">&#128197; Ventes &amp; Rapports</button>
+  </div>
+
   <main>
-    <!-- Alerte rupture -->
-    <div class="alert-banner" id="alertBanner" style="display:none">
-      ⚠️ <span id="alertText"></span>
-    </div>
-
-    <!-- KPIs -->
-    <div class="section-title">📊 Résumé</div>
-    <div class="kpi-grid" id="kpiGrid"></div>
-
-    <!-- Graphiques -->
-    <div class="charts-row">
-      <div class="chart-card">
-        <div class="section-title">📈 Chiffre d'affaires (6 derniers mois)</div>
-        <div class="chart-wrap"><canvas id="chartRevenue"></canvas></div>
+    <!-- ── VUE DASHBOARD ── -->
+    <div id="viewDashboard">
+      <div class="alert-banner" id="alertBanner" style="display:none">
+        <span id="alertText"></span>
       </div>
-      <div class="chart-card">
-        <div class="section-title">🏆 Top articles vendus</div>
-        <div class="chart-wrap"><canvas id="chartTop"></canvas></div>
-      </div>
-    </div>
 
-    <!-- Stock -->
-    <div class="table-card">
-      <div class="table-header">
-        <div class="section-title" style="margin:0">📦 Stock</div>
-        <div class="table-controls">
-          <input class="stock-search" id="stockSearch" placeholder="🔍 Rechercher…" oninput="filterStock()">
-          <div class="filter-tabs">
-            <button class="ftab active" onclick="setFilter('all',this)">Tous</button>
-            <button class="ftab" onclick="setFilter('in',this)">En stock</button>
-            <button class="ftab" onclick="setFilter('out',this)">Rupture</button>
-          </div>
+      <div class="section-title">Resume</div>
+      <div class="kpi-grid" id="kpiGrid"></div>
+
+      <div class="charts-row">
+        <div class="chart-card">
+          <div class="section-title">Chiffre d'affaires (6 derniers mois)</div>
+          <div class="chart-wrap"><canvas id="chartRevenue"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="section-title">Top articles vendus</div>
+          <div class="chart-wrap"><canvas id="chartTop"></canvas></div>
         </div>
       </div>
-      <div class="tbl-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Article</th>
-              <th>Prix vente</th>
-              <th>Prix achat</th>
-              <th>Marge</th>
-              <th>Qté</th>
-              <th>Valeur stock</th>
-            </tr>
-          </thead>
-          <tbody id="stockBody"></tbody>
-        </table>
+
+      <div class="table-card">
+        <div class="table-header">
+          <div class="section-title" style="margin:0">Stock</div>
+          <div class="table-controls">
+            <input class="stock-search" id="stockSearch" placeholder="Rechercher..." oninput="filterStock()">
+            <div class="filter-tabs">
+              <button class="ftab active" onclick="setFilter('all',this)">Tous</button>
+              <button class="ftab" onclick="setFilter('in',this)">En stock</button>
+              <button class="ftab" onclick="setFilter('out',this)">Rupture</button>
+            </div>
+          </div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr>
+              <th>Article</th><th>Prix vente</th><th>Prix achat</th><th>Marge</th><th>Qte</th><th>Valeur stock</th>
+            </tr></thead>
+            <tbody id="stockBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="orders-card">
+        <div class="orders-header">
+          <div class="section-title" style="margin:0">Dernieres commandes (90 jours)</div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr>
+              <th>Commande</th><th>Date</th><th>Articles</th><th>Total</th>
+            </tr></thead>
+            <tbody id="ordersBody"></tbody>
+          </table>
+        </div>
       </div>
     </div>
 
-    <!-- Commandes -->
-    <div class="orders-card">
-      <div class="orders-header">
-        <div class="section-title" style="margin:0">🛒 Dernières commandes (90 jours)</div>
+    <!-- ── VUE VENTES & RAPPORTS ── -->
+    <div id="viewVentes" style="display:none">
+
+      <!-- Selecteur de periode -->
+      <div class="period-bar">
+        <span class="period-bar-label">Periode :</span>
+        <div class="ptabs">
+          <button class="ptab" onclick="setPeriod(7,this)">7 jours</button>
+          <button class="ptab" onclick="setPeriod(30,this)">30 jours</button>
+          <button class="ptab active" onclick="setPeriod(90,this)">90 jours</button>
+          <button class="ptab" onclick="setPeriod(180,this)">6 mois</button>
+          <button class="ptab" onclick="setPeriod(365,this)">1 an</button>
+          <button class="ptab" id="btnCustom" onclick="toggleCustomRange(this)">&#128197; Personnalise</button>
+        </div>
+        <div class="custom-range" id="customRange">
+          <span style="font-size:13px;color:var(--muted)">Du</span>
+          <input type="date" id="dateFrom">
+          <span style="font-size:13px;color:var(--muted)">au</span>
+          <input type="date" id="dateTo">
+          <button class="btn-apply" onclick="applyCustomRange()">Appliquer</button>
+        </div>
       </div>
-      <div class="tbl-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Commande</th>
-              <th>Date</th>
-              <th>Articles</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody id="ordersBody"></tbody>
-        </table>
+
+      <!-- KPIs periode -->
+      <div class="sales-kpi-grid" id="salesKpiGrid"></div>
+
+      <!-- Tableau + export CSV -->
+      <div class="sales-header">
+        <div>
+          <div class="sales-title" id="salesTitle">Commandes</div>
+          <div class="sales-count" id="salesCount"></div>
+        </div>
+        <button class="btn-csv" onclick="exportCSV()">&#11015; Telecharger CSV</button>
       </div>
+      <div class="sales-table-wrap">
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr>
+              <th>N&#176; Commande</th><th>Date</th><th>Articles</th><th>Total TTC</th>
+            </tr></thead>
+            <tbody id="salesBody"></tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
   </main>
 </div>
@@ -248,7 +310,14 @@ let currentFilter = 'all';
 let editingId = null;
 let chartRev = null, chartTop = null;
 
-/* ── Auth ───────────────────────────────────── */
+// Ventes
+let currentView = 'dashboard';
+let currentPeriodDays = 90;
+let currentPeriodFrom = null;
+let currentPeriodTo   = null;
+let currentSalesOrders = [];
+
+/* ── Auth ── */
 async function login() {
   const pwd = document.getElementById('pwdInput').value.trim();
   if (!pwd) return;
@@ -262,9 +331,9 @@ async function login() {
       document.getElementById('app').style.display = 'block';
       render(await r.json());
     } else {
-      document.getElementById('loginErr').textContent = '❌ Mot de passe incorrect';
+      document.getElementById('loginErr').textContent = 'Mot de passe incorrect';
     }
-  } catch { document.getElementById('loginErr').textContent = '❌ Erreur réseau'; }
+  } catch { document.getElementById('loginErr').textContent = 'Erreur reseau'; }
   setLoading(false);
 }
 
@@ -273,13 +342,24 @@ function logout() { sessionStorage.removeItem('bm_s'); location.reload(); }
 async function refresh() {
   setLoading(true);
   try {
-    const r = await fetch(`${API}?secret=${encodeURIComponent(secret)}`);
+    const url = `${API}?secret=${encodeURIComponent(secret)}&days=${currentPeriodDays}`;
+    const r = await fetch(url);
     if (r.ok) render(await r.json());
   } catch {}
   setLoading(false);
 }
 
-/* ── Render ─────────────────────────────────── */
+/* ── Vues ── */
+function showView(v) {
+  currentView = v;
+  document.getElementById('viewDashboard').style.display = v === 'dashboard' ? '' : 'none';
+  document.getElementById('viewVentes').style.display    = v === 'ventes'    ? '' : 'none';
+  document.querySelectorAll('.vtab').forEach((b, i) =>
+    b.classList.toggle('active', (v === 'dashboard' && i === 0) || (v === 'ventes' && i === 1)));
+  if (v === 'ventes' && !currentSalesOrders.length) loadSalesPeriod(currentPeriodDays);
+}
+
+/* ── Dashboard render ── */
 function render(d) {
   renderKPIs(d.summary);
   renderChartRev(d.chart);
@@ -287,35 +367,37 @@ function render(d) {
   allStock = d.stock;
   renderStock();
   renderOrders(d.recentOrders);
-  // Alert ruptures
   if (d.summary.outOfStock > 0) {
     document.getElementById('alertBanner').style.display = 'flex';
     document.getElementById('alertText').textContent =
       `${d.summary.outOfStock} article${d.summary.outOfStock > 1 ? 's' : ''} en rupture de stock`;
   }
   document.getElementById('lastUpd').textContent =
-    'Actualisé à ' + new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+    'Actualise a ' + new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
 }
 
 function f(n, euro = true) {
   if (n == null) return '—';
   const s = parseFloat(n).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  return euro ? s + ' €' : s;
+  return euro ? s + ' EUR' : s;
 }
 
 function renderKPIs(s) {
+  const periodLabel = `${s.periodDays || 90} derniers jours`;
   const cards = [
-    { icon: '🏷️', label: 'Articles en vente', value: s.inStock, sub: `${s.totalProducts} références total`, cls: '' },
-    { icon: '💰', label: 'Valeur du stock', value: f(s.totalStockValue), sub: 'Prix de vente × quantité', cls: '' },
-    { icon: '💸', label: 'Coût du stock', value: f(s.totalCostValue),
-      sub: s.costCoverage !== '0/0' ? `${s.costCoverage} prix renseignés` : '← Cliquer ✏️ pour ajouter', cls: '' },
-    { icon: '📈', label: 'Marge potentielle', value: f(s.potentialMargin),
+    { icon: '&#128218;', label: 'Articles en vente',   value: s.inStock,          sub: `${s.totalProducts} references total`, cls: '' },
+    { icon: '&#128178;', label: 'Valeur du stock',      value: f(s.totalStockValue), sub: 'Prix vente x quantite', cls: '' },
+    { icon: '&#128248;', label: 'Cout du stock',        value: f(s.totalCostValue),
+      sub: s.costCoverage !== '0/0' ? `${s.costCoverage} prix renseignes` : '&#9999; Cliquer pour ajouter', cls: '' },
+    { icon: '&#128200;', label: 'Marge potentielle',    value: f(s.potentialMargin),
       sub: s.potentialMargin != null ? 'Si tout se vend' : 'Entrez les prix achat', cls: s.potentialMargin > 0 ? 'success' : '' },
-    { icon: '📊', label: 'CA 90 jours', value: f(s.revenue90d), sub: `${s.orders90d} commandes`, cls: 'success' },
-    { icon: '⚠️', label: 'Ruptures', value: s.outOfStock, sub: 'Articles épuisés', cls: s.outOfStock > 0 ? 'danger' : 'success' },
+    { icon: '&#128202;', label: 'CA ' + periodLabel,    value: f(s.periodRevenue || s.revenue90d),
+      sub: `${s.periodOrders || s.orders90d} commandes — <u style="cursor:pointer" onclick="showView('ventes')">Voir detail</u>`, cls: 'success', clickable: true },
+    { icon: '&#9940;',   label: 'Ruptures',             value: s.outOfStock,
+      sub: 'Articles epuises', cls: s.outOfStock > 0 ? 'danger' : 'success' },
   ];
   document.getElementById('kpiGrid').innerHTML = cards.map(c => `
-    <div class="kpi ${c.cls}">
+    <div class="kpi ${c.cls}${c.clickable ? ' clickable' : ''}" ${c.clickable ? "onclick=\"showView('ventes')\"" : ''}>
       <div class="kpi-icon">${c.icon}</div>
       <div class="kpi-label">${c.label}</div>
       <div class="kpi-value">${c.value}</div>
@@ -346,7 +428,7 @@ function renderChartRev(data) {
         callbacks: { label: ctx => f(ctx.raw) }
       }},
       scales: {
-        y: { beginAtZero: true, ticks: { callback: v => v + ' €' }, grid: { color: '#f3f4f6' } },
+        y: { beginAtZero: true, ticks: { callback: v => v + ' EUR' }, grid: { color: '#f3f4f6' } },
         x: { grid: { display: false } },
       },
     },
@@ -361,7 +443,7 @@ function renderChartTop(data) {
   chartTop = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: top.map(t => t.title.length > 22 ? t.title.substring(0, 22) + '…' : t.title),
+      labels: top.map(t => t.title.length > 22 ? t.title.substring(0, 22) + '...' : t.title),
       datasets: [{
         data: top.map(t => t.qty),
         backgroundColor: ['#6366f1','#8b5cf6','#a78bfa','#60a5fa','#34d399','#fbbf24'],
@@ -391,22 +473,20 @@ function filterStock() { renderStock(); }
 function renderStock() {
   const q = document.getElementById('stockSearch').value.toLowerCase();
   let items = allStock.filter(s => {
-    if (currentFilter === 'in' && s.stock <= 0) return false;
-    if (currentFilter === 'out' && s.stock > 0) return false;
+    if (currentFilter === 'in'  && s.stock <= 0) return false;
+    if (currentFilter === 'out' && s.stock  > 0) return false;
     if (q && !s.title.toLowerCase().includes(q) && !s.sku.toLowerCase().includes(q)) return false;
     return true;
   });
-
   if (!items.length) {
-    document.getElementById('stockBody').innerHTML = '<tr><td colspan="6" class="empty">Aucun article trouvé</td></tr>';
+    document.getElementById('stockBody').innerHTML = '<tr><td colspan="6" class="empty">Aucun article trouve</td></tr>';
     return;
   }
-
   document.getElementById('stockBody').innerHTML = items.map(s => {
     const mgClass = s.marginPct == null ? 'mg-na' : s.marginPct >= 50 ? 'mg-good' : s.marginPct >= 25 ? 'mg-ok' : 'mg-bad';
-    const mgText = s.marginPct != null ? `${s.marginPct.toFixed(0)}%` : '—';
+    const mgText  = s.marginPct != null ? `${s.marginPct.toFixed(0)}%` : '—';
     const costBtn = `<button class="btn-cost" onclick="openModal(${s.inventoryItemId},'${s.title.replace(/'/g,"\\'")}',${s.cost ?? ''})">
-      ${s.cost != null ? '✏️ ' + f(s.cost) : '+ Ajouter'}</button>`;
+      ${s.cost != null ? '&#9998; ' + f(s.cost) : '+ Ajouter'}</button>`;
     return `<tr>
       <td><div class="prod-cell">
         ${s.image ? `<img class="prod-img" src="${s.image}" loading="lazy" onerror="this.style.display='none'">` : '<div class="prod-img"></div>'}
@@ -417,7 +497,7 @@ function renderStock() {
       <td><strong>${f(s.price)}</strong></td>
       <td>${costBtn}</td>
       <td><span class="${mgClass}">${mgText}</span></td>
-      <td>${s.stock > 0 ? `<span class="badge badge-in">${s.stock}</span>` : '<span class="badge badge-out">Épuisé</span>'}</td>
+      <td>${s.stock > 0 ? `<span class="badge badge-in">${s.stock}</span>` : '<span class="badge badge-out">Epuise</span>'}</td>
       <td>${s.stock > 0 ? f(s.totalValue) : '—'}</td>
     </tr>`;
   }).join('');
@@ -437,7 +517,7 @@ function renderOrders(orders) {
     </tr>`).join('');
 }
 
-/* ── Modal prix d'achat ─────────────────────── */
+/* ── Modal prix achat ── */
 function openModal(invId, title, currentCost) {
   editingId = invId;
   document.getElementById('modalSub').textContent = title;
@@ -462,7 +542,6 @@ async function saveCost() {
       body: JSON.stringify({ inventoryItemId: editingId, cost }),
     });
     if (r.ok) {
-      // Mise à jour locale sans rechargement complet
       const item = allStock.find(s => s.inventoryItemId === editingId);
       if (item) {
         item.cost = cost;
@@ -470,20 +549,139 @@ async function saveCost() {
       }
       closeModal();
       renderStock();
-    } else {
-      alert('Erreur lors de la sauvegarde');
-    }
-  } catch { alert('Erreur réseau'); }
+    } else { alert('Erreur sauvegarde'); }
+  } catch { alert('Erreur reseau'); }
   setLoading(false);
 }
 
-/* ── Utils ──────────────────────────────────── */
+/* ── Ventes & Rapports ── */
+function getPeriodLabel() {
+  if (currentPeriodDays === 'custom') {
+    return 'Du ' + new Date(currentPeriodFrom).toLocaleDateString('fr-FR') +
+           ' au ' + new Date(currentPeriodTo).toLocaleDateString('fr-FR');
+  }
+  return { 7:'7 derniers jours', 30:'30 derniers jours', 90:'90 derniers jours',
+           180:'6 derniers mois', 365:'12 derniers mois' }[currentPeriodDays] || currentPeriodDays + ' jours';
+}
+
+async function loadSalesPeriod(days, from, to) {
+  setLoading(true);
+  try {
+    let url = `${API}?secret=${encodeURIComponent(secret)}&ordersOnly=true`;
+    if (from && to) { url += `&from=${from}&to=${to}`; }
+    else            { url += `&days=${days}`; }
+    const r = await fetch(url);
+    if (r.ok) {
+      const data = await r.json();
+      currentSalesOrders = data.recentOrders || [];
+      renderSalesKPIs(data.summary);
+      renderSalesTable();
+    }
+  } catch {}
+  setLoading(false);
+}
+
+function renderSalesKPIs(s) {
+  const rev   = s.periodRevenue || 0;
+  const count = s.periodOrders  || 0;
+  const avg   = count > 0 ? rev / count : 0;
+  document.getElementById('salesKpiGrid').innerHTML = [
+    { icon: '&#128176;', label: 'Chiffre d\'affaires', value: f(rev),   sub: getPeriodLabel(), cls: 'success' },
+    { icon: '&#128722;', label: 'Commandes',           value: count,    sub: 'commandes payees', cls: '' },
+    { icon: '&#128202;', label: 'Panier moyen',        value: f(avg),   sub: 'par commande', cls: '' },
+  ].map(c => `
+    <div class="kpi ${c.cls}">
+      <div class="kpi-icon">${c.icon}</div>
+      <div class="kpi-label">${c.label}</div>
+      <div class="kpi-value">${c.value}</div>
+      <div class="kpi-sub">${c.sub}</div>
+    </div>`).join('');
+}
+
+function renderSalesTable() {
+  const label = getPeriodLabel();
+  document.getElementById('salesTitle').textContent = 'Commandes — ' + label;
+  document.getElementById('salesCount').textContent = currentSalesOrders.length + ' commande(s)';
+  if (!currentSalesOrders.length) {
+    document.getElementById('salesBody').innerHTML =
+      '<tr><td colspan="4" class="empty">Aucune commande sur cette periode</td></tr>';
+    return;
+  }
+  document.getElementById('salesBody').innerHTML = currentSalesOrders.map(o => `
+    <tr>
+      <td><strong>${o.name}</strong></td>
+      <td>${new Date(o.date).toLocaleDateString('fr-FR')}</td>
+      <td style="font-size:12px;max-width:320px;line-height:1.5">${o.products || '—'}</td>
+      <td><strong style="color:var(--success)">${f(o.total)}</strong></td>
+    </tr>`).join('');
+}
+
+function setPeriod(days, btn) {
+  document.querySelectorAll('.ptab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.getElementById('customRange').style.display = 'none';
+  currentPeriodDays = days;
+  currentPeriodFrom = null;
+  currentPeriodTo   = null;
+  loadSalesPeriod(days);
+}
+
+function toggleCustomRange(btn) {
+  document.querySelectorAll('.ptab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const cr = document.getElementById('customRange');
+  cr.style.display = cr.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function applyCustomRange() {
+  const from = document.getElementById('dateFrom').value;
+  const to   = document.getElementById('dateTo').value;
+  if (!from || !to) { alert('Veuillez choisir les deux dates'); return; }
+  currentPeriodDays = 'custom';
+  currentPeriodFrom = from;
+  currentPeriodTo   = to;
+  document.getElementById('customRange').style.display = 'none';
+  loadSalesPeriod(null, from, to);
+}
+
+function exportCSV() {
+  if (!currentSalesOrders.length) { alert('Aucune donnee a exporter'); return; }
+  const sep = ';';
+  const rows = [
+    ['N Commande', 'Date', 'Articles', 'Quantite', 'Total TTC (EUR)'],
+    ...currentSalesOrders.map(o => [
+      o.name,
+      new Date(o.date).toLocaleDateString('fr-FR'),
+      o.products || '',
+      String(o.items),
+      o.total.toFixed(2).replace('.', ','),
+    ]),
+  ];
+  const totalRev = currentSalesOrders.reduce((s, o) => s + o.total, 0);
+  rows.push(['', '', 'TOTAL', currentSalesOrders.length + ' commandes', totalRev.toFixed(2).replace('.', ',')]);
+
+  const csv = rows.map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(sep)).join('\n');
+  const bom  = '﻿';
+  const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  const period = currentPeriodDays === 'custom'
+    ? currentPeriodFrom + '_' + currentPeriodTo
+    : currentPeriodDays + 'j';
+  a.download = 'rapport-ventes-BM-Shop-' + period + '-' + new Date().toISOString().split('T')[0] + '.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+/* ── Utils ── */
 function setLoading(v) { document.getElementById('loading').style.display = v ? 'flex' : 'none'; }
 document.getElementById('costModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
 document.getElementById('pwdInput').addEventListener('keyup', e => { if (e.key === 'Enter') login(); });
 document.getElementById('costInput').addEventListener('keyup', e => { if (e.key === 'Enter') saveCost(); });
 
-/* ── Init ───────────────────────────────────── */
 window.addEventListener('load', async () => {
   const saved = sessionStorage.getItem('bm_s');
   if (saved) {
