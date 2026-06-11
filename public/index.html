@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BM Shop â Tableau de bord</title>
+  <title>BM Shop — Tableau de bord</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
@@ -14,7 +14,7 @@
     }
     body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
-    /* ââ LOGIN ââ */
+    /* ── LOGIN ── */
     #loginScreen{position:fixed;inset:0;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;z-index:999}
     .login-box{background:#fff;border-radius:20px;padding:40px 36px;width:min(380px,92vw);text-align:center;box-shadow:0 25px 60px rgba(0,0,0,.3)}
     .login-logo{font-size:52px;margin-bottom:8px}
@@ -26,12 +26,12 @@
     .login-box button:hover{opacity:.88}
     .login-err{color:var(--danger);font-size:13px;margin-top:10px;min-height:18px}
 
-    /* ââ LOADING ââ */
+    /* ── LOADING ── */
     #loading{position:fixed;inset:0;background:rgba(255,255,255,.75);display:none;align-items:center;justify-content:center;z-index:500;backdrop-filter:blur(2px)}
     .spinner{width:44px;height:44px;border:4px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
 
-    /* ââ MODAL PRIX D'ACHAT ââ */
+    /* ── MODAL PRIX D'ACHAT ── */
     .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:400}
     .modal{background:#fff;border-radius:16px;padding:28px;width:min(360px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.2)}
     .modal h3{font-size:18px;font-weight:700;margin-bottom:6px}
@@ -42,7 +42,7 @@
     .btn-cancel{padding:10px 20px;background:var(--bg);border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:14px}
     .btn-save{padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px}
 
-    /* ââ NAV ââ */
+    /* ── NAV ── */
     #app{display:none}
     nav{background:#fff;border-bottom:1px solid var(--border);padding:0 20px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
     .nav-brand{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px;white-space:nowrap}
@@ -51,11 +51,11 @@
     .btn-refresh{padding:7px 14px;background:var(--primary);color:#fff;border:none;border-radius:7px;cursor:pointer;font-size:13px;font-weight:700}
     .btn-logout{padding:7px 10px;background:none;border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:14px}
 
-    /* ââ MAIN ââ */
+    /* ── MAIN ── */
     main{padding:20px;max-width:1440px;margin:0 auto}
     .section-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:6px}
 
-    /* ââ KPI GRID ââ */
+    /* ── KPI GRID ── */
     .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:22px}
     .kpi{background:var(--card);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow);border:1px solid var(--border);position:relative;overflow:hidden}
     .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent,var(--primary));border-radius:14px 14px 0 0}
@@ -67,13 +67,13 @@
     .kpi-value{font-size:26px;font-weight:800;line-height:1;margin-bottom:4px;color:var(--text)}
     .kpi-sub{font-size:11px;color:var(--muted)}
 
-    /* ââ CHARTS ââ */
+    /* ── CHARTS ── */
     .charts-row{display:grid;grid-template-columns:3fr 2fr;gap:14px;margin-bottom:22px}
     @media(max-width:700px){.charts-row{grid-template-columns:1fr}}
     .chart-card{background:var(--card);border-radius:14px;padding:20px;box-shadow:var(--shadow);border:1px solid var(--border)}
     .chart-wrap{position:relative;height:230px}
 
-    /* ââ STOCK TABLE ââ */
+    /* ── STOCK TABLE ── */
     .table-card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--border);overflow:hidden;margin-bottom:22px}
     .table-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
     .table-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -103,17 +103,17 @@
     .mg-bad{color:var(--danger);font-weight:700}
     .mg-na{color:#d1d5db}
 
-    /* ââ ORDERS ââ */
+    /* ── ORDERS ── */
     .orders-card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--border);overflow:hidden;margin-bottom:22px}
     .orders-header{padding:16px 20px;border-bottom:1px solid var(--border)}
 
-    /* ââ ALERT BANNER ââ */
+    /* ── ALERT BANNER ── */
     .alert-banner{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:12px 16px;margin-bottom:22px;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:#92400e}
 
-    /* ââ EMPTY STATE ââ */
+    /* ── EMPTY STATE ── */
     .empty{text-align:center;padding:40px;color:var(--muted);font-size:14px}
 
-    /* ââ RESPONSIVE ââ */
+    /* ── RESPONSIVE ── */
     @media(max-width:600px){
       main{padding:12px}
       .kpi-grid{grid-template-columns:repeat(2,1fr)}
@@ -128,9 +128,9 @@
 <!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-box">
-    <div class="login-logo">ðª</div>
+    <div class="login-logo">🏪</div>
     <h1>BM Shop</h1>
-    <p>Tableau de bord â Stock &amp; Ventes</p>
+    <p>Tableau de bord — Stock &amp; Ventes</p>
     <input type="password" id="pwdInput" placeholder="Mot de passe" autocomplete="current-password">
     <button onclick="login()">Se connecter</button>
     <div class="login-err" id="loginErr"></div>
@@ -145,7 +145,7 @@
 <!-- MODAL PRIX D'ACHAT -->
 <div class="modal-overlay" id="costModal">
   <div class="modal">
-    <h3>ð¸ Prix d'achat</h3>
+    <h3>💸 Prix d'achat</h3>
     <div class="modal-sub" id="modalSub"></div>
     <input type="number" id="costInput" placeholder="0.00" step="0.01" min="0">
     <div class="modal-btns">
@@ -158,32 +158,32 @@
 <!-- APP -->
 <div id="app">
   <nav>
-    <div class="nav-brand">ðª <span>BM Shop â Dashboard</span></div>
+    <div class="nav-brand">🏪 <span>BM Shop — Dashboard</span></div>
     <div class="nav-right">
       <span class="last-upd" id="lastUpd"></span>
-      <button class="btn-refresh" onclick="refresh()">â³ Actualiser</button>
-      <button class="btn-logout" onclick="logout()" title="DÃ©connexion">ðª</button>
+      <button class="btn-refresh" onclick="refresh()">⟳ Actualiser</button>
+      <button class="btn-logout" onclick="logout()" title="Déconnexion">🚪</button>
     </div>
   </nav>
 
   <main>
     <!-- Alerte rupture -->
     <div class="alert-banner" id="alertBanner" style="display:none">
-      â ï¸ <span id="alertText"></span>
+      ⚠️ <span id="alertText"></span>
     </div>
 
     <!-- KPIs -->
-    <div class="section-title">ð RÃ©sumÃ©</div>
+    <div class="section-title">📊 Résumé</div>
     <div class="kpi-grid" id="kpiGrid"></div>
 
     <!-- Graphiques -->
     <div class="charts-row">
       <div class="chart-card">
-        <div class="section-title">ð Chiffre d'affaires (6 derniers mois)</div>
+        <div class="section-title">📈 Chiffre d'affaires (6 derniers mois)</div>
         <div class="chart-wrap"><canvas id="chartRevenue"></canvas></div>
       </div>
       <div class="chart-card">
-        <div class="section-title">ð Top articles vendus</div>
+        <div class="section-title">🏆 Top articles vendus</div>
         <div class="chart-wrap"><canvas id="chartTop"></canvas></div>
       </div>
     </div>
@@ -191,9 +191,9 @@
     <!-- Stock -->
     <div class="table-card">
       <div class="table-header">
-        <div class="section-title" style="margin:0">ð¦ Stock</div>
+        <div class="section-title" style="margin:0">📦 Stock</div>
         <div class="table-controls">
-          <input class="stock-search" id="stockSearch" placeholder="ð Rechercherâ¦" oninput="filterStock()">
+          <input class="stock-search" id="stockSearch" placeholder="🔍 Rechercher…" oninput="filterStock()">
           <div class="filter-tabs">
             <button class="ftab active" onclick="setFilter('all',this)">Tous</button>
             <button class="ftab" onclick="setFilter('in',this)">En stock</button>
@@ -209,7 +209,7 @@
               <th>Prix vente</th>
               <th>Prix achat</th>
               <th>Marge</th>
-              <th>QtÃ©</th>
+              <th>Qté</th>
               <th>Valeur stock</th>
             </tr>
           </thead>
@@ -221,7 +221,7 @@
     <!-- Commandes -->
     <div class="orders-card">
       <div class="orders-header">
-        <div class="section-title" style="margin:0">ð DerniÃ¨res commandes (90 jours)</div>
+        <div class="section-title" style="margin:0">🛒 Dernières commandes (90 jours)</div>
       </div>
       <div class="tbl-wrap">
         <table>
@@ -248,7 +248,7 @@ let currentFilter = 'all';
 let editingId = null;
 let chartRev = null, chartTop = null;
 
-/* ââ Auth âââââââââââââââââââââââââââââââââââââ */
+/* ── Auth ───────────────────────────────────── */
 async function login() {
   const pwd = document.getElementById('pwdInput').value.trim();
   if (!pwd) return;
@@ -262,9 +262,9 @@ async function login() {
       document.getElementById('app').style.display = 'block';
       render(await r.json());
     } else {
-      document.getElementById('loginErr').textContent = 'â Mot de passe incorrect';
+      document.getElementById('loginErr').textContent = '❌ Mot de passe incorrect';
     }
-  } catch { document.getElementById('loginErr').textContent = 'â Erreur rÃ©seau'; }
+  } catch { document.getElementById('loginErr').textContent = '❌ Erreur réseau'; }
   setLoading(false);
 }
 
@@ -279,7 +279,7 @@ async function refresh() {
   setLoading(false);
 }
 
-/* ââ Render âââââââââââââââââââââââââââââââââââ */
+/* ── Render ─────────────────────────────────── */
 function render(d) {
   renderKPIs(d.summary);
   renderChartRev(d.chart);
@@ -294,25 +294,25 @@ function render(d) {
       `${d.summary.outOfStock} article${d.summary.outOfStock > 1 ? 's' : ''} en rupture de stock`;
   }
   document.getElementById('lastUpd').textContent =
-    'ActualisÃ© Ã  ' + new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+    'Actualisé à ' + new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
 }
 
 function f(n, euro = true) {
-  if (n == null) return 'â';
+  if (n == null) return '—';
   const s = parseFloat(n).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  return euro ? s + ' â¬' : s;
+  return euro ? s + ' €' : s;
 }
 
 function renderKPIs(s) {
   const cards = [
-    { icon: 'ð·ï¸', label: 'Articles en vente', value: s.inStock, sub: `${s.totalProducts} rÃ©fÃ©rences total`, cls: '' },
-    { icon: 'ð°', label: 'Valeur du stock', value: f(s.totalStockValue), sub: 'Prix de vente Ã quantitÃ©', cls: '' },
-    { icon: 'ð¸', label: 'CoÃ»t du stock', value: f(s.totalCostValue),
-      sub: s.costCoverage !== '0/0' ? `${s.costCoverage} prix renseignÃ©s` : 'â Cliquer âï¸ pour ajouter', cls: '' },
-    { icon: 'ð', label: 'Marge potentielle', value: f(s.potentialMargin),
+    { icon: '🏷️', label: 'Articles en vente', value: s.inStock, sub: `${s.totalProducts} références total`, cls: '' },
+    { icon: '💰', label: 'Valeur du stock', value: f(s.totalStockValue), sub: 'Prix de vente × quantité', cls: '' },
+    { icon: '💸', label: 'Coût du stock', value: f(s.totalCostValue),
+      sub: s.costCoverage !== '0/0' ? `${s.costCoverage} prix renseignés` : '← Cliquer ✏️ pour ajouter', cls: '' },
+    { icon: '📈', label: 'Marge potentielle', value: f(s.potentialMargin),
       sub: s.potentialMargin != null ? 'Si tout se vend' : 'Entrez les prix achat', cls: s.potentialMargin > 0 ? 'success' : '' },
-    { icon: 'ð', label: 'CA 90 jours', value: f(s.revenue90d), sub: `${s.orders90d} commandes`, cls: 'success' },
-    { icon: 'â ï¸', label: 'Ruptures', value: s.outOfStock, sub: 'Articles Ã©puisÃ©s', cls: s.outOfStock > 0 ? 'danger' : 'success' },
+    { icon: '📊', label: 'CA 90 jours', value: f(s.revenue90d), sub: `${s.orders90d} commandes`, cls: 'success' },
+    { icon: '⚠️', label: 'Ruptures', value: s.outOfStock, sub: 'Articles épuisés', cls: s.outOfStock > 0 ? 'danger' : 'success' },
   ];
   document.getElementById('kpiGrid').innerHTML = cards.map(c => `
     <div class="kpi ${c.cls}">
@@ -346,7 +346,7 @@ function renderChartRev(data) {
         callbacks: { label: ctx => f(ctx.raw) }
       }},
       scales: {
-        y: { beginAtZero: true, ticks: { callback: v => v + ' â¬' }, grid: { color: '#f3f4f6' } },
+        y: { beginAtZero: true, ticks: { callback: v => v + ' €' }, grid: { color: '#f3f4f6' } },
         x: { grid: { display: false } },
       },
     },
@@ -361,7 +361,7 @@ function renderChartTop(data) {
   chartTop = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: top.map(t => t.title.length > 22 ? t.title.substring(0, 22) + 'â¦' : t.title),
+      labels: top.map(t => t.title.length > 22 ? t.title.substring(0, 22) + '…' : t.title),
       datasets: [{
         data: top.map(t => t.qty),
         backgroundColor: ['#6366f1','#8b5cf6','#a78bfa','#60a5fa','#34d399','#fbbf24'],
@@ -398,15 +398,15 @@ function renderStock() {
   });
 
   if (!items.length) {
-    document.getElementById('stockBody').innerHTML = '<tr><td colspan="6" class="empty">Aucun article trouvÃ©</td></tr>';
+    document.getElementById('stockBody').innerHTML = '<tr><td colspan="6" class="empty">Aucun article trouvé</td></tr>';
     return;
   }
 
   document.getElementById('stockBody').innerHTML = items.map(s => {
     const mgClass = s.marginPct == null ? 'mg-na' : s.marginPct >= 50 ? 'mg-good' : s.marginPct >= 25 ? 'mg-ok' : 'mg-bad';
-    const mgText = s.marginPct != null ? `${s.marginPct.toFixed(0)}%` : 'â';
+    const mgText = s.marginPct != null ? `${s.marginPct.toFixed(0)}%` : '—';
     const costBtn = `<button class="btn-cost" onclick="openModal(${s.inventoryItemId},'${s.title.replace(/'/g,"\\'")}',${s.cost ?? ''})">
-      ${s.cost != null ? 'âï¸ ' + f(s.cost) : '+ Ajouter'}</button>`;
+      ${s.cost != null ? '✏️ ' + f(s.cost) : '+ Ajouter'}</button>`;
     return `<tr>
       <td><div class="prod-cell">
         ${s.image ? `<img class="prod-img" src="${s.image}" loading="lazy" onerror="this.style.display='none'">` : '<div class="prod-img"></div>'}
@@ -417,8 +417,8 @@ function renderStock() {
       <td><strong>${f(s.price)}</strong></td>
       <td>${costBtn}</td>
       <td><span class="${mgClass}">${mgText}</span></td>
-      <td>${s.stock > 0 ? `<span class="badge badge-in">${s.stock}</span>` : '<span class="badge badge-out">ÃpuisÃ©</span>'}</td>
-      <td>${s.stock > 0 ? f(s.totalValue) : 'â'}</td>
+      <td>${s.stock > 0 ? `<span class="badge badge-in">${s.stock}</span>` : '<span class="badge badge-out">Épuisé</span>'}</td>
+      <td>${s.stock > 0 ? f(s.totalValue) : '—'}</td>
     </tr>`;
   }).join('');
 }
@@ -437,7 +437,7 @@ function renderOrders(orders) {
     </tr>`).join('');
 }
 
-/* ââ Modal prix d'achat âââââââââââââââââââââââ */
+/* ── Modal prix d'achat ─────────────────────── */
 function openModal(invId, title, currentCost) {
   editingId = invId;
   document.getElementById('modalSub').textContent = title;
@@ -462,7 +462,7 @@ async function saveCost() {
       body: JSON.stringify({ inventoryItemId: editingId, cost }),
     });
     if (r.ok) {
-      // Mise Ã  jour locale sans rechargement complet
+      // Mise à jour locale sans rechargement complet
       const item = allStock.find(s => s.inventoryItemId === editingId);
       if (item) {
         item.cost = cost;
@@ -473,17 +473,17 @@ async function saveCost() {
     } else {
       alert('Erreur lors de la sauvegarde');
     }
-  } catch { alert('Erreur rÃ©seau'); }
+  } catch { alert('Erreur réseau'); }
   setLoading(false);
 }
 
-/* ââ Utils ââââââââââââââââââââââââââââââââââââ */
+/* ── Utils ──────────────────────────────────── */
 function setLoading(v) { document.getElementById('loading').style.display = v ? 'flex' : 'none'; }
 document.getElementById('costModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
 document.getElementById('pwdInput').addEventListener('keyup', e => { if (e.key === 'Enter') login(); });
 document.getElementById('costInput').addEventListener('keyup', e => { if (e.key === 'Enter') saveCost(); });
 
-/* ââ Init âââââââââââââââââââââââââââââââââââââ */
+/* ── Init ───────────────────────────────────── */
 window.addEventListener('load', async () => {
   const saved = sessionStorage.getItem('bm_s');
   if (saved) {
@@ -503,4 +503,3 @@ window.addEventListener('load', async () => {
 </script>
 </body>
 </html>
-
