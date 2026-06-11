@@ -1,10 +1,3 @@
-// =============================================================================
-// DASHBOARD DATA API
-// =============================================================================
-// GET  /api/dashboard-data?secret=MOT_DE_PASSE  â donnÃ©es stock + ventes
-// PUT  /api/dashboard-data?secret=MOT_DE_PASSE  â met Ã  jour un prix d'achat
-// =============================================================================
-
 const https = require('https');
 
 function shopifyRequest(method, path, body) {
@@ -52,22 +45,20 @@ module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  // Auth
   const { secret } = req.query;
   const validPassword = process.env.DASHBOARD_PASSWORD || process.env.WEBHOOK_SECRET;
   if (!secret || secret !== validPassword) {
     return res.status(401).json({ error: 'Mot de passe incorrect' });
   }
 
-  // ââ PUT : mise Ã  jour prix d'achat ââââââââââââââââââââââââââââââââââ
+  // PUT : mise a jour prix d'achat
   if (req.method === 'PUT') {
     const { inventoryItemId, cost } = await readBody(req);
     if (!inventoryItemId || cost === undefined) {
-      return res.status(400).json({ error: 'ParamÃ¨tres manquants' });
+      return res.status(400).json({ error: 'Parametres manquants' });
     }
     try {
-      const result = await shopifyRequest(
-        'PUT',
+      const result = await shopifyRequest('PUT',
         `/inventory_items/${inventoryItemId}.json`,
         { inventory_item: { id: inventoryItemId, cost: String(parseFloat(cost).toFixed(2)) } }
       );
@@ -77,130 +68,168 @@ module.exports = async (req, res) => {
     }
   }
 
-  // ââ GET : toutes les donnÃ©es ââââââââââââââââââââââââââââââââââââââââ
+  // GET
   try {
-    // 1. Produits
-    const { products = [] } = await shopifyRequest('GET', '/products.json?limit=250');
+    // Parametres de periode
+    const days       = parseInt(req.query.days) || 90;
+    const fromParam  = req.query.from || null;
+    const toParam    = req.query.to   || null;
+    const ordersOnly = req.query.ordersOnly === 'true';
 
-    // 2. Prix d'achat (inventory items) â par batch de 100
+    const since = fromParam
+      ? new Date(fromParam).toISOString()
+      : new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
+    const untilParam = toParam
+      ? `&created_at_max=${new Date(toParam + 'T23:59:59').toISOString()}`
+      : '';
+
+    // Commandes de la periode
+    const { orders = [] } = await shopifyRequest('GET',
+      `/orders.json?limit=250&status=any&created_at_min=${since}${untilParam}&financial_status=paid`);
+
+    const periodRevenue = orders.reduce((s, o) => s + parseFloat(o.total_price), 0);
+    const periodOrders  = orders.length;
+
+    // Commandes detaillees (pour onglet Ventes & CSV)
+    const detailedOrders = orders.map((o) => ({
+      name:     o.name || ('#' + o.id),
+      date:     o.created_at,
+      total:    parseFloat(o.total_price),
+      items:    (o.line_items || []).reduce((s, li) => s + li.quantity, 0),
+      products: (o.line_items || []).map((li) => {
+        const v = li.variant_title && li.variant_title !== 'Default Title' ? ' (' + li.variant_title + ')' : '';
+        return li.title + v + ' x' + li.quantity;
+      }).join(', '),
+      lineItems: (o.line_items || []).map((li) => ({
+        title:   li.title,
+        variant: li.variant_title && li.variant_title !== 'Default Title' ? li.variant_title : null,
+        qty:     li.quantity,
+        price:   parseFloat(li.price),
+      })),
+    }));
+
+    // Mode leger : uniquement commandes (pas de stock/graphiques)
+    if (ordersOnly) {
+      return res.status(200).json({
+        summary: {
+          periodRevenue: parseFloat(periodRevenue.toFixed(2)),
+          periodOrders,
+          periodDays:   days,
+          periodFrom:   fromParam,
+          periodTo:     toParam,
+        },
+        recentOrders: detailedOrders,
+      });
+    }
+
+    // Mode complet : stock + graphiques
+    const { products = [] } = await shopifyRequest('GET', '/products.json?limit=250');
     const allVariants = products.flatMap((p) =>
       p.variants.map((v) => ({
         ...v,
-        productId: p.id,
+        productId:    p.id,
         productTitle: p.title,
         productImage: p.images?.[0]?.src || null,
       }))
     );
-    const invIds = allVariants.map((v) => v.inventory_item_id);
+
+    const invIds  = allVariants.map((v) => v.inventory_item_id);
     const costMap = {};
     for (let i = 0; i < invIds.length; i += 100) {
       const chunk = invIds.slice(i, i + 100);
-      const { inventory_items = [] } = await shopifyRequest(
-        'GET',
-        `/inventory_items.json?ids=${chunk.join(',')}&limit=100`
-      );
+      const { inventory_items = [] } = await shopifyRequest('GET',
+        `/inventory_items.json?ids=${chunk.join(',')}&limit=100`);
       for (const item of inventory_items) {
         costMap[item.id] = item.cost != null ? parseFloat(item.cost) : null;
       }
     }
 
-    // 3. Commandes (90 derniers jours, payÃ©es)
-    const since = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString();
-    const { orders = [] } = await shopifyRequest(
-      'GET',
-      `/orders.json?limit=250&status=any&created_at_min=${since}&financial_status=paid`
-    );
-
-    // ââ Calculs stock ââ
-    let totalStockValue = 0;
-    let totalCostValue = 0;
-    let costRenseignes = 0;
-
+    let totalStockValue = 0, totalCostValue = 0, costRenseignes = 0;
     const stock = allVariants.map((v) => {
-      const qty = v.inventory_quantity || 0;
+      const qty   = v.inventory_quantity || 0;
       const price = parseFloat(v.price) || 0;
-      const cost = costMap[v.inventory_item_id];
-
+      const cost  = costMap[v.inventory_item_id];
       totalStockValue += price * qty;
-      if (cost != null) {
-        totalCostValue += cost * qty;
-        costRenseignes++;
-      }
-
+      if (cost != null) { totalCostValue += cost * qty; costRenseignes++; }
       return {
-        productId: v.productId,
+        productId:       v.productId,
         inventoryItemId: v.inventory_item_id,
-        title: v.productTitle,
-        variant: v.title !== 'Default Title' ? v.title : null,
-        sku: v.sku || '',
+        title:           v.productTitle,
+        variant:         v.title !== 'Default Title' ? v.title : null,
+        sku:             v.sku || '',
         price,
         cost,
-        stock: qty,
-        image: v.productImage,
-        totalValue: parseFloat((price * qty).toFixed(2)),
-        totalCost: cost != null ? parseFloat((cost * qty).toFixed(2)) : null,
-        marginPct: cost != null && price > 0 ? parseFloat(((price - cost) / price * 100).toFixed(1)) : null,
+        stock:           qty,
+        image:           v.productImage,
+        totalValue:      parseFloat((price * qty).toFixed(2)),
+        totalCost:       cost != null ? parseFloat((cost * qty).toFixed(2)) : null,
+        marginPct:       cost != null && price > 0
+          ? parseFloat(((price - cost) / price * 100).toFixed(1)) : null,
       };
     }).sort((a, b) => b.totalValue - a.totalValue);
 
-    // ââ Calculs ventes ââ
+    // Graphique 6 mois (toujours fixe)
     const salesByMonth = {};
-    let totalRevenue = 0;
     const soldMap = {};
+    let chartOrders = orders;
 
-    for (const order of orders) {
-      const month = order.created_at.substring(0, 7);
-      const amount = parseFloat(order.total_price);
-      salesByMonth[month] = (salesByMonth[month] || 0) + amount;
-      totalRevenue += amount;
-      for (const item of order.line_items || []) {
-        soldMap[item.title] = (soldMap[item.title] || 0) + item.quantity;
+    const since6m = (() => {
+      const d = new Date(); d.setDate(1); d.setMonth(d.getMonth() - 5);
+      return d.toISOString();
+    })();
+
+    if (fromParam || days < 180) {
+      const { orders: o6m = [] } = await shopifyRequest('GET',
+        `/orders.json?limit=250&status=any&created_at_min=${since6m}&financial_status=paid`);
+      chartOrders = o6m;
+    }
+    for (const o of chartOrders) {
+      const month  = o.created_at.substring(0, 7);
+      salesByMonth[month] = (salesByMonth[month] || 0) + parseFloat(o.total_price);
+      for (const li of (o.line_items || [])) {
+        const key = li.title;
+        if (!soldMap[key]) soldMap[key] = { title: li.title, qty: 0 };
+        soldMap[key].qty += li.quantity;
       }
     }
 
-    // Graphique : 6 derniers mois
     const chart = [];
     for (let i = 5; i >= 0; i--) {
-      const d = new Date();
-      d.setDate(1);
-      d.setMonth(d.getMonth() - i);
+      const d = new Date(); d.setDate(1); d.setMonth(d.getMonth() - i);
       const key = d.toISOString().substring(0, 7);
       chart.push({ month: key, revenue: parseFloat((salesByMonth[key] || 0).toFixed(2)) });
     }
 
-    const topSold = Object.entries(soldMap)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 7)
-      .map(([title, qty]) => ({ title, qty }));
+    const topSold = Object.values(soldMap)
+      .sort((a, b) => b.qty - a.qty).slice(0, 7);
 
-    const potentialMargin = costRenseignes > 0 ? parseFloat((totalStockValue - totalCostValue).toFixed(2)) : null;
+    const potentialMargin = costRenseignes > 0
+      ? parseFloat((totalStockValue - totalCostValue).toFixed(2)) : null;
 
     return res.status(200).json({
       summary: {
-        totalProducts: products.length,
-        inStock: stock.filter((s) => s.stock > 0).length,
-        outOfStock: stock.filter((s) => s.stock === 0).length,
+        totalProducts:   products.length,
+        inStock:         stock.filter((s) => s.stock > 0).length,
+        outOfStock:      stock.filter((s) => s.stock === 0).length,
         totalStockValue: parseFloat(totalStockValue.toFixed(2)),
-        totalCostValue: costRenseignes > 0 ? parseFloat(totalCostValue.toFixed(2)) : null,
+        totalCostValue:  costRenseignes > 0 ? parseFloat(totalCostValue.toFixed(2)) : null,
         potentialMargin,
-        revenue90d: parseFloat(totalRevenue.toFixed(2)),
-        orders90d: orders.length,
-        costCoverage: `${costRenseignes}/${allVariants.length}`,
+        revenue90d:      parseFloat(periodRevenue.toFixed(2)),
+        orders90d:       periodOrders,
+        periodRevenue:   parseFloat(periodRevenue.toFixed(2)),
+        periodOrders,
+        periodDays:      days,
+        periodFrom:      fromParam,
+        periodTo:        toParam,
+        costCoverage:    costRenseignes + '/' + allVariants.length,
       },
       stock,
       chart,
       topSold,
-      recentOrders: orders.slice(0, 20).map((o) => ({
-        name: o.name || `#${o.id}`,
-        date: o.created_at,
-        total: parseFloat(o.total_price),
-        items: o.line_items?.reduce((s, i) => s + i.quantity, 0) || 0,
-        products: o.line_items?.map((i) => i.title).slice(0, 2).join(', ') || '',
-      })),
+      recentOrders: detailedOrders.slice(0, 20),
     });
   } catch (e) {
     console.error(e);
     return res.status(500).json({ error: e.message });
   }
 };
-
