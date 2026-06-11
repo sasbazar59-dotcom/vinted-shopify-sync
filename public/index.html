@@ -14,8 +14,6 @@
       --shadow:0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.06);
     }
     body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-
-    /* LOGIN */
     #loginScreen{position:fixed;inset:0;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;z-index:999}
     .login-box{background:#fff;border-radius:20px;padding:40px 36px;width:min(380px,92vw);text-align:center;box-shadow:0 25px 60px rgba(0,0,0,.3)}
     .login-logo{font-size:52px;margin-bottom:8px}
@@ -23,18 +21,13 @@
     .login-box p{color:var(--muted);font-size:14px;margin-bottom:28px}
     .login-box input{width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:10px;font-size:16px;margin-bottom:12px;outline:none;transition:border-color .2s}
     .login-box input:focus{border-color:var(--primary)}
-    .login-box button{width:100%;padding:13px;background:var(--primary);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;transition:opacity .2s}
-    .login-box button:hover{opacity:.88}
+    .login-box button{width:100%;padding:13px;background:var(--primary);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer}
     .login-err{color:var(--danger);font-size:13px;margin-top:10px;min-height:18px}
-
-    /* LOADING */
     #loading{position:fixed;inset:0;background:rgba(255,255,255,.75);display:none;align-items:center;justify-content:center;z-index:500;backdrop-filter:blur(2px)}
     .spinner{width:44px;height:44px;border:4px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
-
-    /* MODAL PRIX ACHAT */
     .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:400}
-    .modal{background:#fff;border-radius:16px;padding:28px;width:min(360px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.2)}
+    .modal{background:#fff;border-radius:16px;padding:28px;width:min(400px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.2)}
     .modal h3{font-size:18px;font-weight:700;margin-bottom:6px}
     .modal .modal-sub{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.4}
     .modal input{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:8px;font-size:18px;font-weight:600;margin-bottom:16px;outline:none;transition:border-color .2s}
@@ -42,37 +35,26 @@
     .modal-btns{display:flex;gap:8px;justify-content:flex-end}
     .btn-cancel{padding:10px 20px;background:var(--bg);border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:14px}
     .btn-save{padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px}
-
-    /* DETAIL VENTE MODAL */
     #saleDetailModal .modal{width:min(480px,94vw)}
     .sale-detail-header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-    .sale-detail-badge{background:var(--vinted);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px}
-    .sale-detail-rows{display:flex;flex-direction:column;gap:8px}
-    .sale-detail-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:14px}
+    .sale-detail-badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px}
+    .sale-detail-rows{display:flex;flex-direction:column;gap:0}
+    .sale-detail-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:14px}
     .sale-detail-row:last-child{border-bottom:none}
     .sale-detail-label{color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
     .sale-detail-value{font-weight:600;text-align:right}
-
-    /* NAV */
     #app{display:none}
     nav{background:#fff;border-bottom:1px solid var(--border);padding:0 20px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
-    .nav-brand{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px;white-space:nowrap}
+    .nav-brand{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px}
     .nav-right{display:flex;align-items:center;gap:10px}
     .last-upd{font-size:11px;color:var(--muted);white-space:nowrap}
     .btn-refresh{padding:7px 14px;background:var(--primary);color:#fff;border:none;border-radius:7px;cursor:pointer;font-size:13px;font-weight:700}
     .btn-logout{padding:7px 10px;background:none;border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:14px}
-
-    /* ONGLETS VUE */
     .view-tabs{background:#fff;border-bottom:1px solid var(--border);padding:0 20px;display:flex;gap:4px}
     .vtab{padding:12px 20px;background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-size:14px;font-weight:600;color:var(--muted);transition:all .2s;margin-bottom:-1px}
     .vtab.active{color:var(--primary);border-bottom-color:var(--primary)}
-    .vtab:hover:not(.active){color:var(--text)}
-
-    /* MAIN */
     main{padding:20px;max-width:1440px;margin:0 auto}
     .section-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:6px}
-
-    /* KPI GRID */
     .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:22px}
     .kpi{background:var(--card);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow);border:1px solid var(--border);position:relative;overflow:hidden}
     .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent,var(--primary));border-radius:14px 14px 0 0}
@@ -81,37 +63,39 @@
     .kpi.clickable:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.12)}
     .kpi-icon{font-size:24px;margin-bottom:8px}
     .kpi-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:6px}
-    .kpi-value{font-size:26px;font-weight:800;line-height:1;margin-bottom:4px;color:var(--text)}
+    .kpi-value{font-size:26px;font-weight:800;line-height:1;margin-bottom:4px}
     .kpi-sub{font-size:11px;color:var(--muted)}
-
-    /* CHARTS ROW */
+    /* Objectif progress */
+    .obj-progress-bar{height:6px;background:#e5e7eb;border-radius:3px;margin-top:10px;overflow:hidden}
+    .obj-progress-fill{height:100%;border-radius:3px;background:var(--primary);transition:width .5s}
+    .obj-pct{font-size:12px;font-weight:700;color:var(--primary);margin-top:4px}
+    /* Charts row */
     .charts-row{display:grid;grid-template-columns:3fr 2fr;gap:14px;margin-bottom:22px}
     @media(max-width:700px){.charts-row{grid-template-columns:1fr}}
     .chart-card{background:var(--card);border-radius:14px;padding:20px;box-shadow:var(--shadow);border:1px solid var(--border)}
     .chart-wrap{position:relative;height:230px}
-
-    /* WIDGET 10 DERNIERES VENTES */
-    .recent-sales-list{display:flex;flex-direction:column;gap:0;height:230px;overflow-y:auto}
-    .rs-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f3f4f6;cursor:pointer;transition:background .12s;border-radius:6px;padding:9px 8px;margin:0 -8px}
+    /* Widget dernières ventes / chart tabs */
+    .card-tabs{display:flex;gap:4px;margin-bottom:14px}
+    .ctab{padding:6px 12px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--muted);transition:all .15s}
+    .ctab.active{background:var(--vinted);color:#fff;border-color:var(--vinted)}
+    /* Recent sales */
+    .recent-sales-list{display:flex;flex-direction:column;height:202px;overflow-y:auto}
+    .rs-item{display:flex;align-items:center;gap:10px;padding:9px 8px;border-bottom:1px solid #f3f4f6;cursor:pointer;border-radius:6px;margin:0 -8px;transition:background .12s}
     .rs-item:hover{background:#f8f9ff}
     .rs-item:last-child{border-bottom:none}
-    .rs-dot{width:8px;height:8px;border-radius:50%;background:var(--vinted);flex-shrink:0}
+    .rs-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
     .rs-info{flex:1;min-width:0}
     .rs-article{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .rs-buyer{font-size:11px;color:var(--muted)}
     .rs-right{text-align:right;flex-shrink:0}
     .rs-price{font-size:13px;font-weight:700;color:var(--success)}
     .rs-date{font-size:11px;color:var(--muted)}
-    .rs-footer{margin-top:10px;text-align:center}
-    .rs-see-all{font-size:12px;color:var(--primary);cursor:pointer;text-decoration:underline;background:none;border:none;font-weight:600}
-
-    /* TABLES */
+    /* Tables */
     .table-card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--border);overflow:hidden;margin-bottom:22px}
     .table-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
     .table-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    .stock-search{padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;width:200px;outline:none;transition:border-color .2s}
-    .stock-search:focus{border-color:var(--primary)}
-    .filter-tabs{display:flex;gap:3px}
+    .stock-search{padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;width:200px;outline:none}
+    .filter-tabs,.ftabs{display:flex;gap:3px}
     .ftab{padding:7px 13px;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;border:none;background:var(--bg);color:var(--muted);transition:all .15s}
     .ftab.active{background:var(--primary);color:#fff}
     .tbl-wrap{overflow-x:auto}
@@ -128,63 +112,57 @@
     .prod-variant{font-size:11px;color:var(--muted);margin-top:1px}
     .badge{display:inline-block;padding:3px 8px;border-radius:5px;font-size:11px;font-weight:700}
     .badge-out{background:#fee2e2;color:var(--danger)}.badge-in{background:#d1fae5;color:var(--success)}
+    .badge-fin{background:#d1fae5;color:var(--success)}
+    .badge-wait{background:#fef3c7;color:#92400e}
+    .badge-ret{background:#fee2e2;color:var(--danger)}
     .badge-vinted{background:#e0f7f8;color:var(--vinted)}
     .btn-cost{background:none;border:1px dashed #d1d5db;padding:4px 8px;border-radius:5px;cursor:pointer;font-size:11px;color:var(--muted);white-space:nowrap}
     .btn-cost:hover{border-color:var(--primary);color:var(--primary)}
     .mg-good{color:var(--success);font-weight:700}.mg-ok{color:var(--warning);font-weight:700}
     .mg-bad{color:var(--danger);font-weight:700}.mg-na{color:#d1d5db}
-
-    /* COMMANDES */
     .orders-card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--border);overflow:hidden;margin-bottom:22px}
     .orders-header{padding:16px 20px;border-bottom:1px solid var(--border)}
-
-    /* ALERT */
     .alert-banner{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:12px 16px;margin-bottom:22px;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:#92400e}
-
-    /* EMPTY */
     .empty{text-align:center;padding:40px;color:var(--muted);font-size:14px}
-
-    /* ── VENTES & RAPPORTS ── */
-    /* Source selector */
+    /* VENTES TAB */
     .source-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
     .stab{padding:9px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:2px solid var(--border);background:#fff;color:var(--muted);transition:all .15s;display:flex;align-items:center;gap:6px}
     .stab.active.shopify{border-color:var(--primary);background:var(--primary);color:#fff}
     .stab.active.vinted{border-color:var(--vinted);background:var(--vinted);color:#fff}
-    .stab:not(.active):hover{border-color:var(--primary);color:var(--primary)}
-
     .period-bar{background:var(--card);border-radius:14px;padding:16px 20px;box-shadow:var(--shadow);border:1px solid var(--border);margin-bottom:18px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
     .period-bar-label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-right:4px}
     .ptabs{display:flex;gap:4px;flex-wrap:wrap}
     .ptab{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--muted);transition:all .15s}
     .ptab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
-    .ptab:hover:not(.active){border-color:var(--primary);color:var(--primary)}
     .custom-range{display:none;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px;width:100%}
     .custom-range input[type="date"]{padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none}
-    .custom-range input[type="date"]:focus{border-color:var(--primary)}
     .btn-apply{padding:8px 18px;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700}
-
     .sales-kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-bottom:22px}
-
     .sales-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:16px 20px;background:var(--card);border-radius:14px 14px 0 0;border:1px solid var(--border);border-bottom:none}
-    .sales-title{font-size:14px;font-weight:700;color:var(--text)}
+    .sales-title{font-size:14px;font-weight:700}
     .sales-count{font-size:12px;color:var(--muted)}
     .btn-csv{padding:9px 18px;background:var(--success);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px}
-    .btn-csv:hover{opacity:.88}
     .sales-table-wrap{background:var(--card);border-radius:0 0 14px 14px;border:1px solid var(--border);border-top:none;overflow:hidden;margin-bottom:22px}
-
-    /* RESPONSIVE */
+    /* Vinted view mode selector */
+    .vview-tabs{display:flex;gap:6px;margin-bottom:16px}
+    .vvtab{padding:9px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:2px solid var(--border);background:#fff;color:var(--muted);transition:all .15s}
+    .vvtab.active{border-color:var(--vinted);background:var(--vinted);color:#fff}
+    /* Status filter in detail */
+    .status-filter{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:14px}
+    .sfil{padding:6px 14px;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--muted);transition:all .15s}
+    .sfil.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+    /* Monthly report table */
+    .month-table-card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--border);overflow:hidden;margin-bottom:22px}
+    .month-chart-wrap{height:240px;margin-bottom:20px}
     @media(max-width:600px){
       main{padding:12px}
       .kpi-grid,.sales-kpi-grid{grid-template-columns:repeat(2,1fr)}
-      .kpi-value{font-size:20px}
-      .last-upd{display:none}
-      th:nth-child(5),td:nth-child(5){display:none}
+      .kpi-value{font-size:20px}.last-upd{display:none}
     }
   </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-box">
     <div class="login-logo">&#128722;</div>
@@ -196,12 +174,9 @@
   </div>
 </div>
 
-<!-- LOADING -->
-<div id="loading" style="display:none;flex-direction:column;gap:16px">
-  <div class="spinner"></div>
-</div>
+<div id="loading" style="display:none;flex-direction:column;gap:16px"><div class="spinner"></div></div>
 
-<!-- MODAL PRIX ACHAT -->
+<!-- Modal prix achat -->
 <div class="modal-overlay" id="costModal">
   <div class="modal">
     <h3>&#128248; Prix d'achat</h3>
@@ -214,60 +189,74 @@
   </div>
 </div>
 
-<!-- MODAL DETAIL VENTE -->
-<div class="modal-overlay" id="saleDetailModal">
+<!-- Modal objectif mensuel -->
+<div class="modal-overlay" id="objectifModal">
   <div class="modal">
-    <div class="sale-detail-header">
-      <h3 id="saleDetailTitle">Détail de la vente</h3>
-      <span class="sale-detail-badge">Vinted</span>
-    </div>
-    <div class="sale-detail-rows" id="saleDetailRows"></div>
-    <div class="modal-btns" style="margin-top:20px">
-      <button class="btn-cancel" onclick="closeSaleDetail()">Fermer</button>
+    <h3>&#127919; Objectif mensuel</h3>
+    <div class="modal-sub">Définir votre objectif de chiffre d'affaires pour ce mois (ventes Vinted finalisées + Shopify).</div>
+    <input type="number" id="objectifInput" placeholder="500" step="10" min="0">
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeObjectifModal()">Annuler</button>
+      <button class="btn-save" onclick="saveObjectif()">Enregistrer</button>
     </div>
   </div>
 </div>
 
-<!-- APP -->
+<!-- Modal détail vente -->
+<div class="modal-overlay" id="saleDetailModal">
+  <div class="modal">
+    <div class="sale-detail-header">
+      <h3 id="saleDetailTitle" style="flex:1">Détail</h3>
+      <span class="sale-detail-badge" id="saleDetailBadge"></span>
+    </div>
+    <div class="sale-detail-rows" id="saleDetailRows"></div>
+    <div class="modal-btns" style="margin-top:20px">
+      <button class="btn-cancel" onclick="document.getElementById('saleDetailModal').style.display='none'">Fermer</button>
+    </div>
+  </div>
+</div>
+
 <div id="app">
   <nav>
     <div class="nav-brand">&#128722; <span>BM Shop &#8212; Dashboard</span></div>
     <div class="nav-right">
       <span class="last-upd" id="lastUpd"></span>
       <button class="btn-refresh" onclick="refresh()">Actualiser</button>
-      <button class="btn-logout" onclick="logout()" title="Deconnexion">&#128088;</button>
+      <button class="btn-logout" onclick="logout()" title="Déconnexion">&#128088;</button>
     </div>
   </nav>
-
   <div class="view-tabs">
     <button class="vtab active" onclick="showView('dashboard')">&#128202; Tableau de bord</button>
     <button class="vtab" onclick="showView('ventes')">&#128197; Ventes &amp; Rapports</button>
   </div>
 
   <main>
-    <!-- ── VUE DASHBOARD ── -->
+    <!-- ── DASHBOARD ── -->
     <div id="viewDashboard">
-      <div class="alert-banner" id="alertBanner" style="display:none">
-        <span id="alertText"></span>
-      </div>
-
-      <div class="section-title">Resume</div>
+      <div class="alert-banner" id="alertBanner" style="display:none"><span id="alertText"></span></div>
+      <div class="section-title">Résumé</div>
       <div class="kpi-grid" id="kpiGrid"></div>
-
       <div class="charts-row">
         <div class="chart-card">
-          <div class="section-title">Chiffre d'affaires (6 derniers mois)</div>
+          <div class="section-title">Chiffre d'affaires Shopify (6 mois)</div>
           <div class="chart-wrap"><canvas id="chartRevenue"></canvas></div>
         </div>
         <div class="chart-card">
-          <div class="section-title" style="display:flex;justify-content:space-between;align-items:center">
-            <span>&#128994; 10 dernières ventes Vinted</span>
-            <button class="rs-see-all" onclick="goToVinted()">Tout voir &#8594;</button>
+          <div class="card-tabs">
+            <button class="ctab active" onclick="switchCard('recent',this)">&#128994; 10 dernières ventes</button>
+            <button class="ctab" onclick="switchCard('evolution',this)">&#128200; Évolution Vinted</button>
           </div>
-          <div class="recent-sales-list" id="recentSalesList"></div>
+          <div id="cardRecent">
+            <div class="recent-sales-list" id="recentSalesList"></div>
+            <div style="margin-top:10px;text-align:center">
+              <button class="ctab" style="border-color:var(--vinted);color:var(--vinted)" onclick="goToVinted()">Voir toutes les ventes &#8594;</button>
+            </div>
+          </div>
+          <div id="cardEvolution" style="display:none">
+            <div class="chart-wrap"><canvas id="chartVintedMonthly"></canvas></div>
+          </div>
         </div>
       </div>
-
       <div class="table-card">
         <div class="table-header">
           <div class="section-title" style="margin:0">Stock</div>
@@ -281,51 +270,36 @@
           </div>
         </div>
         <div class="tbl-wrap">
-          <table>
-            <thead><tr>
-              <th>Article</th><th>Prix vente</th><th>Prix achat</th><th>Marge</th><th>Qte</th><th>Valeur stock</th>
-            </tr></thead>
-            <tbody id="stockBody"></tbody>
-          </table>
+          <table><thead><tr><th>Article</th><th>Prix vente</th><th>Prix achat</th><th>Marge</th><th>Qté</th><th>Valeur stock</th></tr></thead>
+          <tbody id="stockBody"></tbody></table>
         </div>
       </div>
-
       <div class="orders-card">
-        <div class="orders-header">
-          <div class="section-title" style="margin:0">Dernieres commandes Shopify (90j)</div>
-        </div>
+        <div class="orders-header"><div class="section-title" style="margin:0">Dernières commandes Shopify (90j)</div></div>
         <div class="tbl-wrap">
-          <table>
-            <thead><tr><th>Commande</th><th>Date</th><th>Articles</th><th>Total</th></tr></thead>
-            <tbody id="ordersBody"></tbody>
-          </table>
+          <table><thead><tr><th>Commande</th><th>Date</th><th>Articles</th><th>Total</th></tr></thead>
+          <tbody id="ordersBody"></tbody></table>
         </div>
       </div>
     </div>
 
-    <!-- ── VUE VENTES & RAPPORTS ── -->
+    <!-- ── VENTES & RAPPORTS ── -->
     <div id="viewVentes" style="display:none">
-
-      <!-- Sélecteur source -->
       <div class="source-tabs">
-        <button class="stab shopify active" id="stabShopify" onclick="setSource('shopify')">
-          &#128230; Shopify (commandes web)
-        </button>
-        <button class="stab vinted" id="stabVinted" onclick="setSource('vinted')">
-          &#128994; Vinted (154 ventes email)
-        </button>
+        <button class="stab shopify active" id="stabShopify" onclick="setSource('shopify')">&#128230; Shopify</button>
+        <button class="stab vinted" id="stabVinted" onclick="setSource('vinted')">&#128994; Vinted (154 ventes)</button>
       </div>
 
-      <!-- Sélecteur de période -->
       <div class="period-bar">
         <span class="period-bar-label">Période :</span>
         <div class="ptabs">
-          <button class="ptab" onclick="setPeriod(7,this)">7 jours</button>
-          <button class="ptab" onclick="setPeriod(30,this)">30 jours</button>
-          <button class="ptab active" onclick="setPeriod(90,this)">90 jours</button>
+          <button class="ptab" onclick="setPeriod(7,this)">7j</button>
+          <button class="ptab" onclick="setPeriod(30,this)">30j</button>
+          <button class="ptab active" onclick="setPeriod(90,this)">90j</button>
           <button class="ptab" onclick="setPeriod(180,this)">6 mois</button>
           <button class="ptab" onclick="setPeriod(365,this)">1 an</button>
-          <button class="ptab" id="btnCustom" onclick="toggleCustomRange(this)">&#128197; Personnalisé</button>
+          <button class="ptab" onclick="setPeriod(9999,this)">Tout</button>
+          <button class="ptab" id="btnCustom" onclick="toggleCustomRange(this)">&#128197; Perso</button>
         </div>
         <div class="custom-range" id="customRange">
           <span style="font-size:13px;color:var(--muted)">Du</span>
@@ -336,509 +310,604 @@
         </div>
       </div>
 
-      <!-- KPIs -->
       <div class="sales-kpi-grid" id="salesKpiGrid"></div>
 
-      <!-- Tableau + export CSV -->
-      <div class="sales-header">
-        <div>
-          <div class="sales-title" id="salesTitle">Commandes</div>
-          <div class="sales-count" id="salesCount"></div>
+      <!-- Vinted sub-views -->
+      <div id="vintedViews" style="display:none">
+        <div class="vview-tabs">
+          <button class="vvtab active" onclick="setVView('detail',this)">&#128203; Détail des ventes</button>
+          <button class="vvtab" onclick="setVView('rapport',this)">&#128197; Rapport mensuel comptable</button>
         </div>
-        <button class="btn-csv" onclick="exportCSV()">&#11015; Télécharger CSV</button>
-      </div>
-      <div class="sales-table-wrap">
-        <div class="tbl-wrap">
-          <table>
-            <thead><tr>
-              <th>Date</th><th id="colBuyer">Acheteur</th><th>Article</th><th>Total TTC</th>
-            </tr></thead>
-            <tbody id="salesBody"></tbody>
-          </table>
+        <!-- Detail view -->
+        <div id="vDetailView">
+          <div class="status-filter">
+            <button class="sfil active" onclick="setStatusFilter('all',this)">Toutes (154)</button>
+            <button class="sfil" onclick="setStatusFilter('finalisé',this)" id="sfBtnFin"></button>
+            <button class="sfil" onclick="setStatusFilter('en_attente',this)" id="sfBtnWait"></button>
+            <button class="sfil" onclick="setStatusFilter('retourné',this)">&#9940; Retournées (1)</button>
+          </div>
+          <div class="sales-header">
+            <div><div class="sales-title" id="salesTitle">Ventes Vinted</div><div class="sales-count" id="salesCount"></div></div>
+            <button class="btn-csv" onclick="exportCSV()">&#11015; Export CSV</button>
+          </div>
+          <div class="sales-table-wrap">
+            <div class="tbl-wrap">
+              <table><thead><tr><th>Date vente</th><th>Acheteur</th><th>Article</th><th>Montant</th><th>Statut</th></tr></thead>
+              <tbody id="salesBody"></tbody></table>
+            </div>
+          </div>
+        </div>
+        <!-- Monthly report view -->
+        <div id="vRapportView" style="display:none">
+          <div style="background:var(--card);border-radius:14px;padding:20px;box-shadow:var(--shadow);border:1px solid var(--border);margin-bottom:22px">
+            <div class="section-title" style="margin-bottom:16px">&#128200; Évolution mensuelle — Ventes finalisées</div>
+            <div class="month-chart-wrap"><canvas id="chartVintedRapport"></canvas></div>
+          </div>
+          <div class="sales-header" style="border-radius:14px 14px 0 0">
+            <div><div class="sales-title">Rapport mensuel comptable</div><div class="sales-count" id="rapportCount">Ventes finalisées uniquement</div></div>
+            <button class="btn-csv" onclick="exportMonthlyCSV()">&#11015; Export CSV comptable</button>
+          </div>
+          <div class="sales-table-wrap">
+            <div class="tbl-wrap">
+              <table><thead><tr><th>Mois</th><th>Ventes finalisées</th><th>CA encaissé</th><th>Date finalisation</th></tr></thead>
+              <tbody id="rapportBody"></tbody></table>
+            </div>
+          </div>
         </div>
       </div>
 
+      <!-- Shopify table -->
+      <div id="shopifyView">
+        <div class="sales-header">
+          <div><div class="sales-title" id="shopifySalesTitle">Commandes Shopify</div><div class="sales-count" id="shopifySalesCount"></div></div>
+          <button class="btn-csv" onclick="exportCSV()">&#11015; Export CSV</button>
+        </div>
+        <div class="sales-table-wrap">
+          <div class="tbl-wrap">
+            <table><thead><tr><th>Date</th><th>Commande</th><th>Articles</th><th>Total TTC</th></tr></thead>
+            <tbody id="shopifySalesBody"></tbody></table>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 </div>
 
 <script>
-/* ── DONNÉES VINTED (154 ventes extraites Gmail) ── */
-const VINTED_SALES = [{"date":"2026-06-11","buyer":"shio13","article":"Collier hippocampe","price":14.99},{"date":"2026-06-09","buyer":"bellecolombe","article":"Pantoufle pâte patrouille","price":12.0},{"date":"2026-06-09","buyer":"nell_chg10","article":"Set de manucure Élina 18 pièce","price":4.5},{"date":"2026-06-08","buyer":"fanny150134","article":"Parfum bakara","price":7.0},{"date":"2026-06-07","buyer":"adriennebanffy","article":"Lot de 5 gant de toilette","price":4.0},{"date":"2026-06-07","buyer":"gramolax","article":"Honor 600 5g 256 go","price":320.0},{"date":"2026-06-07","buyer":"ljl2424","article":"Lot de 6 rouleaux de scotch","price":6.7},{"date":"2026-06-07","buyer":"giraudeau1127","article":"Lames de scie sauteuse 5 pièces","price":2.25},{"date":"2026-06-06","buyer":"fabrice","article":"Lames de scie sauteuse 5 pièces","price":1.95},{"date":"2026-06-06","buyer":"assou_10","article":"Coque pour iPhone 15","price":3.5},{"date":"2026-06-03","buyer":"sarah11021613","article":"Parfum sucre rose","price":6.0},{"date":"2026-06-02","buyer":"amelie203040","article":"Pèse-personne intelligent MAX 180 KG","price":10.1},{"date":"2026-06-02","buyer":"dolcefarniente02","article":"Arène avec Toupie Brigamo Strom Gyro","price":11.1},{"date":"2026-05-31","buyer":"pkb89","article":"Pèse-personne intelligent MAX 180 KG","price":13.45},{"date":"2026-05-30","buyer":"couette77680","article":"Lot 2 articles","price":11.0},{"date":"2026-05-30","buyer":"karasuyakuza","article":"Pistolet à bulle rose","price":3.45},{"date":"2026-05-29","buyer":"margheritaronca","article":"Coque pour iPhone 16 Plus","price":3.5},{"date":"2026-05-28","buyer":"fefi32","article":"Pistolet à bulle Spiderman","price":3.45},{"date":"2026-05-22","buyer":"yanmok1","article":"Parfum savage et moula","price":12.0},{"date":"2026-05-22","buyer":"magpayot","article":"Coque Xiaomi Redmi Note 13 Pro 4G","price":3.5},{"date":"2026-05-19","buyer":"lea28240","article":"Parfum interdit","price":7.0},{"date":"2026-05-18","buyer":"laurent3623","article":"Parfum savage","price":6.0},{"date":"2026-05-18","buyer":"inxognito09","article":"Lot 2 articles","price":12.0},{"date":"2026-05-18","buyer":"inxognito09","article":"Parfum sauvage","price":7.0},{"date":"2026-05-18","buyer":"damien_bzn","article":"Parfum me and you","price":6.0},{"date":"2026-05-18","buyer":"maelann09","article":"Parfum bois intense","price":6.0},{"date":"2026-05-17","buyer":"03shshop","article":"Parfum si","price":5.6},{"date":"2026-05-17","buyer":"gd_95200","article":"Parfum moula","price":7.0},{"date":"2026-05-14","buyer":"ethanghr","article":"Parfum rose vanille","price":7.0},{"date":"2026-05-14","buyer":"tom43383","article":"Lot 2 articles","price":12.0},{"date":"2026-05-14","buyer":"brad-2602","article":"Parfum Savage","price":6.0},{"date":"2026-05-14","buyer":"laulonneux","article":"Parfum Invictus","price":7.0},{"date":"2026-05-13","buyer":"margotg33","article":"Parfum rose vanille","price":6.0},{"date":"2026-05-12","buyer":"user62312","article":"Parfum bois intense","price":7.0},{"date":"2026-05-12","buyer":"seaz_ty","article":"Parfum marshmallow","price":6.0},{"date":"2026-05-11","buyer":"frankie92100","article":"Parfum bois intense","price":7.0},{"date":"2026-05-10","buyer":"ed5687","article":"Parfum Savage","price":7.0},{"date":"2026-05-08","buyer":"annina1987","article":"Plateau en bambou 3 niveaux 34 cm","price":13.6},{"date":"2026-05-04","buyer":"matheobailly21","article":"Parfum bois intense","price":7.0},{"date":"2026-05-04","buyer":"pascale97705","article":"Jogging Y&D fashion","price":10.0},{"date":"2026-04-30","buyer":"bw1246","article":"Parfum Savage","price":7.0},{"date":"2026-04-30","buyer":"luc-s12","article":"Parfum Savage","price":7.0},{"date":"2026-04-30","buyer":"popol20","article":"Parfum bois intense","price":6.0},{"date":"2026-04-30","buyer":"amandineparfum","article":"Parfum bois intense","price":7.0},{"date":"2026-04-27","buyer":"loreeeaaaa","article":"Bitty POP! Disney Princesse Ariel (pack 4)","price":9.5},{"date":"2026-04-25","buyer":"valcheva80","article":"Jogging Jordan enfant","price":11.0},{"date":"2026-04-22","buyer":"bebouwww","article":"Parfum bois intense","price":7.0},{"date":"2026-04-22","buyer":"hortysly","article":"Ensemble sac à main","price":13.55},{"date":"2026-04-21","buyer":"urianastar","article":"Robe pour enfant","price":6.0},{"date":"2026-04-20","buyer":"trillofb","article":"Pull Nike","price":13.0},{"date":"2026-04-20","buyer":"beryll43","article":"Parfum bakara","price":6.0},{"date":"2026-04-20","buyer":"yamina54b","article":"Parfum bois intense","price":7.0},{"date":"2026-04-19","buyer":"auroreahah1829","article":"Sonic le gobelet hérisson","price":1.35},{"date":"2026-04-15","buyer":"franckc582","article":"Collier croix","price":6.4},{"date":"2026-04-15","buyer":"mohamed78710","article":"Parfum Savage","price":7.0},{"date":"2026-04-14","buyer":"bkpill","article":"Veste Nike","price":12.0},{"date":"2026-04-14","buyer":"manute1983","article":"Veste adidas","price":17.55},{"date":"2026-04-13","buyer":"hannibal51","article":"Veste Reebok","price":12.55},{"date":"2026-04-13","buyer":"wiss04","article":"Parfum Yara","price":6.0},{"date":"2026-04-12","buyer":"pascal060686","article":"Parfum bakara + Rouge Trafalgar + Bois d'argent","price":17.5},{"date":"2026-04-12","buyer":"ktiout10","article":"Parfum bois intense","price":6.0},{"date":"2026-04-12","buyer":"ermgz","article":"Lot de 5 parfums","price":29.0},{"date":"2026-04-11","buyer":"bibi43700","article":"Parfum bois intense","price":6.3},{"date":"2026-04-10","buyer":"sp3kan","article":"Parfum bakara","price":6.0},{"date":"2026-04-10","buyer":"anonyrixck40","article":"Parfum bakara","price":7.0},{"date":"2026-04-10","buyer":"adibou.zidi","article":"Parfum bakara","price":7.0},{"date":"2026-04-10","buyer":"lucas098768","article":"Parfum bakara","price":7.0},{"date":"2026-04-10","buyer":"gigi9704","article":"Lot 3 articles","price":43.0},{"date":"2026-04-09","buyer":"clara010575","article":"Étagère d'angle cuisine en bois 2 niveaux","price":20.0},{"date":"2026-04-08","buyer":"artemm176501","article":"24 huile essentielle","price":10.0},{"date":"2026-04-07","buyer":"bastfr41","article":"Kit de réparation de vélos","price":2.5},{"date":"2026-04-04","buyer":"briceg75","article":"Pèse-personne LCD","price":10.0},{"date":"2026-04-04","buyer":"sandra210880","article":"Mug Minecraft","price":7.85},{"date":"2026-04-03","buyer":"sor_7","article":"Tableau double face en bois Kruzzel","price":15.0},{"date":"2026-04-03","buyer":"moustique68","article":"Lot 2 articles","price":5.25},{"date":"2026-03-28","buyer":"menthealo45","article":"Pantalon Décontracté Bleu","price":13.99},{"date":"2026-03-28","buyer":"maisontarot","article":"Collier","price":10.99},{"date":"2026-03-28","buyer":"amaghrabi","article":"Parfum Savage","price":6.0},{"date":"2026-03-28","buyer":"steven6000","article":"Parfum Invictus","price":7.0},{"date":"2026-03-28","buyer":"akakmuha688","article":"Parfum bois intense","price":7.0},{"date":"2026-03-27","buyer":"pablo193","article":"Bague solitaire zoura","price":45.99},{"date":"2026-03-27","buyer":"gengen2217","article":"Maillot Exquiss'S Paris","price":10.4},{"date":"2026-03-26","buyer":"issa67100","article":"Ensemble de bijoux","price":12.0},{"date":"2026-03-24","buyer":"marce_rw0","article":"Parfum rose vanille","price":3.0},{"date":"2026-03-24","buyer":"sophie-54680","article":"Lot de faux ongles","price":6.0},{"date":"2026-03-24","buyer":"patg5108","article":"Jogging Y&D Fashion","price":10.0},{"date":"2026-03-24","buyer":"oumardmb","article":"Parfum rose vanille","price":14.0},{"date":"2026-03-24","buyer":"cricrile","article":"Gilet Belle Copine","price":10.8},{"date":"2026-03-23","buyer":"miabk23","article":"Parfum musc blanc","price":6.0},{"date":"2026-03-23","buyer":"mathisa65","article":"Lot 4 articles","price":23.0},{"date":"2026-03-22","buyer":"introuvable.4kss","article":"Parfum bois intense","price":6.0},{"date":"2026-03-22","buyer":"youyou1110","article":"Parfum bakara","price":6.0},{"date":"2026-03-22","buyer":"gatuso69","article":"Parfum bakara","price":6.0},{"date":"2026-03-22","buyer":"delph69","article":"Parfum Daoud","price":6.0},{"date":"2026-03-22","buyer":"titouan877","article":"Parfum Musc Blanc Gold Edition","price":7.0},{"date":"2026-03-14","buyer":"stephieestrella","article":"Coffret senteur","price":6.0},{"date":"2026-03-14","buyer":"flo-69440","article":"Parfum bois intense","price":7.0},{"date":"2026-03-14","buyer":"leopeugeot","article":"Parfum moula","price":7.0},{"date":"2026-03-14","buyer":"a_ya212","article":"Parfum Aisha","price":6.3},{"date":"2026-03-13","buyer":"omart222","article":"Parfum krypto","price":7.0},{"date":"2026-03-13","buyer":"vintagebyjas","article":"Parfum Savage","price":23.2},{"date":"2026-03-12","buyer":"william88230","article":"Parfum million","price":5.5},{"date":"2026-03-10","buyer":"sofiadokce75","article":"Eau de Parfum Daoud","price":7.0},{"date":"2026-03-10","buyer":"mouadhm5","article":"Parfum million","price":6.0},{"date":"2026-03-10","buyer":"ryadryry44","article":"Lot 2 articles","price":11.0},{"date":"2026-03-10","buyer":"lli125","article":"Lot 3 articles","price":21.0},{"date":"2026-03-10","buyer":"django13110","article":"Lot 4 articles","price":28.0},{"date":"2026-03-09","buyer":"helirox626","article":"Parfum bakara","price":7.0},{"date":"2026-03-09","buyer":"enzo.b813","article":"Parfum bakara","price":6.0},{"date":"2026-03-09","buyer":"dono190","article":"Parfum coco","price":5.9},{"date":"2026-03-09","buyer":"nourlgs","article":"Parfum bakara","price":6.0},{"date":"2026-03-07","buyer":"kays_278182","article":"Parfum suprême","price":6.0},{"date":"2026-03-07","buyer":"didi45220","article":"Bar led","price":6.4},{"date":"2026-03-07","buyer":"cristianodu91","article":"Lot 4 articles","price":21.0},{"date":"2026-03-07","buyer":"lina2285","article":"Parfum bakara","price":7.0},{"date":"2026-03-07","buyer":"zakaria4666","article":"Parfum bakara","price":7.0},{"date":"2026-03-06","buyer":"melanie.cccc","article":"Parfum Kirké","price":7.0},{"date":"2026-03-04","buyer":"mariiebltx","article":"Lot 4 articles","price":23.0},{"date":"2026-03-02","buyer":"stanschmitt57","article":"Parfum Golden Madawi","price":5.0},{"date":"2026-02-27","buyer":"co78920504","article":"Boîte en velours","price":3.5},{"date":"2026-02-27","buyer":"matoshkaa","article":"Parfum rouge Baki","price":6.0},{"date":"2026-02-26","buyer":"in873","article":"Parfum bakara","price":null},{"date":"2026-02-26","buyer":"delliaa_a","article":"Parfum marshmallow","price":7.0},{"date":"2026-02-25","buyer":"alban20102011","article":"Parfum bakara","price":null},{"date":"2026-02-25","buyer":"zipon","article":"Parfum vaillant + Parfum krypto + Parfum marshmallow","price":null},{"date":"2026-02-24","buyer":"tiyainaya","article":"Parfum Kirké","price":null},{"date":"2026-02-23","buyer":"julienmild17","article":"Lot 2 articles","price":14.0},{"date":"2026-02-22","buyer":"axellemrtz10","article":"Mug magique","price":7.0},{"date":"2026-02-22","buyer":"juuuuulieeeeee","article":"Parfum Yara","price":7.0},{"date":"2026-02-22","buyer":"junel59","article":"Parfum bakara","price":7.0},{"date":"2026-02-22","buyer":"ayman2920000","article":"Parfum million","price":7.0},{"date":"2026-02-21","buyer":"minnie930","article":"Lot 2 articles","price":12.0},{"date":"2026-02-21","buyer":"asz_555","article":"Collier pour femme","price":13.5},{"date":"2026-02-19","buyer":"rsllosko31k","article":"Parfum bakara","price":5.2},{"date":"2026-02-19","buyer":"ericsoukia","article":"Souris Gamer","price":8.0},{"date":"2026-02-19","buyer":"lauratssn","article":"Lot 3 articles","price":21.0},{"date":"2026-02-19","buyer":"chi.pq266","article":"C'est Jessy & Co","price":9.0},{"date":"2026-02-19","buyer":"alvesmachadoj","article":"Eau de parfum Oud Is","price":7.0},{"date":"2026-02-18","buyer":"franklin_99","article":"Parfum rouge Baki","price":7.0},{"date":"2026-02-18","buyer":"leandro394","article":"Lot 2 articles","price":14.0},{"date":"2026-02-16","buyer":"marlonlcd1","article":"Lot 2 articles","price":10.0},{"date":"2026-02-16","buyer":"lazer38k.8","article":"Lot 5 articles","price":30.0},{"date":"2026-02-16","buyer":"bigoudis2.0","article":"Parfum bakara","price":5.0},{"date":"2026-02-16","buyer":"minnie930","article":"Parfum sucre rose","price":6.0},{"date":"2026-02-16","buyer":"minnie930","article":"Parfum marshmallow","price":6.0},{"date":"2026-02-15","buyer":"gigi71670","article":"36 huile essentielle","price":10.99},{"date":"2026-02-15","buyer":"pumpkinki","article":"Kit pour bébé","price":5.0},{"date":"2026-02-15","buyer":"francklanvier","article":"Transmetteur FM","price":5.0},{"date":"2026-02-15","buyer":"clara.khr494321","article":"Parfum bois intense","price":6.3},{"date":"2026-02-14","buyer":"n0emie072","article":"Ours en verre","price":4.0},{"date":"2026-02-14","buyer":"prosugar","article":"Spray anti-stress","price":9.0},{"date":"2026-02-14","buyer":"july03000","article":"Portefeuille Projet X Paris","price":8.0},{"date":"2026-02-14","buyer":"bobsoso5","article":"Fond de teint Revlon","price":13.5},{"date":"2026-02-13","buyer":"soraya.poisson723","article":"Lot de 12 voitures","price":4.0}];
+/* ═══════════════════════════════════════════
+   VINTED SALES DATA  (source: emails Gmail)
+   status: "finalisé" = argent bien reçu
+           "en_attente" = en cours de livraison/validation
+           "retourné" = colis retourné, non encaissé
+   finDate: date de finalisation (argent dispo)
+═══════════════════════════════════════════ */
+const VINTED_SALES = [{"date":"2026-06-11","buyer":"shio13","article":"Collier hippocampe","price":14.99,"status":"en_attente"},{"date":"2026-06-09","buyer":"bellecolombe","article":"Pantoufle pâte patrouille","price":12.0,"status":"en_attente"},{"date":"2026-06-09","buyer":"nell_chg10","article":"Set de manucure Élina 18 pièce","price":4.5,"status":"en_attente"},{"date":"2026-06-08","buyer":"fanny150134","article":"Parfum bakara","price":7.0,"status":"en_attente"},{"date":"2026-06-07","buyer":"adriennebanffy","article":"Lot de 5 gant de toilette","price":4.0,"status":"en_attente"},{"date":"2026-06-07","buyer":"gramolax","article":"Honor 600 5g 256 go","price":320.0,"status":"en_attente"},{"date":"2026-06-07","buyer":"ljl2424","article":"Lot de 6 rouleaux de scotch","price":6.7,"status":"en_attente"},{"date":"2026-06-07","buyer":"giraudeau1127","article":"Lames de scie sauteuse 5 pièces","price":2.25,"status":"en_attente"},{"date":"2026-06-06","buyer":"fabrice","article":"Lames de scie sauteuse 5 pièces","price":1.95,"status":"en_attente"},{"date":"2026-06-06","buyer":"assou_10","article":"Coque pour iPhone 15","price":3.5,"status":"en_attente"},{"date":"2026-06-03","buyer":"sarah11021613","article":"Parfum sucre rose","price":6.0,"status":"en_attente"},{"date":"2026-06-02","buyer":"amelie203040","article":"Pèse-personne intelligent MAX 180 KG","price":10.1,"status":"en_attente"},{"date":"2026-06-02","buyer":"dolcefarniente02","article":"Arène avec Toupie Brigamo Strom Gyro","price":11.1,"status":"en_attente"},{"date":"2026-05-31","buyer":"pkb89","article":"Pèse-personne intelligent MAX 180 KG","price":13.45,"status":"retourné"},{"date":"2026-05-30","buyer":"couette77680","article":"Lot 2 articles","price":11.0,"status":"en_attente"},{"date":"2026-05-30","buyer":"karasuyakuza","article":"Pistolet à bulle rose","price":3.45,"status":"en_attente"},{"date":"2026-05-29","buyer":"margheritaronca","article":"Coque pour iPhone 16 Plus","price":3.5,"status":"en_attente"},{"date":"2026-05-28","buyer":"fefi32","article":"Pistolet à bulle Spiderman","price":3.45,"status":"en_attente"},{"date":"2026-05-22","buyer":"yanmok1","article":"Parfum savage et moula","price":12.0,"status":"en_attente"},{"date":"2026-05-22","buyer":"magpayot","article":"Coque Xiaomi Redmi Note 13 Pro 4G","price":3.5,"status":"en_attente"},{"date":"2026-05-19","buyer":"lea28240","article":"Parfum interdit","price":7.0,"status":"en_attente"},{"date":"2026-05-18","buyer":"laurent3623","article":"Parfum savage","price":6.0,"status":"finalisé","finDate":"2026-06-08"},{"date":"2026-05-18","buyer":"inxognito09","article":"Lot 2 articles","price":12.0,"status":"en_attente"},{"date":"2026-05-18","buyer":"inxognito09","article":"Parfum sauvage","price":7.0,"status":"finalisé","finDate":"2026-06-08"},{"date":"2026-05-18","buyer":"damien_bzn","article":"Parfum me and you","price":6.0,"status":"finalisé","finDate":"2026-06-04"},{"date":"2026-05-18","buyer":"maelann09","article":"Parfum bois intense","price":6.0,"status":"en_attente"},{"date":"2026-05-17","buyer":"03shshop","article":"Parfum si","price":5.6,"status":"finalisé","finDate":"2026-06-04"},{"date":"2026-05-17","buyer":"gd_95200","article":"Parfum moula","price":7.0,"status":"finalisé","finDate":"2026-06-04"},{"date":"2026-05-14","buyer":"ethanghr","article":"Parfum rose vanille","price":7.0,"status":"finalisé","finDate":"2026-06-05"},{"date":"2026-05-14","buyer":"tom43383","article":"Lot 2 articles","price":12.0,"status":"en_attente"},{"date":"2026-05-14","buyer":"brad-2602","article":"Parfum Savage","price":6.0,"status":"finalisé","finDate":"2026-06-01"},{"date":"2026-05-14","buyer":"laulonneux","article":"Parfum Invictus","price":7.0,"status":"finalisé","finDate":"2026-06-02"},{"date":"2026-05-13","buyer":"margotg33","article":"Parfum rose vanille","price":6.0,"status":"finalisé","finDate":"2026-06-01"},{"date":"2026-05-12","buyer":"user62312","article":"Parfum bois intense","price":7.0,"status":"finalisé","finDate":"2026-06-08"},{"date":"2026-05-12","buyer":"seaz_ty","article":"Parfum marshmallow","price":6.0,"status":"finalisé","finDate":"2026-06-04"},{"date":"2026-05-11","buyer":"frankie92100","article":"Parfum bois intense","price":7.0,"status":"finalisé","finDate":"2026-06-01"},{"date":"2026-05-10","buyer":"ed5687","article":"Parfum Savage","price":7.0,"status":"finalisé","finDate":"2026-06-01"},{"date":"2026-05-08","buyer":"annina1987","article":"Plateau en bambou 3 niveaux 34 cm","price":13.6,"status":"finalisé","finDate":"2026-05-27"},{"date":"2026-05-04","buyer":"matheobailly21","article":"Parfum bois intense","price":7.0,"status":"finalisé","finDate":"2026-05-29"},{"date":"2026-05-04","buyer":"pascale97705","article":"Jogging Y&D fashion","price":10.0,"status":"finalisé","finDate":"2026-06-02"},{"date":"2026-04-30","buyer":"bw1246","article":"Parfum Savage","price":7.0,"status":"finalisé","finDate":"2026-05-21"},{"date":"2026-04-30","buyer":"luc-s12","article":"Parfum Savage","price":7.0,"status":"finalisé","finDate":"2026-06-01"},{"date":"2026-04-30","buyer":"popol20","article":"Parfum bois intense","price":6.0,"status":"finalisé","finDate":"2026-05-18"},{"date":"2026-04-30","buyer":"amandineparfum","article":"Parfum bois intense","price":7.0,"status":"finalisé","finDate":"2026-05-18"},{"date":"2026-04-27","buyer":"loreeeaaaa","article":"Bitty POP! Disney Princesse Ariel (pack 4)","price":9.5,"status":"finalisé","finDate":"2026-05-22"},{"date":"2026-04-25","buyer":"valcheva80","article":"Jogging Jordan enfant","price":11.0,"status":"finalisé","finDate":"2026-05-15"},{"date":"2026-04-22","buyer":"bebouwww","article":"Parfum bois intense","price":7.0,"status":"finalisé","finDate":"2026-05-11"},{"date":"2026-04-22","buyer":"hortysly","article":"Ensemble sac à main","price":13.55,"status":"finalisé","finDate":"2026-05-12"},{"date":"2026-04-21","buyer":"urianastar","article":"Robe pour enfant","price":6.0,"status":"finalisé","finDate":"2026-05-12"},{"date":"2026-04-20","buyer":"trillofb","article":"Pull Nike","price":13.0,"status":"finalisé","finDate":"2026-05-04"},{"date":"2026-04-20","buyer":"beryll43","article":"Parfum bakara","price":6.0,"status":"finalisé","finDate":"2026-05-07"},{"date":"2026-04-20","buyer":"yamina54b","article":"Parfum bois intense","price":7.0,"status":"finalisé","finDate":"2026-05-04"},{"date":"2026-04-19","buyer":"auroreahah1829","article":"Sonic le gobelet hérisson","price":1.35,"status":"finalisé","finDate":"2026-05-05"},{"date":"2026-04-15","buyer":"franckc582","article":"Collier croix","price":6.4,"status":"finalisé","finDate":"2026-05-06"},{"date":"2026-04-15","buyer":"mohamed78710","article":"Parfum Savage","price":7.0,"status":"finalisé","finDate":"2026-05-19"},{"date":"2026-04-14","buyer":"bkpill","article":"Veste Nike","price":12.0,"status":"finalisé","finDate":"2026-05-11"},{"date":"2026-04-14","buyer":"manute1983","article":"Veste adidas","price":17.55,"status":"finalisé","finDate":"2026-04-28"},{"date":"2026-04-13","buyer":"hannibal51","article":"Veste Reebok","price":12.55,"status":"finalisé","finDate":"2026-04-29"},{"date":"2026-04-13","buyer":"wiss04","article":"Parfum Yara","price":6.0,"status":"finalisé","finDate":"2026-05-07"},{"date":"2026-04-12","buyer":"pascal060686","article":"Parfum bakara + Rouge Trafalgar + Bois d'argent","price":17.5,"status":"finalisé","finDate":"2026-04-26"},{"date":"2026-04-12","buyer":"ktiout10","article":"Parfum bois intense","price":6.0,"status":"finalisé","finDate":"2026-05-04"},{"date":"2026-04-12","buyer":"ermgz","article":"Lot de 5 parfums","price":29.0,"status":"finalisé","finDate":"2026-04-26"},{"date":"2026-04-11","buyer":"bibi43700","article":"Parfum bois intense","price":6.3,"status":"finalisé","finDate":"2026-04-29"},{"date":"2026-04-10","buyer":"sp3kan","article":"Parfum bakara","price":6.0,"status":"finalisé","finDate":"2026-04-28"},{"date":"2026-04-10","buyer":"anonyrixck40","article":"Parfum bakara","price":7.0,"status":"finalisé","finDate":"2026-04-29"},{"date":"2026-04-10","buyer":"adibou.zidi","article":"Parfum bakara","price":7.0,"status":"finalisé","finDate":"2026-04-30"},{"date":"2026-04-10","buyer":"lucas098768","article":"Parfum bakara","price":7.0,"status":"finalisé","finDate":"2026-05-04"},{"date":"2026-04-10","buyer":"gigi9704","article":"Lot 3 articles","price":43.0,"status":"finalisé","finDate":"2026-04-24"},{"date":"2026-04-09","buyer":"clara010575","article":"Étagère d'angle cuisine en bois 2 niveaux","price":20.0,"status":"finalisé","finDate":"2026-05-07"},{"date":"2026-04-08","buyer":"artemm176501","article":"24 huile essentielle","price":10.0,"status":"finalisé","finDate":"2026-04-22"},{"date":"2026-04-07","buyer":"bastfr41","article":"Kit de réparation de vélos","price":2.5,"status":"finalisé","finDate":"2026-04-28"},{"date":"2026-04-04","buyer":"briceg75","article":"Pèse-personne LCD","price":10.0,"status":"finalisé","finDate":"2026-05-04"},{"date":"2026-04-04","buyer":"sandra210880","article":"Mug Minecraft","price":7.85,"status":"finalisé","finDate":"2026-04-24"},{"date":"2026-04-03","buyer":"sor_7","article":"Tableau double face en bois Kruzzel","price":15.0,"status":"finalisé","finDate":"2026-04-22"},{"date":"2026-04-03","buyer":"moustique68","article":"Lot 2 articles","price":5.25,"status":"finalisé","finDate":"2026-04-17"},{"date":"2026-03-28","buyer":"menthealo45","article":"Pantalon Décontracté Bleu","price":13.99,"status":"finalisé","finDate":"2026-04-16"},{"date":"2026-03-28","buyer":"maisontarot","article":"Collier","price":10.99,"status":"finalisé","finDate":"2026-04-17"},{"date":"2026-03-28","buyer":"amaghrabi","article":"Parfum Savage","price":6.0,"status":"finalisé","finDate":"2026-05-11"},{"date":"2026-03-28","buyer":"steven6000","article":"Parfum Invictus","price":7.0,"status":"finalisé","finDate":"2026-04-09"},{"date":"2026-03-28","buyer":"akakmuha688","article":"Parfum bois intense","price":7.0,"status":"finalisé","finDate":"2026-04-08"},{"date":"2026-03-27","buyer":"pablo193","article":"Bague solitaire zoura","price":45.99,"status":"finalisé","finDate":"2026-04-14"},{"date":"2026-03-27","buyer":"gengen2217","article":"Maillot Exquiss'S Paris","price":10.4,"status":"finalisé","finDate":"2026-04-14"},{"date":"2026-03-26","buyer":"issa67100","article":"Ensemble de bijoux","price":12.0,"status":"finalisé","finDate":"2026-04-09"},{"date":"2026-03-24","buyer":"marce_rw0","article":"Parfum rose vanille","price":3.0,"status":"finalisé","finDate":"2026-03-30"},{"date":"2026-03-24","buyer":"sophie-54680","article":"Lot de faux ongles","price":6.0,"status":"finalisé","finDate":"2026-04-30"},{"date":"2026-03-24","buyer":"patg5108","article":"Jogging Y&D Fashion","price":10.0,"status":"finalisé","finDate":"2026-04-07"},{"date":"2026-03-24","buyer":"oumardmb","article":"Parfum rose vanille","price":14.0,"status":"finalisé","finDate":"2026-04-03"},{"date":"2026-03-24","buyer":"cricrile","article":"Gilet Belle Copine","price":10.8,"status":"finalisé","finDate":"2026-04-10"},{"date":"2026-03-23","buyer":"miabk23","article":"Parfum musc blanc","price":6.0,"status":"finalisé","finDate":"2026-03-31"},{"date":"2026-03-23","buyer":"mathisa65","article":"Lot 4 articles","price":23.0,"status":"finalisé","finDate":"2026-04-06"},{"date":"2026-03-22","buyer":"introuvable.4kss","article":"Parfum bois intense","price":6.0,"status":"finalisé","finDate":"2026-03-30"},{"date":"2026-03-22","buyer":"youyou1110","article":"Parfum bakara","price":6.0,"status":"finalisé","finDate":"2026-03-31"},{"date":"2026-03-22","buyer":"gatuso69","article":"Parfum bakara","price":6.0,"status":"finalisé","finDate":"2026-04-02"},{"date":"2026-03-22","buyer":"delph69","article":"Parfum Daoud","price":6.0,"status":"finalisé","finDate":"2026-04-13"},{"date":"2026-03-22","buyer":"titouan877","article":"Parfum Musc Blanc Gold Edition","price":7.0,"status":"finalisé","finDate":"2026-03-30"},{"date":"2026-03-14","buyer":"stephieestrella","article":"Coffret senteur","price":6.0,"status":"finalisé","finDate":"2026-03-28"},{"date":"2026-03-14","buyer":"flo-69440","article":"Parfum bois intense","price":7.0,"status":"finalisé","finDate":"2026-03-25"},{"date":"2026-03-14","buyer":"leopeugeot","article":"Parfum moula","price":7.0,"status":"finalisé","finDate":"2026-04-02"},{"date":"2026-03-14","buyer":"a_ya212","article":"Parfum Aisha","price":6.3,"status":"finalisé","finDate":"2026-04-02"},{"date":"2026-03-13","buyer":"omart222","article":"Parfum krypto","price":7.0,"status":"finalisé","finDate":"2026-03-25"},{"date":"2026-03-13","buyer":"vintagebyjas","article":"Parfum Savage","price":23.2,"status":"finalisé","finDate":"2026-04-13"},{"date":"2026-03-12","buyer":"william88230","article":"Parfum million","price":5.5,"status":"finalisé","finDate":"2026-04-10"},{"date":"2026-03-10","buyer":"sofiadokce75","article":"Eau de Parfum Daoud","price":7.0,"status":"finalisé","finDate":"2026-03-27"},{"date":"2026-03-10","buyer":"mouadhm5","article":"Parfum million","price":6.0,"status":"finalisé","finDate":"2026-04-03"},{"date":"2026-03-10","buyer":"ryadryry44","article":"Lot 2 articles","price":11.0,"status":"finalisé","finDate":"2026-03-24"},{"date":"2026-03-10","buyer":"lli125","article":"Lot 3 articles","price":21.0,"status":"finalisé","finDate":"2026-03-24"},{"date":"2026-03-10","buyer":"django13110","article":"Lot 4 articles","price":28.0,"status":"finalisé","finDate":"2026-03-24"},{"date":"2026-03-09","buyer":"helirox626","article":"Parfum bakara","price":7.0,"status":"finalisé","finDate":"2026-03-25"},{"date":"2026-03-09","buyer":"enzo.b813","article":"Parfum bakara","price":6.0,"status":"finalisé","finDate":"2026-03-27"},{"date":"2026-03-09","buyer":"dono190","article":"Parfum coco","price":5.9,"status":"finalisé","finDate":"2026-03-31"},{"date":"2026-03-09","buyer":"nourlgs","article":"Parfum bakara","price":6.0,"status":"finalisé","finDate":"2026-03-30"},{"date":"2026-03-07","buyer":"kays_278182","article":"Parfum suprême","price":6.0,"status":"finalisé","finDate":"2026-03-25"},{"date":"2026-03-07","buyer":"didi45220","article":"Bar led","price":6.4,"status":"finalisé","finDate":"2026-03-27"},{"date":"2026-03-07","buyer":"cristianodu91","article":"Lot 4 articles","price":21.0,"status":"finalisé","finDate":"2026-03-21"},{"date":"2026-03-07","buyer":"lina2285","article":"Parfum bakara","price":7.0,"status":"finalisé","finDate":"2026-03-16"},{"date":"2026-03-07","buyer":"zakaria4666","article":"Parfum bakara","price":7.0,"status":"finalisé","finDate":"2026-03-16"},{"date":"2026-03-06","buyer":"melanie.cccc","article":"Parfum Kirké","price":7.0,"status":"finalisé","finDate":"2026-03-24"},{"date":"2026-03-04","buyer":"mariiebltx","article":"Lot 4 articles","price":23.0,"status":"finalisé","finDate":"2026-03-18"},{"date":"2026-03-02","buyer":"stanschmitt57","article":"Parfum Golden Madawi","price":5.0,"status":"finalisé","finDate":"2026-03-16"},{"date":"2026-02-27","buyer":"co78920504","article":"Boîte en velours","price":3.5,"status":"finalisé","finDate":"2026-03-20"},{"date":"2026-02-27","buyer":"matoshkaa","article":"Parfum rouge Baki","price":6.0,"status":"finalisé","finDate":"2026-03-23"},{"date":"2026-02-26","buyer":"in873","article":"Parfum bakara","price":null,"status":"finalisé","finDate":"2026-03-16"},{"date":"2026-02-26","buyer":"delliaa_a","article":"Parfum marshmallow","price":7.0,"status":"finalisé","finDate":"2026-03-11"},{"date":"2026-02-25","buyer":"alban20102011","article":"Parfum bakara","price":null,"status":"finalisé","finDate":"2026-03-13"},{"date":"2026-02-25","buyer":"zipon","article":"Parfum vaillant + Parfum krypto + Parfum marshmallow","price":null,"status":"finalisé","finDate":"2026-03-05"},{"date":"2026-02-24","buyer":"tiyainaya","article":"Parfum Kirké","price":null,"status":"finalisé","finDate":"2026-03-17"},{"date":"2026-02-23","buyer":"julienmild17","article":"Lot 2 articles","price":14.0,"status":"finalisé","finDate":"2026-03-09"},{"date":"2026-02-22","buyer":"axellemrtz10","article":"Mug magique","price":7.0,"status":"finalisé","finDate":"2026-03-08"},{"date":"2026-02-22","buyer":"juuuuulieeeeee","article":"Parfum Yara","price":7.0,"status":"finalisé","finDate":"2026-03-05"},{"date":"2026-02-22","buyer":"junel59","article":"Parfum bakara","price":7.0,"status":"finalisé","finDate":"2026-03-10"},{"date":"2026-02-22","buyer":"ayman2920000","article":"Parfum million","price":7.0,"status":"finalisé","finDate":"2026-03-16"},{"date":"2026-02-21","buyer":"minnie930","article":"Lot 2 articles","price":12.0,"status":"finalisé","finDate":"2026-03-07"},{"date":"2026-02-21","buyer":"asz_555","article":"Collier pour femme","price":13.5,"status":"finalisé","finDate":"2026-03-10"},{"date":"2026-02-19","buyer":"rsllosko31k","article":"Parfum bakara","price":5.2,"status":"finalisé","finDate":"2026-03-05"},{"date":"2026-02-19","buyer":"ericsoukia","article":"Souris Gamer","price":8.0,"status":"finalisé","finDate":"2026-03-12"},{"date":"2026-02-19","buyer":"lauratssn","article":"Lot 3 articles","price":21.0,"status":"finalisé","finDate":"2026-03-05"},{"date":"2026-02-19","buyer":"chi.pq266","article":"C'est Jessy & Co","price":9.0,"status":"finalisé","finDate":"2026-03-12"},{"date":"2026-02-19","buyer":"alvesmachadoj","article":"Eau de parfum Oud Is","price":7.0,"status":"finalisé","finDate":"2026-03-12"},{"date":"2026-02-18","buyer":"franklin_99","article":"Parfum rouge Baki","price":7.0,"status":"finalisé","finDate":"2026-03-12"},{"date":"2026-02-18","buyer":"leandro394","article":"Lot 2 articles","price":14.0,"status":"finalisé","finDate":"2026-03-04"},{"date":"2026-02-16","buyer":"marlonlcd1","article":"Lot 2 articles","price":10.0,"status":"finalisé","finDate":"2026-03-02"},{"date":"2026-02-16","buyer":"lazer38k.8","article":"Lot 5 articles","price":30.0,"status":"finalisé","finDate":"2026-03-02"},{"date":"2026-02-16","buyer":"bigoudis2.0","article":"Parfum bakara","price":5.0,"status":"finalisé","finDate":"2026-03-05"},{"date":"2026-02-16","buyer":"minnie930","article":"Parfum sucre rose","price":6.0,"status":"finalisé","finDate":"2026-03-10"},{"date":"2026-02-16","buyer":"minnie930","article":"Parfum marshmallow","price":6.0,"status":"finalisé","finDate":"2026-03-09"},{"date":"2026-02-15","buyer":"gigi71670","article":"36 huile essentielle","price":10.99,"status":"finalisé","finDate":"2026-03-01"},{"date":"2026-02-15","buyer":"pumpkinki","article":"Kit pour bébé","price":5.0,"status":"finalisé","finDate":"2026-03-01"},{"date":"2026-02-15","buyer":"francklanvier","article":"Transmetteur FM","price":5.0,"status":"finalisé","finDate":"2026-03-09"},{"date":"2026-02-15","buyer":"clara.khr494321","article":"Parfum bois intense","price":6.3,"status":"finalisé","finDate":"2026-03-06"},{"date":"2026-02-14","buyer":"n0emie072","article":"Ours en verre","price":4.0,"status":"finalisé","finDate":"2026-02-28"},{"date":"2026-02-14","buyer":"prosugar","article":"Spray anti-stress","price":9.0,"status":"finalisé","finDate":"2026-03-06"},{"date":"2026-02-14","buyer":"july03000","article":"Portefeuille Projet X Paris","price":8.0,"status":"finalisé","finDate":"2026-03-06"},{"date":"2026-02-14","buyer":"bobsoso5","article":"Fond de teint Revlon","price":13.5,"status":"finalisé","finDate":"2026-02-28"},{"date":"2026-02-13","buyer":"soraya.poisson723","article":"Lot de 12 voitures","price":4.0,"status":"finalisé","finDate":"2026-03-09"}];
 
-/* ── État ── */
-const API = '/api/dashboard-data';
-let secret = '';
-let allStock = [];
-let currentFilter = 'all';
-let editingId = null;
-let chartRev = null;
-let currentView = 'dashboard';
-let currentSource = 'shopify';
-let currentPeriodDays = 90;
-let currentPeriodFrom = null;
-let currentPeriodTo   = null;
-let currentSalesOrders = [];
+/* ═══════════════ ÉTAT ═══════════════ */
+const API='/api/dashboard-data';
+let secret='',allStock=[],currentFilter='all',editingId=null;
+let chartRev=null,chartVintedM=null,chartVintedR=null;
+let currentView='dashboard',currentSource='shopify';
+let currentPeriodDays=90,currentPeriodFrom=null,currentPeriodTo=null;
+let currentSalesOrders=[],currentStatusFilter='all',currentVView='detail';
+let objectif = parseInt(localStorage.getItem('bm_objectif')||'0',10)||0;
 
-/* ── Auth ── */
-async function login() {
-  const pwd = document.getElementById('pwdInput').value.trim();
-  if (!pwd) return;
+/* ═══════════════ AUTH ═══════════════ */
+async function login(){
+  const pwd=document.getElementById('pwdInput').value.trim();
+  if(!pwd)return;
   setLoading(true);
-  try {
-    const r = await fetch(`${API}?secret=${encodeURIComponent(pwd)}`);
-    if (r.ok) {
-      secret = pwd;
-      sessionStorage.setItem('bm_s', pwd);
-      document.getElementById('loginScreen').style.display = 'none';
-      document.getElementById('app').style.display = 'block';
+  try{
+    const r=await fetch(`${API}?secret=${encodeURIComponent(pwd)}`);
+    if(r.ok){
+      secret=pwd;sessionStorage.setItem('bm_s',pwd);
+      document.getElementById('loginScreen').style.display='none';
+      document.getElementById('app').style.display='block';
       render(await r.json());
-    } else {
-      document.getElementById('loginErr').textContent = 'Mot de passe incorrect';
-    }
-  } catch { document.getElementById('loginErr').textContent = 'Erreur réseau'; }
+    }else{document.getElementById('loginErr').textContent='Mot de passe incorrect';}
+  }catch{document.getElementById('loginErr').textContent='Erreur réseau';}
   setLoading(false);
 }
-
-function logout() { sessionStorage.removeItem('bm_s'); location.reload(); }
-
-async function refresh() {
+function logout(){sessionStorage.removeItem('bm_s');location.reload();}
+async function refresh(){
   setLoading(true);
-  try {
-    const r = await fetch(`${API}?secret=${encodeURIComponent(secret)}`);
-    if (r.ok) render(await r.json());
-  } catch {}
+  try{const r=await fetch(`${API}?secret=${encodeURIComponent(secret)}`);if(r.ok)render(await r.json());}catch{}
   setLoading(false);
 }
 
-/* ── Vues ── */
-function showView(v) {
-  currentView = v;
-  document.getElementById('viewDashboard').style.display = v === 'dashboard' ? '' : 'none';
-  document.getElementById('viewVentes').style.display    = v === 'ventes'    ? '' : 'none';
-  document.querySelectorAll('.vtab').forEach((b, i) =>
-    b.classList.toggle('active', (v === 'dashboard' && i === 0) || (v === 'ventes' && i === 1)));
-  if (v === 'ventes') renderSalesView();
+/* ═══════════════ VUES ═══════════════ */
+function showView(v){
+  currentView=v;
+  document.getElementById('viewDashboard').style.display=v==='dashboard'?'':'none';
+  document.getElementById('viewVentes').style.display=v==='ventes'?'':'none';
+  document.querySelectorAll('.vtab').forEach((b,i)=>b.classList.toggle('active',(v==='dashboard'&&i===0)||(v==='ventes'&&i===1)));
+  if(v==='ventes')renderSalesView();
 }
+function goToVinted(){showView('ventes');setSource('vinted');}
 
-function goToVinted() {
-  showView('ventes');
-  setSource('vinted');
-}
-
-/* ── Source ── */
-function setSource(src) {
-  currentSource = src;
-  document.getElementById('stabShopify').className = 'stab shopify' + (src === 'shopify' ? ' active' : '');
-  document.getElementById('stabVinted').className  = 'stab vinted'  + (src === 'vinted'  ? ' active' : '');
-  document.getElementById('colBuyer').textContent  = src === 'vinted' ? 'Acheteur Vinted' : 'Commande';
-  renderSalesView();
-}
-
-function renderSalesView() {
-  if (currentSource === 'vinted') renderVintedSales();
-  else loadShopifySales(currentPeriodDays, currentPeriodFrom, currentPeriodTo);
-}
-
-/* ── Dashboard render ── */
-function render(d) {
+/* ═══════════════ DASHBOARD RENDER ═══════════════ */
+function render(d){
   renderKPIs(d.summary);
   renderChartRev(d.chart);
   renderRecentSalesWidget();
-  allStock = d.stock;
-  renderStock();
+  renderVintedMonthlyChart();
+  allStock=d.stock;renderStock();
   renderOrders(d.recentOrders);
-  if (d.summary.outOfStock > 0) {
-    document.getElementById('alertBanner').style.display = 'flex';
-    document.getElementById('alertText').textContent =
-      `${d.summary.outOfStock} article${d.summary.outOfStock > 1 ? 's' : ''} en rupture de stock`;
+  if(d.summary.outOfStock>0){
+    document.getElementById('alertBanner').style.display='flex';
+    document.getElementById('alertText').textContent=`${d.summary.outOfStock} article${d.summary.outOfStock>1?'s':''} en rupture de stock`;
   }
-  document.getElementById('lastUpd').textContent =
-    'Actualisé à ' + new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  document.getElementById('lastUpd').textContent='Actualisé à '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
 }
 
-function f(n, euro = true) {
-  if (n == null) return '—';
-  const s = parseFloat(n).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  return euro ? s + ' EUR' : s;
+function f(n,euro=true){
+  if(n==null)return'—';
+  const s=parseFloat(n).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2});
+  return euro?s+' EUR':s;
 }
 
-function renderKPIs(s) {
-  const vintedCA = VINTED_SALES.reduce((t, v) => t + (v.price || 0), 0);
-  const cards = [
-    { icon: '&#128218;', label: 'Articles en vente',   value: s.inStock,            sub: `${s.totalProducts} références total`, cls: '' },
-    { icon: '&#128178;', label: 'Valeur du stock',      value: f(s.totalStockValue), sub: 'Prix vente x quantité', cls: '' },
-    { icon: '&#128248;', label: 'Coût du stock',        value: f(s.totalCostValue),
-      sub: s.costCoverage !== '0/0' ? `${s.costCoverage} prix renseignés` : '+ Ajouter prix achat', cls: '' },
-    { icon: '&#128200;', label: 'Marge potentielle',    value: f(s.potentialMargin),
-      sub: 'Si tout se vend', cls: s.potentialMargin > 0 ? 'success' : '' },
-    { icon: '&#128202;', label: 'CA Shopify (90j)',     value: f(s.periodRevenue || s.revenue90d),
-      sub: `${s.periodOrders || s.orders90d} commandes`, cls: 'success', click: "showView('ventes')" },
-    { icon: '&#128994;', label: 'CA Vinted (total)',    value: f(vintedCA),
-      sub: `154 ventes — Voir détail`, cls: 'vinted-accent', click: "goToVinted()" },
-    { icon: '&#9940;',   label: 'Ruptures',             value: s.outOfStock,
-      sub: 'Articles épuisés', cls: s.outOfStock > 0 ? 'danger' : 'success' },
+function getThisMonthVintedCA(){
+  const now=new Date(),ym=now.toISOString().slice(0,7);
+  return VINTED_SALES.filter(s=>s.status==='finalisé'&&(s.finDate||'').startsWith(ym))
+    .reduce((t,s)=>t+(s.price||0),0);
+}
+
+function renderKPIs(s){
+  const vintedCA=VINTED_SALES.filter(x=>x.status==='finalisé').reduce((t,x)=>t+(x.price||0),0);
+  const finCount=VINTED_SALES.filter(x=>x.status==='finalisé').length;
+  const thisMonthCA=getThisMonthVintedCA();
+  const objPct=objectif>0?Math.min(100,Math.round(thisMonthCA/objectif*100)):0;
+
+  const cards=[
+    {icon:'&#128218;',label:'Articles en vente',value:s.inStock,sub:`${s.totalProducts} références`,cls:''},
+    {icon:'&#128178;',label:'Valeur du stock',value:f(s.totalStockValue),sub:'Prix vente × quantité',cls:''},
+    {icon:'&#128248;',label:'Coût du stock',value:f(s.totalCostValue),sub:s.costCoverage!=='0/0'?`${s.costCoverage} renseignés`:'+ Ajouter prix',cls:''},
+    {icon:'&#128200;',label:'Marge potentielle',value:f(s.potentialMargin),sub:'Si tout se vend',cls:s.potentialMargin>0?'success':''},
+    {icon:'&#128202;',label:'CA Shopify (90j)',value:f(s.periodRevenue||s.revenue90d),sub:`${s.periodOrders||s.orders90d} commandes`,cls:'success',click:"showView('ventes')"},
+    {icon:'&#128994;',label:'CA Vinted finalisé',value:f(vintedCA),sub:`${finCount} ventes encaissées`,cls:'vinted-accent',click:'goToVinted()'},
+    {icon:'&#9940;',label:'Ruptures',value:s.outOfStock,sub:'Articles épuisés',cls:s.outOfStock>0?'danger':'success'},
   ];
-  document.getElementById('kpiGrid').innerHTML = cards.map(c => `
-    <div class="kpi ${c.cls}${c.click ? ' clickable' : ''}" ${c.click ? `onclick="${c.click}"` : ''}>
+
+  let html=cards.map(c=>`
+    <div class="kpi ${c.cls}${c.click?' clickable':''}" ${c.click?`onclick="${c.click}"`:''}>
       <div class="kpi-icon">${c.icon}</div>
       <div class="kpi-label">${c.label}</div>
       <div class="kpi-value">${c.value}</div>
       <div class="kpi-sub">${c.sub}</div>
     </div>`).join('');
+
+  // Objectif mensuel card
+  html+=`<div class="kpi clickable" style="--accent:#f59e0b" onclick="openObjectifModal()">
+    <div class="kpi-icon">&#127919;</div>
+    <div class="kpi-label">Objectif mensuel</div>
+    <div class="kpi-value" style="font-size:18px">${objectif>0?f(objectif):'Définir...'}</div>
+    <div class="kpi-sub">Ce mois : ${f(thisMonthCA)}</div>
+    ${objectif>0?`<div class="obj-progress-bar"><div class="obj-progress-fill" style="width:${objPct}%"></div></div><div class="obj-pct">${objPct}% atteint</div>`:''}
+  </div>`;
+
+  document.getElementById('kpiGrid').innerHTML=html;
 }
 
-function renderChartRev(data) {
-  if (chartRev) chartRev.destroy();
-  const ctx = document.getElementById('chartRevenue').getContext('2d');
-  chartRev = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: data.map(d => {
-        const [y, m] = d.month.split('-');
-        return new Date(y, m - 1).toLocaleDateString('fr-FR', { month: 'short', year: '2-digit' });
-      }),
-      datasets: [{
-        data: data.map(d => d.revenue),
-        borderColor: '#6366f1', backgroundColor: 'rgba(99,102,241,.08)',
-        borderWidth: 2.5, fill: true, tension: .4,
-        pointBackgroundColor: '#6366f1', pointRadius: 5, pointHoverRadius: 7,
-      }],
+/* ═══════════════ CHARTS ═══════════════ */
+function renderChartRev(data){
+  if(chartRev)chartRev.destroy();
+  const ctx=document.getElementById('chartRevenue').getContext('2d');
+  chartRev=new Chart(ctx,{
+    type:'line',
+    data:{
+      labels:data.map(d=>{const[y,m]=d.month.split('-');return new Date(y,m-1).toLocaleDateString('fr-FR',{month:'short',year:'2-digit'});}),
+      datasets:[{data:data.map(d=>d.revenue),borderColor:'#6366f1',backgroundColor:'rgba(99,102,241,.08)',borderWidth:2.5,fill:true,tension:.4,pointBackgroundColor:'#6366f1',pointRadius:5}]
     },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => f(ctx.raw) } } },
-      scales: {
-        y: { beginAtZero: true, ticks: { callback: v => v + ' EUR' }, grid: { color: '#f3f4f6' } },
-        x: { grid: { display: false } },
-      },
-    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>f(ctx.raw)}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+' €'},grid:{color:'#f3f4f6'}},x:{grid:{display:false}}}}
   });
 }
 
-/* ── Widget 10 dernières ventes ── */
-function renderRecentSalesWidget() {
-  const recent = VINTED_SALES.slice(0, 10);
-  document.getElementById('recentSalesList').innerHTML = recent.map((s, i) => `
+function getVintedMonthlyData(useFinDate=false){
+  const monthly={};
+  VINTED_SALES.forEach(s=>{
+    const key=useFinDate?(s.finDate||s.date).slice(0,7):s.date.slice(0,7);
+    if(!monthly[key])monthly[key]={ca:0,count:0};
+    monthly[key].ca+=(s.price||0);
+    monthly[key].count++;
+  });
+  return Object.entries(monthly).sort(([a],[b])=>a.localeCompare(b));
+}
+
+function getVintedFinalizedMonthly(){
+  const monthly={};
+  VINTED_SALES.filter(s=>s.status==='finalisé').forEach(s=>{
+    const key=(s.finDate||s.date).slice(0,7);
+    if(!monthly[key])monthly[key]={ca:0,count:0,sales:[]};
+    monthly[key].ca+=(s.price||0);
+    monthly[key].count++;
+    monthly[key].sales.push(s);
+  });
+  return Object.entries(monthly).sort(([a],[b])=>a.localeCompare(b));
+}
+
+function monthLabel(ym){
+  const[y,m]=ym.split('-');
+  return new Date(y,m-1).toLocaleDateString('fr-FR',{month:'short',year:'2-digit'});
+}
+
+function renderVintedMonthlyChart(){
+  if(chartVintedM)chartVintedM.destroy();
+  const data=getVintedMonthlyData(false);
+  const ctx=document.getElementById('chartVintedMonthly').getContext('2d');
+  chartVintedM=new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:data.map(([ym])=>monthLabel(ym)),
+      datasets:[{label:'CA ventes',data:data.map(([,v])=>v.ca),backgroundColor:'rgba(9,177,186,.7)',borderColor:'#09b1ba',borderWidth:1,borderRadius:4}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${f(ctx.raw)} (${data[ctx.dataIndex][1].count} ventes)`}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+' €'},grid:{color:'#f3f4f6'}},x:{grid:{display:false}}}}
+  });
+}
+
+/* ═══════════════ CARD TABS (dashboard right) ═══════════════ */
+function switchCard(card,btn){
+  document.querySelectorAll('.ctab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('cardRecent').style.display=card==='recent'?'':'none';
+  document.getElementById('cardEvolution').style.display=card==='evolution'?'':'none';
+}
+
+/* ═══════════════ WIDGET 10 DERNIÈRES VENTES ═══════════════ */
+function renderRecentSalesWidget(){
+  const recent=VINTED_SALES.slice(0,10);
+  const statusColor={'finalisé':'var(--success)','en_attente':'var(--warning)','retourné':'var(--danger)'};
+  document.getElementById('recentSalesList').innerHTML=recent.map((s,i)=>`
     <div class="rs-item" onclick="openSaleDetail(${i})">
-      <div class="rs-dot"></div>
+      <div class="rs-dot" style="background:${statusColor[s.status]||'var(--vinted)'}"></div>
       <div class="rs-info">
         <div class="rs-article">${s.article}</div>
         <div class="rs-buyer">@${s.buyer}</div>
       </div>
       <div class="rs-right">
-        <div class="rs-price">${s.price != null ? f(s.price) : '—'}</div>
-        <div class="rs-date">${new Date(s.date).toLocaleDateString('fr-FR', {day:'2-digit',month:'short'})}</div>
+        <div class="rs-price">${s.price!=null?f(s.price):'—'}</div>
+        <div class="rs-date">${new Date(s.date).toLocaleDateString('fr-FR',{day:'2-digit',month:'short'})}</div>
       </div>
     </div>`).join('');
 }
 
-/* ── Détail d'une vente ── */
-function openSaleDetail(idx) {
-  const s = VINTED_SALES[idx];
-  document.getElementById('saleDetailTitle').textContent = s.article;
-  document.getElementById('saleDetailRows').innerHTML = `
-    <div class="sale-detail-row"><span class="sale-detail-label">Date</span><span class="sale-detail-value">${new Date(s.date).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</span></div>
+/* ═══════════════ DETAIL VENTE ═══════════════ */
+function openSaleDetail(idx){
+  const s=VINTED_SALES[idx];
+  document.getElementById('saleDetailTitle').textContent=s.article;
+  const stColors={'finalisé':'background:#d1fae5;color:#065f46','en_attente':'background:#fef3c7;color:#92400e','retourné':'background:#fee2e2;color:#991b1b'};
+  const stLabels={'finalisé':'✅ Finalisée — argent reçu','en_attente':'⏳ En attente de livraison','retourné':'❌ Colis retourné'};
+  document.getElementById('saleDetailBadge').setAttribute('style',stColors[s.status]||'');
+  document.getElementById('saleDetailBadge').textContent=stLabels[s.status]||s.status;
+  document.getElementById('saleDetailRows').innerHTML=`
+    <div class="sale-detail-row"><span class="sale-detail-label">Date vente</span><span class="sale-detail-value">${new Date(s.date).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})}</span></div>
     <div class="sale-detail-row"><span class="sale-detail-label">Acheteur</span><span class="sale-detail-value">@${s.buyer}</span></div>
     <div class="sale-detail-row"><span class="sale-detail-label">Article</span><span class="sale-detail-value">${s.article}</span></div>
-    <div class="sale-detail-row"><span class="sale-detail-label">Montant</span><span class="sale-detail-value" style="color:var(--success);font-size:20px">${s.price != null ? f(s.price) : 'À compléter'}</span></div>
+    <div class="sale-detail-row"><span class="sale-detail-label">Montant</span><span class="sale-detail-value" style="color:var(--success);font-size:20px">${s.price!=null?f(s.price):'Prix à compléter'}</span></div>
+    ${s.finDate?`<div class="sale-detail-row"><span class="sale-detail-label">Finalisée le</span><span class="sale-detail-value">${new Date(s.finDate).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})}</span></div>`:''}
     <div class="sale-detail-row"><span class="sale-detail-label">Source</span><span class="sale-detail-value"><span class="badge badge-vinted">Vinted email</span></span></div>`;
-  document.getElementById('saleDetailModal').style.display = 'flex';
+  document.getElementById('saleDetailModal').style.display='flex';
 }
 
-function closeSaleDetail() {
-  document.getElementById('saleDetailModal').style.display = 'none';
-}
-
-/* ── Stock ── */
-function setFilter(f, btn) {
-  currentFilter = f;
-  document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderStock();
-}
-function filterStock() { renderStock(); }
-function renderStock() {
-  const q = document.getElementById('stockSearch').value.toLowerCase();
-  let items = allStock.filter(s => {
-    if (currentFilter === 'in'  && s.stock <= 0) return false;
-    if (currentFilter === 'out' && s.stock  > 0) return false;
-    if (q && !s.title.toLowerCase().includes(q) && !s.sku.toLowerCase().includes(q)) return false;
+/* ═══════════════ STOCK ═══════════════ */
+function setFilter(f,btn){currentFilter=f;document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderStock();}
+function filterStock(){renderStock();}
+function renderStock(){
+  const q=document.getElementById('stockSearch').value.toLowerCase();
+  let items=allStock.filter(s=>{
+    if(currentFilter==='in'&&s.stock<=0)return false;
+    if(currentFilter==='out'&&s.stock>0)return false;
+    if(q&&!s.title.toLowerCase().includes(q)&&!s.sku.toLowerCase().includes(q))return false;
     return true;
   });
-  if (!items.length) {
-    document.getElementById('stockBody').innerHTML = '<tr><td colspan="6" class="empty">Aucun article trouvé</td></tr>';
-    return;
-  }
-  document.getElementById('stockBody').innerHTML = items.map(s => {
-    const mgClass = s.marginPct == null ? 'mg-na' : s.marginPct >= 50 ? 'mg-good' : s.marginPct >= 25 ? 'mg-ok' : 'mg-bad';
-    const mgText  = s.marginPct != null ? `${s.marginPct.toFixed(0)}%` : '—';
-    const costBtn = `<button class="btn-cost" onclick="openModal(${s.inventoryItemId},'${s.title.replace(/'/g,"\\'")}',${s.cost ?? ''})">
-      ${s.cost != null ? '&#9998; ' + f(s.cost) : '+ Ajouter'}</button>`;
-    return `<tr>
-      <td><div class="prod-cell">
-        ${s.image ? `<img class="prod-img" src="${s.image}" loading="lazy" onerror="this.style.display='none'">` : '<div class="prod-img"></div>'}
-        <div><div class="prod-name">${s.title}</div>
-        ${s.variant ? `<div class="prod-variant">${s.variant}</div>` : ''}
-        ${s.sku ? `<div class="prod-variant">SKU: ${s.sku}</div>` : ''}</div>
-      </div></td>
+  if(!items.length){document.getElementById('stockBody').innerHTML='<tr><td colspan="6" class="empty">Aucun article</td></tr>';return;}
+  document.getElementById('stockBody').innerHTML=items.map(s=>{
+    const mgC=s.marginPct==null?'mg-na':s.marginPct>=50?'mg-good':s.marginPct>=25?'mg-ok':'mg-bad';
+    return`<tr>
+      <td><div class="prod-cell">${s.image?`<img class="prod-img" src="${s.image}" loading="lazy" onerror="this.style.display='none'">`:''}<div><div class="prod-name">${s.title}</div>${s.sku?`<div class="prod-variant">SKU: ${s.sku}</div>`:''}</div></div></td>
       <td><strong>${f(s.price)}</strong></td>
-      <td>${costBtn}</td>
-      <td><span class="${mgClass}">${mgText}</span></td>
-      <td>${s.stock > 0 ? `<span class="badge badge-in">${s.stock}</span>` : '<span class="badge badge-out">Épuisé</span>'}</td>
-      <td>${s.stock > 0 ? f(s.totalValue) : '—'}</td>
+      <td><button class="btn-cost" onclick="openModal(${s.inventoryItemId},'${s.title.replace(/'/g,"\\'")}',${s.cost??''})">
+        ${s.cost!=null?'&#9998; '+f(s.cost):'+ Ajouter'}</button></td>
+      <td><span class="${mgC}">${s.marginPct!=null?s.marginPct.toFixed(0)+'%':'—'}</span></td>
+      <td>${s.stock>0?`<span class="badge badge-in">${s.stock}</span>`:'<span class="badge badge-out">Épuisé</span>'}</td>
+      <td>${s.stock>0?f(s.totalValue):'—'}</td>
     </tr>`;
   }).join('');
 }
 
-function renderOrders(orders) {
-  if (!orders || !orders.length) {
-    document.getElementById('ordersBody').innerHTML = '<tr><td colspan="4" class="empty">Aucune commande sur 90 jours</td></tr>';
-    return;
-  }
-  document.getElementById('ordersBody').innerHTML = orders.map(o => `
-    <tr>
-      <td><strong>${o.name}</strong>${o.products ? `<br><span style="font-size:11px;color:var(--muted)">${o.products}</span>` : ''}</td>
-      <td>${new Date(o.date).toLocaleDateString('fr-FR')}</td>
-      <td>${o.items} art.</td>
-      <td><strong style="color:var(--success)">${f(o.total)}</strong></td>
-    </tr>`).join('');
+function renderOrders(orders){
+  if(!orders||!orders.length){document.getElementById('ordersBody').innerHTML='<tr><td colspan="4" class="empty">Aucune commande</td></tr>';return;}
+  document.getElementById('ordersBody').innerHTML=orders.map(o=>`
+    <tr><td><strong>${o.name}</strong>${o.products?`<br><span style="font-size:11px;color:var(--muted)">${o.products}</span>`:''}</td>
+    <td>${new Date(o.date).toLocaleDateString('fr-FR')}</td>
+    <td>${o.items} art.</td>
+    <td><strong style="color:var(--success)">${f(o.total)}</strong></td></tr>`).join('');
 }
 
-/* ── Modal prix achat ── */
-function openModal(invId, title, currentCost) {
-  editingId = invId;
-  document.getElementById('modalSub').textContent = title;
-  document.getElementById('costInput').value = currentCost !== '' ? currentCost : '';
-  document.getElementById('costModal').style.display = 'flex';
-  setTimeout(() => document.getElementById('costInput').select(), 80);
+/* ═══════════════ MODAL PRIX ACHAT ═══════════════ */
+function openModal(invId,title,currentCost){
+  editingId=invId;
+  document.getElementById('modalSub').textContent=title;
+  document.getElementById('costInput').value=currentCost!==''?currentCost:'';
+  document.getElementById('costModal').style.display='flex';
+  setTimeout(()=>document.getElementById('costInput').select(),80);
 }
-function closeModal() { document.getElementById('costModal').style.display = 'none'; editingId = null; }
-
-async function saveCost() {
-  const cost = parseFloat(document.getElementById('costInput').value);
-  if (isNaN(cost) || cost < 0) { alert('Prix invalide'); return; }
+function closeModal(){document.getElementById('costModal').style.display='none';editingId=null;}
+async function saveCost(){
+  const cost=parseFloat(document.getElementById('costInput').value);
+  if(isNaN(cost)||cost<0){alert('Prix invalide');return;}
   setLoading(true);
-  try {
-    const r = await fetch(`${API}?secret=${encodeURIComponent(secret)}`, {
-      method: 'PUT', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ inventoryItemId: editingId, cost }),
-    });
-    if (r.ok) {
-      const item = allStock.find(s => s.inventoryItemId === editingId);
-      if (item) {
-        item.cost = cost;
-        item.marginPct = item.price > 0 ? (item.price - cost) / item.price * 100 : null;
-      }
-      closeModal(); renderStock();
-    } else { alert('Erreur sauvegarde'); }
-  } catch { alert('Erreur réseau'); }
+  try{
+    const r=await fetch(`${API}?secret=${encodeURIComponent(secret)}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({inventoryItemId:editingId,cost})});
+    if(r.ok){const item=allStock.find(s=>s.inventoryItemId===editingId);if(item){item.cost=cost;item.marginPct=item.price>0?(item.price-cost)/item.price*100:null;}closeModal();renderStock();}
+  }catch{}
   setLoading(false);
 }
 
-/* ── Ventes & Rapports ── */
-function getPeriodLabel() {
-  if (currentPeriodDays === 'custom') {
-    return 'Du ' + new Date(currentPeriodFrom).toLocaleDateString('fr-FR') +
-           ' au ' + new Date(currentPeriodTo).toLocaleDateString('fr-FR');
-  }
-  return { 7:'7 derniers jours', 30:'30 derniers jours', 90:'90 derniers jours',
-           180:'6 derniers mois', 365:'12 derniers mois' }[currentPeriodDays] || currentPeriodDays + ' jours';
+/* ═══════════════ MODAL OBJECTIF ═══════════════ */
+function openObjectifModal(){
+  document.getElementById('objectifInput').value=objectif||'';
+  document.getElementById('objectifModal').style.display='flex';
+  setTimeout(()=>document.getElementById('objectifInput').select(),80);
+}
+function closeObjectifModal(){document.getElementById('objectifModal').style.display='none';}
+function saveObjectif(){
+  const v=parseFloat(document.getElementById('objectifInput').value);
+  if(isNaN(v)||v<0){alert('Valeur invalide');return;}
+  objectif=v;
+  localStorage.setItem('bm_objectif',v);
+  closeObjectifModal();
+  // Refresh KPI
+  if(allStock.length){renderKPIs({inStock:0,totalProducts:0,totalStockValue:0,totalCostValue:0,potentialMargin:0,revenue90d:0,orders90d:0,outOfStock:0,costCoverage:'0/0'});}
+  // Re-fetch to get proper data
+  refresh();
 }
 
-/* Filtre Vinted local */
-function filterVintedByPeriod() {
-  const now = new Date();
-  let from, to;
-  if (currentPeriodDays === 'custom') {
-    from = new Date(currentPeriodFrom);
-    to   = new Date(currentPeriodTo + 'T23:59:59');
-  } else {
-    to   = now;
-    from = new Date(now.getTime() - currentPeriodDays * 86400000);
-  }
-  return VINTED_SALES.filter(s => {
-    const d = new Date(s.date);
-    return d >= from && d <= to;
-  });
+/* ═══════════════ VENTES VIEW ═══════════════ */
+function setSource(src){
+  currentSource=src;
+  document.getElementById('stabShopify').className='stab shopify'+(src==='shopify'?' active':'');
+  document.getElementById('stabVinted').className='stab vinted'+(src==='vinted'?' active':'');
+  document.getElementById('vintedViews').style.display=src==='vinted'?'':'none';
+  document.getElementById('shopifyView').style.display=src==='shopify'?'':'none';
+  renderSalesView();
 }
 
-function renderVintedSales() {
-  const filtered = filterVintedByPeriod();
-  const total = filtered.reduce((t, s) => t + (s.price || 0), 0);
-  const count = filtered.length;
-  const avg   = count > 0 ? total / count : 0;
+function setVView(vv,btn){
+  currentVView=vv;
+  document.querySelectorAll('.vvtab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('vDetailView').style.display=vv==='detail'?'':'none';
+  document.getElementById('vRapportView').style.display=vv==='rapport'?'':'none';
+  if(vv==='rapport')renderMonthlyReport();
+}
 
-  document.getElementById('salesKpiGrid').innerHTML = [
-    { icon: '&#128176;', label: 'Chiffre d\'affaires', value: f(total), sub: getPeriodLabel(), cls: 'vinted-accent' },
-    { icon: '&#128722;', label: 'Ventes',              value: count,    sub: 'ventes Vinted', cls: '' },
-    { icon: '&#128202;', label: 'Panier moyen',        value: f(avg),   sub: 'par vente', cls: '' },
-  ].map(c => `
-    <div class="kpi ${c.cls}">
-      <div class="kpi-icon">${c.icon}</div>
-      <div class="kpi-label">${c.label}</div>
-      <div class="kpi-value">${c.value}</div>
-      <div class="kpi-sub">${c.sub}</div>
-    </div>`).join('');
+function setStatusFilter(sf,btn){
+  currentStatusFilter=sf;
+  document.querySelectorAll('.sfil').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderVintedDetail();
+}
 
-  document.getElementById('salesTitle').textContent = 'Ventes Vinted — ' + getPeriodLabel();
-  document.getElementById('salesCount').textContent = count + ' vente(s)';
-  document.getElementById('colBuyer').textContent = 'Acheteur Vinted';
+function renderSalesView(){
+  updateStatusFilterCounts();
+  if(currentSource==='vinted'){renderVintedKPIs();if(currentVView==='detail')renderVintedDetail();else renderMonthlyReport();}
+  else loadShopifySales(currentPeriodDays,currentPeriodFrom,currentPeriodTo);
+}
 
-  currentSalesOrders = filtered.map(s => ({
-    name: s.buyer, date: s.date, total: s.price, items: 1, products: s.article,
-    source: 'vinted', article: s.article, buyer: s.buyer,
-  }));
+function updateStatusFilterCounts(){
+  const finCount=VINTED_SALES.filter(s=>s.status==='finalisé').length;
+  const waitCount=VINTED_SALES.filter(s=>s.status==='en_attente').length;
+  document.getElementById('sfBtnFin').textContent=`✅ Finalisées (${finCount})`;
+  document.getElementById('sfBtnWait').textContent=`⏳ En attente (${waitCount})`;
+}
 
-  if (!filtered.length) {
-    document.getElementById('salesBody').innerHTML = '<tr><td colspan="4" class="empty">Aucune vente sur cette période</td></tr>';
-    return;
-  }
-  document.getElementById('salesBody').innerHTML = filtered.map((s, i) => `
+function filterVintedByPeriod(arr){
+  const now=new Date();
+  let from,to;
+  if(currentPeriodDays==='custom'){from=new Date(currentPeriodFrom);to=new Date(currentPeriodTo+'T23:59:59');}
+  else if(currentPeriodDays===9999){from=new Date('2000-01-01');to=now;}
+  else{to=now;from=new Date(now.getTime()-currentPeriodDays*86400000);}
+  return arr.filter(s=>{const d=new Date(s.date);return d>=from&&d<=to;});
+}
+
+function getPeriodLabel(){
+  if(currentPeriodDays==='custom')return`Du ${new Date(currentPeriodFrom).toLocaleDateString('fr-FR')} au ${new Date(currentPeriodTo).toLocaleDateString('fr-FR')}`;
+  if(currentPeriodDays===9999)return'Toutes les ventes';
+  return{7:'7 derniers jours',30:'30 derniers jours',90:'90 derniers jours',180:'6 derniers mois',365:'12 derniers mois'}[currentPeriodDays]||currentPeriodDays+'j';
+}
+
+function renderVintedKPIs(){
+  const filtered=filterVintedByPeriod(VINTED_SALES);
+  const finalized=filtered.filter(s=>s.status==='finalisé');
+  const totalFin=finalized.reduce((t,s)=>t+(s.price||0),0);
+  const totalAll=filtered.reduce((t,s)=>t+(s.price||0),0);
+  document.getElementById('salesKpiGrid').innerHTML=[
+    {icon:'&#10003;',label:'CA finalisé (encaissé)',value:f(totalFin),sub:`${finalized.length} ventes confirmées`,cls:'vinted-accent'},
+    {icon:'&#128722;',label:'Total ventes',value:filtered.length,sub:`dont ${filtered.filter(s=>s.status==='en_attente').length} en attente`,cls:''},
+    {icon:'&#128202;',label:'Panier moyen',value:finalized.length>0?f(totalFin/finalized.length):'—',sub:'Sur ventes finalisées',cls:''},
+  ].map(c=>`<div class="kpi ${c.cls}"><div class="kpi-icon">${c.icon}</div><div class="kpi-label">${c.label}</div><div class="kpi-value">${c.value}</div><div class="kpi-sub">${c.sub}</div></div>`).join('');
+}
+
+function renderVintedDetail(){
+  let filtered=filterVintedByPeriod(VINTED_SALES);
+  if(currentStatusFilter!=='all')filtered=filtered.filter(s=>s.status===currentStatusFilter);
+  document.getElementById('salesTitle').textContent='Ventes Vinted — '+getPeriodLabel();
+  document.getElementById('salesCount').textContent=filtered.length+' vente(s)';
+  currentSalesOrders=filtered;
+  const stBadge={'finalisé':'badge-fin','en_attente':'badge-wait','retourné':'badge-ret'};
+  const stLabel={'finalisé':'✅ Finalisé','en_attente':'⏳ En attente','retourné':'❌ Retourné'};
+  if(!filtered.length){document.getElementById('salesBody').innerHTML='<tr><td colspan="5" class="empty">Aucune vente sur cette période</td></tr>';return;}
+  document.getElementById('salesBody').innerHTML=filtered.map((s,i)=>`
     <tr class="clickable-row" onclick="openSaleDetail(${VINTED_SALES.indexOf(s)})">
       <td>${new Date(s.date).toLocaleDateString('fr-FR')}</td>
       <td><span class="badge badge-vinted">@${s.buyer}</span></td>
       <td>${s.article}</td>
-      <td><strong style="color:var(--success)">${s.price != null ? f(s.price) : '<span style=color:var(--warning)>À compléter</span>'}</strong></td>
+      <td><strong style="color:var(--success)">${s.price!=null?f(s.price):'<span style=color:var(--warning)>À compléter</span>'}</strong></td>
+      <td><span class="badge ${stBadge[s.status]||''}">${stLabel[s.status]||s.status}</span></td>
     </tr>`).join('');
 }
 
-/* Shopify via API */
-async function loadShopifySales(days, from, to) {
+/* ═══════════════ RAPPORT MENSUEL COMPTABLE ═══════════════ */
+function renderMonthlyReport(){
+  if(chartVintedR)chartVintedR.destroy();
+  const data=getVintedFinalizedMonthly();
+  document.getElementById('rapportCount').textContent=`${VINTED_SALES.filter(s=>s.status==='finalisé').length} ventes finalisées — ${f(VINTED_SALES.filter(s=>s.status==='finalisé').reduce((t,s)=>t+(s.price||0),0))} de CA encaissé`;
+
+  // Chart
+  const ctx=document.getElementById('chartVintedRapport').getContext('2d');
+  chartVintedR=new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:data.map(([ym])=>monthLabel(ym)),
+      datasets:[{label:'CA finalisé',data:data.map(([,v])=>v.ca),backgroundColor:'rgba(16,185,129,.75)',borderColor:'#10b981',borderWidth:1,borderRadius:5}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${f(ctx.raw)} (${data[ctx.dataIndex][1].count} ventes)`}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+' €'},grid:{color:'#f3f4f6'}},x:{grid:{display:false}}}}
+  });
+
+  // Table
+  document.getElementById('rapportBody').innerHTML=data.map(([ym,m])=>{
+    const dates=m.sales.map(s=>s.finDate||s.date).sort();
+    return`<tr>
+      <td><strong>${monthLabel(ym)}</strong></td>
+      <td><span class="badge badge-fin">${m.count} ventes</span></td>
+      <td><strong style="color:var(--success);font-size:16px">${f(m.ca)}</strong></td>
+      <td style="font-size:12px;color:var(--muted)">${new Date(dates[0]).toLocaleDateString('fr-FR')} → ${new Date(dates[dates.length-1]).toLocaleDateString('fr-FR')}</td>
+    </tr>`;
+  }).join('');
+}
+
+/* ═══════════════ SHOPIFY VENTES ═══════════════ */
+async function loadShopifySales(days,from,to){
   setLoading(true);
-  try {
-    let url = `${API}?secret=${encodeURIComponent(secret)}&ordersOnly=true`;
-    if (from && to) url += `&from=${from}&to=${to}`;
-    else            url += `&days=${days}`;
-    const r = await fetch(url);
-    if (r.ok) {
-      const data = await r.json();
-      currentSalesOrders = data.recentOrders || [];
+  try{
+    let url=`${API}?secret=${encodeURIComponent(secret)}&ordersOnly=true`;
+    if(from&&to)url+=`&from=${from}&to=${to}`;else url+=`&days=${days}`;
+    const r=await fetch(url);
+    if(r.ok){
+      const data=await r.json();
+      currentSalesOrders=data.recentOrders||[];
       renderShopifyKPIs(data.summary);
       renderShopifyTable();
     }
-  } catch {}
+  }catch{}
   setLoading(false);
 }
 
-function renderShopifyKPIs(s) {
-  const rev = s.periodRevenue || 0, count = s.periodOrders || 0;
-  document.getElementById('salesKpiGrid').innerHTML = [
-    { icon: '&#128176;', label: 'CA Shopify', value: f(rev),           sub: getPeriodLabel(), cls: 'success' },
-    { icon: '&#128722;', label: 'Commandes',  value: count,            sub: 'commandes payées', cls: '' },
-    { icon: '&#128202;', label: 'Panier moyen',value: f(count > 0 ? rev/count : 0), sub: 'par commande', cls: '' },
-  ].map(c => `<div class="kpi ${c.cls}"><div class="kpi-icon">${c.icon}</div><div class="kpi-label">${c.label}</div><div class="kpi-value">${c.value}</div><div class="kpi-sub">${c.sub}</div></div>`).join('');
+function renderShopifyKPIs(s){
+  const rev=s.periodRevenue||0,count=s.periodOrders||0;
+  document.getElementById('salesKpiGrid').innerHTML=[
+    {icon:'&#128176;',label:'CA Shopify',value:f(rev),sub:getPeriodLabel(),cls:'success'},
+    {icon:'&#128722;',label:'Commandes',value:count,sub:'commandes payées',cls:''},
+    {icon:'&#128202;',label:'Panier moyen',value:f(count>0?rev/count:0),sub:'par commande',cls:''},
+  ].map(c=>`<div class="kpi ${c.cls}"><div class="kpi-icon">${c.icon}</div><div class="kpi-label">${c.label}</div><div class="kpi-value">${c.value}</div><div class="kpi-sub">${c.sub}</div></div>`).join('');
 }
 
-function renderShopifyTable() {
-  document.getElementById('salesTitle').textContent = 'Commandes Shopify — ' + getPeriodLabel();
-  document.getElementById('salesCount').textContent = currentSalesOrders.length + ' commande(s)';
-  document.getElementById('colBuyer').textContent = 'Commande';
-  if (!currentSalesOrders.length) {
-    document.getElementById('salesBody').innerHTML = '<tr><td colspan="4" class="empty">Aucune commande sur cette période</td></tr>';
-    return;
-  }
-  document.getElementById('salesBody').innerHTML = currentSalesOrders.map(o => `
-    <tr>
-      <td>${new Date(o.date).toLocaleDateString('fr-FR')}</td>
-      <td><strong>${o.name}</strong></td>
-      <td style="font-size:12px">${o.products || '—'}</td>
-      <td><strong style="color:var(--success)">${f(o.total)}</strong></td>
-    </tr>`).join('');
+function renderShopifyTable(){
+  document.getElementById('shopifySalesTitle').textContent='Commandes Shopify — '+getPeriodLabel();
+  document.getElementById('shopifySalesCount').textContent=currentSalesOrders.length+' commande(s)';
+  if(!currentSalesOrders.length){document.getElementById('shopifySalesBody').innerHTML='<tr><td colspan="4" class="empty">Aucune commande</td></tr>';return;}
+  document.getElementById('shopifySalesBody').innerHTML=currentSalesOrders.map(o=>`
+    <tr><td>${new Date(o.date).toLocaleDateString('fr-FR')}</td>
+    <td><strong>${o.name}</strong></td>
+    <td style="font-size:12px">${o.products||'—'}</td>
+    <td><strong style="color:var(--success)">${f(o.total)}</strong></td></tr>`).join('');
 }
 
-/* Période */
-function setPeriod(days, btn) {
-  document.querySelectorAll('.ptab').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  document.getElementById('customRange').style.display = 'none';
-  currentPeriodDays = days;
-  currentPeriodFrom = null;
-  currentPeriodTo   = null;
+/* ═══════════════ PÉRIODE ═══════════════ */
+function setPeriod(days,btn){
+  document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  document.getElementById('customRange').style.display='none';
+  currentPeriodDays=days;currentPeriodFrom=null;currentPeriodTo=null;
   renderSalesView();
 }
-
-function toggleCustomRange(btn) {
-  document.querySelectorAll('.ptab').forEach(b => b.classList.remove('active'));
+function toggleCustomRange(btn){
+  document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  const cr = document.getElementById('customRange');
-  cr.style.display = cr.style.display === 'flex' ? 'none' : 'flex';
+  const cr=document.getElementById('customRange');
+  cr.style.display=cr.style.display==='flex'?'none':'flex';
 }
-
-function applyCustomRange() {
-  const from = document.getElementById('dateFrom').value;
-  const to   = document.getElementById('dateTo').value;
-  if (!from || !to) { alert('Veuillez choisir les deux dates'); return; }
-  currentPeriodDays = 'custom';
-  currentPeriodFrom = from;
-  currentPeriodTo   = to;
-  document.getElementById('customRange').style.display = 'none';
+function applyCustomRange(){
+  const from=document.getElementById('dateFrom').value,to=document.getElementById('dateTo').value;
+  if(!from||!to){alert('Veuillez choisir les deux dates');return;}
+  currentPeriodDays='custom';currentPeriodFrom=from;currentPeriodTo=to;
+  document.getElementById('customRange').style.display='none';
   renderSalesView();
 }
 
-/* CSV Export */
-function exportCSV() {
-  const isVinted = currentSource === 'vinted';
-  const rows = isVinted ? filterVintedByPeriod() : currentSalesOrders;
-  if (!rows.length) { alert('Aucune donnée à exporter'); return; }
-
-  const sep = ';';
-  const lines = isVinted
-    ? [
-        ['"Date"','"Acheteur Vinted"','"Article"','"Montant TTC (EUR)"'].join(sep),
-        ...rows.map(s => [
-          `"${new Date(s.date).toLocaleDateString('fr-FR')}"`,
-          `"@${s.buyer}"`,
-          `"${s.article.replace(/"/g,'""')}"`,
-          `"${s.price != null ? s.price.toFixed(2).replace('.',',') : 'A COMPLETER'}"`,
-        ].join(sep)),
-        ['','','TOTAL',`"${rows.reduce((t,s)=>t+(s.price||0),0).toFixed(2).replace('.',',')}"`].join(sep),
-      ]
-    : [
-        ['"Date"','"Commande"','"Articles"','"Total TTC (EUR)"'].join(sep),
-        ...rows.map(o => [
-          `"${new Date(o.date).toLocaleDateString('fr-FR')}"`,
-          `"${o.name}"`,
-          `"${(o.products||'').replace(/"/g,'""')}"`,
-          `"${o.total != null ? o.total.toFixed(2).replace('.',',') : ''}"`,
-        ].join(sep)),
-      ];
-
-  const csv  = lines.join('\n');
-  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' });
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href     = url;
-  const tag  = isVinted ? 'vinted' : 'shopify';
-  const per  = currentPeriodDays === 'custom' ? `${currentPeriodFrom}_${currentPeriodTo}` : `${currentPeriodDays}j`;
-  a.download = `rapport-${tag}-BM-Shop-${per}-${new Date().toISOString().split('T')[0]}.csv`;
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+/* ═══════════════ CSV EXPORTS ═══════════════ */
+function exportCSV(){
+  const isVinted=currentSource==='vinted';
+  const rows=isVinted?currentSalesOrders:currentSalesOrders;
+  if(!rows.length){alert('Aucune donnée');return;}
+  const sep=';';
+  let lines;
+  if(isVinted){
+    lines=[
+      ['"Date vente"','"Date finalisation"','"Acheteur"','"Article"','"Montant TTC (EUR)"','"Statut"'].join(sep),
+      ...rows.map(s=>[
+        `"${new Date(s.date).toLocaleDateString('fr-FR')}"`,
+        `"${s.finDate?new Date(s.finDate).toLocaleDateString('fr-FR'):'—'}"`,
+        `"@${s.buyer}"`,`"${s.article.replace(/"/g,'""')}"`,
+        `"${s.price!=null?s.price.toFixed(2).replace('.',','):'A COMPLETER'}"`,
+        `"${s.status}"`].join(sep)),
+      ['','','','TOTAL',`"${rows.reduce((t,s)=>t+(s.price||0),0).toFixed(2).replace('.',',')}"`,'']. join(sep),
+    ];
+  }else{
+    lines=[
+      ['"Date"','"Commande"','"Articles"','"Total TTC (EUR)"'].join(sep),
+      ...rows.map(o=>[`"${new Date(o.date).toLocaleDateString('fr-FR')}"`,`"${o.name}"`,`"${(o.products||'').replace(/"/g,'""')}"`,`"${o.total!=null?o.total.toFixed(2).replace('.',','):''}"`].join(sep)),
+    ];
+  }
+  downloadCSV(lines.join('\n'),`rapport-${isVinted?'vinted':'shopify'}-BM-Shop`);
 }
 
-/* ── Utils ── */
-function setLoading(v) { document.getElementById('loading').style.display = v ? 'flex' : 'none'; }
+function exportMonthlyCSV(){
+  const data=getVintedFinalizedMonthly();
+  const sep=';';
+  const lines=[
+    ['"Mois"','"Ventes finalisées"','"CA encaissé (EUR)"','"Première fin."','"Dernière fin."'].join(sep),
+    ...data.map(([ym,m])=>{
+      const dates=m.sales.map(s=>s.finDate||s.date).sort();
+      return[
+        `"${monthLabel(ym)}"`,
+        m.count,
+        `"${m.ca.toFixed(2).replace('.',',')}"`,
+        `"${new Date(dates[0]).toLocaleDateString('fr-FR')}"`,
+        `"${new Date(dates[dates.length-1]).toLocaleDateString('fr-FR')}"`,
+      ].join(sep);
+    }),
+    ['TOTAL',data.reduce((t,[,m])=>t+m.count,0),`"${data.reduce((t,[,m])=>t+m.ca,0).toFixed(2).replace('.',',')}"`,'',' '].join(sep),
+  ];
+  downloadCSV(lines.join('\n'),'rapport-mensuel-comptable-BM-Shop');
+}
 
-document.getElementById('costModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
-document.getElementById('saleDetailModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeSaleDetail(); });
-document.getElementById('pwdInput').addEventListener('keyup', e => { if (e.key === 'Enter') login(); });
-document.getElementById('costInput').addEventListener('keyup', e => { if (e.key === 'Enter') saveCost(); });
+function downloadCSV(csv,name){
+  const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`${name}-${new Date().toISOString().split('T')[0]}.csv`;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+}
 
-window.addEventListener('load', async () => {
-  const saved = sessionStorage.getItem('bm_s');
-  if (saved) {
+/* ═══════════════ UTILS ═══════════════ */
+function setLoading(v){document.getElementById('loading').style.display=v?'flex':'none';}
+document.getElementById('costModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
+document.getElementById('objectifModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeObjectifModal();});
+document.getElementById('saleDetailModal').addEventListener('click',e=>{if(e.target===e.currentTarget)document.getElementById('saleDetailModal').style.display='none';});
+document.getElementById('pwdInput').addEventListener('keyup',e=>{if(e.key==='Enter')login();});
+document.getElementById('costInput').addEventListener('keyup',e=>{if(e.key==='Enter')saveCost();});
+document.getElementById('objectifInput').addEventListener('keyup',e=>{if(e.key==='Enter')saveObjectif();});
+
+window.addEventListener('load',async()=>{
+  const saved=sessionStorage.getItem('bm_s');
+  if(saved){
     setLoading(true);
-    try {
-      const r = await fetch(`${API}?secret=${encodeURIComponent(saved)}`);
-      if (r.ok) {
-        secret = saved;
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('app').style.display = 'block';
-        render(await r.json());
-      }
-    } catch {}
+    try{const r=await fetch(`${API}?secret=${encodeURIComponent(saved)}`);if(r.ok){secret=saved;document.getElementById('loginScreen').style.display='none';document.getElementById('app').style.display='block';render(await r.json());}}catch{}
     setLoading(false);
   }
+  // Init status filter counts (for labels even before login)
+  updateStatusFilterCounts();
 });
 </script>
 </body>
