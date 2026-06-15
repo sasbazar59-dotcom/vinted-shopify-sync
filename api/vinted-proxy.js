@@ -2,16 +2,35 @@ const https = require('https');
 
 // ─── Token auto-refresh via _vinted_fr_session ───────────────────────────────
 
+// Lit le token sauvegardé dans Shopify (mis à jour via bookmarklet ou saisie manuelle)
+async function getStoredToken() {
+  try {
+    const res = await shopifyReq('GET', '/metafields.json?namespace=vinted_relances&key=access_token&owner_resource=shop');
+    return res.metafields?.[0]?.value || null;
+  } catch(e) { return null; }
+}
+
 async function getOrRefreshToken() {
+  // 1. Token sauvegardé dans Shopify (mis à jour via bookmarklet ou saisie manuelle)
+  const storedToken = await getStoredToken();
+  if (storedToken) {
+    try {
+      const payload = JSON.parse(Buffer.from(storedToken.split('.')[1], 'base64').toString());
+      if (Date.now() < payload.exp * 1000 - 60000) {
+        return { token: storedToken, refreshed: false, expiresAt: payload.exp * 1000, source: 'shopify' };
+      }
+    } catch(e) {}
+  }
+
+  // 2. Token dans les variables d'environnement Vercel
   const currentToken = process.env.VINTED_ACCESS_TOKEN;
   const sessionCookie = process.env.VINTED_SESSION_COOKIE;
 
-  // Vérifier si token courant est encore valide (avec 60s de marge)
   if (currentToken) {
     try {
       const payload = JSON.parse(Buffer.from(currentToken.split('.')[1], 'base64').toString());
       if (Date.now() < payload.exp * 1000 - 60000) {
-        return { token: currentToken, refreshed: false, expiresAt: payload.exp * 1000 };
+        return { token: currentToken, refreshed: false, expiresAt: payload.exp * 1000, source: 'env' };
       }
     } catch (e) {}
   }
@@ -56,7 +75,6 @@ async function getOrRefreshToken() {
       break;
     }
   }
-  // Try various response body fields (Vinted wraps in user object)
   if (!newToken && res.data?.user?.access_token) newToken = res.data.user.access_token;
   if (!newToken && res.data?.access_token) newToken = res.data.access_token;
 
@@ -243,13 +261,42 @@ module.exports = async (req, res) => {
         tokenExpired = Date.now() > tokenExpiresAt;
       } catch (e) {}
     }
+    const stored = await getStoredToken();
+    let storedExpired = true;
+    let storedExpiresAt = null;
+    if (stored) {
+      try {
+        const p = JSON.parse(Buffer.from(stored.split('.')[1], 'base64').toString());
+        storedExpiresAt = p.exp * 1000;
+        storedExpired = Date.now() > storedExpiresAt;
+      } catch(e) {}
+    }
+    const activeSource = (stored && !storedExpired) ? 'shopify' : (!tokenExpired ? 'env' : 'none');
     return res.status(200).json({
       hasToken: !!rawToken,
       tokenExpired,
       tokenExpiresAt,
       hasSessionCookie: !!process.env.VINTED_SESSION_COOKIE,
       userId,
+      storedToken: !!stored,
+      storedTokenExpired: storedExpired,
+      storedTokenExpiresAt: storedExpiresAt,
+      activeSource,
     });
+  }
+
+  // Action update_token : mise à jour du token depuis le bookmarklet ou la saisie manuelle
+  if (action === 'update_token') {
+    let newTok = null;
+    if (req.method === 'POST') {
+      const body = await readBody(req);
+      newTok = body.token;
+    } else {
+      newTok = req.query.token;
+    }
+    if (!newTok) return res.status(400).json({ error: 'token requis' });
+    await saveTokenToMetafields(newTok);
+    return res.status(200).json({ ok: true, message: 'Token mis à jour avec succès' });
   }
 
   // Pour toutes les autres actions, obtenir/renouveler le token automatiquement
