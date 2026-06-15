@@ -382,8 +382,8 @@ Content-Type: text/plain; charset=utf-8
         <div class="table-header">
           <div class="section-title" style="margin:0">&#128279; Observateurs en attente de relance</div>
           <div class="table-controls">
-            <button class="btn" onclick="loadRelances()">&#8635; Actualiser</button>
-            <button class="btn btn-vinted" onclick="runRelancesNow()">&#9654; Lancer maintenant</button>
+            <button class="btn-refresh" onclick="loadRelances()">&#8635; Actualiser</button>
+            <button class="btn-save" style="background:#009862;margin-left:6px" onclick="runRelancesNow()">&#9654; Lancer maintenant</button>
           </div>
         </div>
         <div style="padding:16px">
@@ -1071,7 +1071,7 @@ async function runRelancesNow(){
   } catch(e) {
     alert('Erreur réseau: ' + e.message);
   }
-  btn.disabled=false; btn.textContent='&#9654; Lancer maintenant';
+  btn.disabled=false; btn.innerHTML='&#9654; Lancer maintenant';
 }
 </script>
 </body>
