@@ -411,7 +411,7 @@
           <div class="section-title" style="margin:0">&#128279; Observateurs en attente de relance</div>
           <div class="table-controls">
             <button class="btn-refresh" onclick="loadRelances()">&#8635; Actualiser</button>
-            <button class="btn-save" style="background:#009862;margin-left:6px" onclick="runRelancesNow()">&#9654; Lancer maintenant</button>
+            <button class="btn-save" style="background:#009862;margin-left:6px" onclick="runRelancesNow()">&#9654; Lancer maintenant</button><a id="tmBtn" href="#" download="vinted-auto-sync.user.js" style="display:inline-block;background:#6366f1;color:#fff;padding:7px 12px;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;margin-left:6px;vertical-align:middle">&#11015; Script auto-refresh</a>
           </div>
         </div>
         <div style="padding:16px">
@@ -1035,36 +1035,15 @@ async function loadRelances(){
     const updateCard = document.getElementById('tokenUpdateCard');
     updateCard.style.display = bestExpired ? 'block' : 'none';
 
-    if (bestExpired) {
-      const origin = window.location.origin;
-      const host = window.location.hostname;
-      const enc = encodeURIComponent(secret);
-      const api = origin + '/api/vinted-proxy?secret=' + enc + '&action=update_token';
-      const lines = [
-        '// ==UserScript==',
-        '// @name         Vinted Token Auto-Sync',
-        '// @namespace    ' + origin,
-        '// @version      1.0',
-        '// @description  Renouvelle token Vinted automatiquement',
-        '// @match        https://www.vinted.fr/*',
-        '// @grant        GM_xmlhttpRequest',
-        '// @connect      ' + host,
-        '// ==/UserScript==',
-        '(function(){"use strict";',
-        'var A="' + api + '";',
-        'async function go(){var t=null;try{var st=window.__PRELOADED_STATE__;if(st){var m=JSON.stringify(st).match(/"access_token":"(ey[^"]+)"/);if(m)t=m[1];}}catch(e){}',
-        "if(!t){try{var r=await fetch('/api/v2/users/current_user',{credentials:'include'});var d=await r.json();t=(d.user&&d.user.access_token)||d.access_token||null;}catch(e){}}",
-        "if(!t){var mc=document.cookie.match(/access_token=([^;]+)/);if(mc)t=decodeURIComponent(mc[1]);}",
-        "if(!t)return;",
-        "GM_xmlhttpRequest({method:'POST',url:A,headers:{'Content-Type':'application/json'},data:JSON.stringify({token:t}),onload:function(){},onerror:function(){}});",
-        "}",
-        "window.addEventListener('load',function(){setTimeout(go,2000);});",
-        '})();'
-      ].join('
-');
-      const blob = new Blob([lines], {type: 'application/javascript'});
-      document.getElementById('tampermonkeyLink').href = URL.createObjectURL(blob);
-    }
+    // Génère le script Tampermonkey — toujours, pas seulement quand expiré
+    try {
+      const _o = window.location.origin;
+      const _h = window.location.hostname;
+      const _api = _o + '/api/vinted-proxy?secret=' + encodeURIComponent(secret) + '&action=update_token';
+      const _sc = ['// ==UserScript==','// @name         Vinted Token Auto-Sync','// @namespace    ' + _o,'// @version      1.0','// @description  Renouvelle token Vinted automatiquement','// @match        https://www.vinted.fr/*','// @grant        GM_xmlhttpRequest','// @connect      ' + _h,'// ==/UserScript==','(function(){"use strict";','var A="' + _api + '";','async function go(){var t=null;try{var st=window.__PRELOADED_STATE__;if(st){var m=JSON.stringify(st).match(/"access_token":"(ey[^"]+)"/);if(m)t=m[1];}}catch(e){}','if(!t){try{var r=await fetch("/api/v2/users/current_user",{credentials:"include"});var d=await r.json();t=(d.user&&d.user.access_token)||d.access_token||null;}catch(e){}}','if(!t){var mc=document.cookie.match(/access_token=([^;]+)/);if(mc)t=decodeURIComponent(mc[1]);}','if(!t)return;','GM_xmlhttpRequest({method:"POST",url:A,headers:{"Content-Type":"application/json"},data:JSON.stringify({token:t}),onload:function(){},onerror:function(){}});','}','window.addEventListener("load",function(){setTimeout(go,2000);});','})();'].join('\n');
+      const _url = URL.createObjectURL(new Blob([_sc], {type:'application/javascript'}));
+      ['tampermonkeyLink','tmBtn'].forEach(function(id){var el=document.getElementById(id);if(el)el.href=_url;});
+    } catch(_e) {}
   } catch(e) {}
 
   // Load watcher log
