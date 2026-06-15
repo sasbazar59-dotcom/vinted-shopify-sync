@@ -55,6 +55,8 @@ async function getOrRefreshToken() {
       break;
     }
   }
+  // Try various response body fields (Vinted wraps in user object)
+  if (!newToken && res.data?.user?.access_token) newToken = res.data.user.access_token;
   if (!newToken && res.data?.access_token) newToken = res.data.access_token;
 
   if (newToken) {
@@ -67,7 +69,12 @@ async function getOrRefreshToken() {
     return { token: newToken, refreshed: true, expiresAt };
   }
 
-  return { token: currentToken, refreshed: false, error: 'Impossible de renouveler le token' };
+  return {
+    token: currentToken,
+    refreshed: false,
+    error: 'Impossible de renouveler le token',
+    _debug: { status: res.status, cookies: res.cookies.length, dataKeys: Object.keys(res.data || {}) },
+  };
 }
 
 async function saveTokenToMetafields(token) {

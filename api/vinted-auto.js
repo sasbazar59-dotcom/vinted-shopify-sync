@@ -157,10 +157,9 @@ async function getOrRefreshToken() {
     }
   }
 
-  // Ou dans le body de la réponse
-  if (!newToken && res.data?.access_token) {
-    newToken = res.data.access_token;
-  }
+  // Ou dans le body de la réponse (Vinted encapsule dans user{})
+  if (!newToken && res.data?.user?.access_token) newToken = res.data.user.access_token;
+  if (!newToken && res.data?.access_token) newToken = res.data.access_token;
 
   if (newToken) {
     // Sauvegarder le nouveau token dans Shopify metafields pour réutilisation
@@ -202,7 +201,18 @@ async function getOrRefreshToken() {
   }
 
   // Fallback : utiliser le token existant même s'il est expiré
-  return { token: currentToken, error: 'Impossible de renouveler le token', refreshed: false };
+  return {
+    token: currentToken,
+    error: 'Impossible de renouveler le token',
+    refreshed: false,
+    _debug: {
+      cookieStatus: res.status,
+      cookieCount: res.cookies.length,
+      cookieDataKeys: Object.keys(res.data || {}),
+      oauthStatus: res2.status,
+      oauthDataKeys: Object.keys(res2.data || {}),
+    },
+  };
 }
 
 async function saveTokenToMetafields(token) {
@@ -259,19 +269,20 @@ module.exports = async (req, res) => {
   const userId = process.env.VINTED_USER_ID || '3136330750';
 
   // Obtenir/renouveler le token automatiquement
-  const { token, refreshed, error: tokenError } = await getOrRefreshToken();
+  const tokenResult = await getOrRefreshToken();
+  const { token, refreshed, error: tokenError, _debug: tokenDebug } = tokenResult;
   if (!token) {
-    return res.status(401).json({ error: tokenError || 'Token Vinted indisponible' });
+    return res.status(401).json({ error: tokenError || 'Token Vinted indisponible', tokenDebug });
   }
 
-  const results = { sent: [], skipped: [], errors: [], newWatchers: 0, tokenRefreshed: refreshed };
+  const results = { sent: [], skipped: [], errors: [], newWatchers: 0, tokenRefreshed: refreshed, tokenError: tokenError || null, tokenDebug };
   const today = new Date().toISOString().slice(0, 10);
 
   const { metafieldId, log } = await getWatcherLog();
 
   const itemsRes = await vintedGet(`/items?user_id=${userId}&page=1&per_page=${ITEMS_LIMIT}&order=newest_first`, token);
   if (!itemsRes.data.items) {
-    return res.status(500).json({ error: 'Impossible de récupérer les articles Vinted', detail: itemsRes.data });
+    return res.status(500).json({ error: 'Impossible de récupérer les articles Vinted', detail: itemsRes.data, tokenRefreshed: refreshed, tokenError: tokenError || null, tokenDebug });
   }
 
   const items = itemsRes.data.items.filter(i => i.status === 'Active' || i.status === 1);
