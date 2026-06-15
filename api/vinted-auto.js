@@ -1,14 +1,14 @@
 /**
  * Endpoint cron : Relances automatiques Vinted
  * Tourne chaque jour à 9h (configurer dans vercel.json)
- * - Récupère tous les articles et leurs observateurs (favoris)
+ * - Récupère/renouvelle automatiquement le token Vinted via _vinted_fr_session
  * - Envoie un message de relance après 3 jours d'attente
  * - Garde un log dans les métachamps Shopify
  */
 const https = require('https');
 
-const RELANCE_DAYS = 3;      // Délai avant d'envoyer la relance
-const ITEMS_LIMIT = 50;      // Nombre max d'articles à traiter
+const RELANCE_DAYS = 3;
+const ITEMS_LIMIT = 50;
 
 const MESSAGE_TEMPLATE = `Bonjour ! 😊
 
@@ -19,61 +19,57 @@ J'ai remarqué que vous avez mis mon article en favoris — il est encore dispon
 
 À très bientôt !`;
 
-function vintedGet(path, token) {
+// ─── HTTP helpers ────────────────────────────────────────────────────────────
+
+function httpReq(options, body) {
   return new Promise((resolve) => {
-    const options = {
-      hostname: 'www.vinted.fr',
-      path: '/api/v2' + path,
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + token,
-        'Accept': 'application/json, text/plain, */*',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        'Accept-Language': 'fr-FR,fr;q=0.9',
-        'Referer': 'https://www.vinted.fr/',
-      },
-    };
+    const bodyStr = body ? JSON.stringify(body) : null;
+    if (bodyStr) {
+      options.headers['Content-Length'] = Buffer.byteLength(bodyStr);
+    }
     const req = https.request(options, (r) => {
       let data = '';
+      const rawCookies = r.headers['set-cookie'] || [];
       r.on('data', (c) => (data += c));
       r.on('end', () => {
-        try { resolve({ data: JSON.parse(data), status: r.statusCode }); }
-        catch (e) { resolve({ data: { raw: data.substring(0, 200) }, status: r.statusCode }); }
+        try { resolve({ data: JSON.parse(data), status: r.statusCode, cookies: rawCookies }); }
+        catch (e) { resolve({ data: { raw: data.substring(0, 300) }, status: r.statusCode, cookies: rawCookies }); }
       });
     });
-    req.on('error', (e) => resolve({ data: { error: e.message }, status: 0 }));
+    req.on('error', (e) => resolve({ data: { error: e.message }, status: 0, cookies: [] }));
+    if (bodyStr) req.write(bodyStr);
     req.end();
   });
 }
 
-function vintedPost(path, body, token) {
-  return new Promise((resolve) => {
-    const bodyStr = JSON.stringify(body);
-    const options = {
-      hostname: 'www.vinted.fr',
-      path: '/api/v2' + path,
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + token,
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(bodyStr),
-        'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        'Referer': 'https://www.vinted.fr/',
-      },
-    };
-    const req = https.request(options, (r) => {
-      let data = '';
-      r.on('data', (c) => (data += c));
-      r.on('end', () => {
-        try { resolve({ data: JSON.parse(data), status: r.statusCode }); }
-        catch (e) { resolve({ data: { raw: data.substring(0, 200) }, status: r.statusCode }); }
-      });
-    });
-    req.on('error', (e) => resolve({ data: { error: e.message }, status: 0 }));
-    req.write(bodyStr);
-    req.end();
+function vintedGet(path, token) {
+  return httpReq({
+    hostname: 'www.vinted.fr',
+    path: '/api/v2' + path,
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Accept': 'application/json, text/plain, */*',
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+      'Accept-Language': 'fr-FR,fr;q=0.9',
+      'Referer': 'https://www.vinted.fr/',
+    },
   });
+}
+
+function vintedPost(path, body, token) {
+  return httpReq({
+    hostname: 'www.vinted.fr',
+    path: '/api/v2' + path,
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+      'Referer': 'https://www.vinted.fr/',
+    },
+  }, body);
 }
 
 function shopifyReq(method, path, body) {
@@ -103,6 +99,128 @@ function shopifyReq(method, path, body) {
   });
 }
 
+// ─── Token auto-refresh via _vinted_fr_session ───────────────────────────────
+
+async function getOrRefreshToken() {
+  const currentToken = process.env.VINTED_ACCESS_TOKEN;
+  const sessionCookie = process.env.VINTED_SESSION_COOKIE;
+
+  // Vérifier si token courant est encore valide
+  if (currentToken) {
+    try {
+      const payload = JSON.parse(Buffer.from(currentToken.split('.')[1], 'base64').toString());
+      if (Date.now() < payload.exp * 1000 - 60000) {
+        return { token: currentToken, refreshed: false };
+      }
+    } catch (e) {}
+  }
+
+  // Token expiré ou absent — renouveler via la session cookie
+  if (!sessionCookie) {
+    return { token: null, error: 'VINTED_SESSION_COOKIE manquant' };
+  }
+
+  // Appeler Vinted avec le cookie de session pour obtenir un nouveau token
+  const res = await new Promise((resolve) => {
+    const options = {
+      hostname: 'www.vinted.fr',
+      path: '/api/v2/users/current_user',
+      method: 'GET',
+      headers: {
+        'Cookie': `_vinted_fr_session=${sessionCookie}`,
+        'Accept': 'application/json, text/plain, */*',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept-Language': 'fr-FR,fr;q=0.9',
+        'Referer': 'https://www.vinted.fr/',
+      },
+    };
+    const req = https.request(options, (r) => {
+      let data = '';
+      const cookies = r.headers['set-cookie'] || [];
+      r.on('data', (c) => (data += c));
+      r.on('end', () => {
+        try { resolve({ data: JSON.parse(data), status: r.statusCode, cookies }); }
+        catch (e) { resolve({ data: {}, status: r.statusCode, cookies }); }
+      });
+    });
+    req.on('error', (e) => resolve({ data: {}, status: 0, cookies: [] }));
+    req.end();
+  });
+
+  // Chercher access_token dans les cookies Set-Cookie
+  let newToken = null;
+  for (const cookie of res.cookies) {
+    const match = cookie.match(/access_token=([^;]+)/);
+    if (match && match[1] && match[1] !== 'deleted') {
+      newToken = decodeURIComponent(match[1]);
+      break;
+    }
+  }
+
+  // Ou dans le body de la réponse
+  if (!newToken && res.data?.access_token) {
+    newToken = res.data.access_token;
+  }
+
+  if (newToken) {
+    // Sauvegarder le nouveau token dans Shopify metafields pour réutilisation
+    await saveTokenToMetafields(newToken);
+    return { token: newToken, refreshed: true };
+  }
+
+  // Essayer un autre endpoint
+  const res2 = await new Promise((resolve) => {
+    const options = {
+      hostname: 'www.vinted.fr',
+      path: '/oauth/token',
+      method: 'POST',
+      headers: {
+        'Cookie': `_vinted_fr_session=${sessionCookie}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Referer': 'https://www.vinted.fr/',
+        'Content-Length': 0,
+      },
+    };
+    const req = https.request(options, (r) => {
+      let data = '';
+      const cookies = r.headers['set-cookie'] || [];
+      r.on('data', (c) => (data += c));
+      r.on('end', () => {
+        try { resolve({ data: JSON.parse(data), status: r.statusCode, cookies }); }
+        catch (e) { resolve({ data: {}, status: r.statusCode, cookies }); }
+      });
+    });
+    req.on('error', (e) => resolve({ data: {}, status: 0, cookies: [] }));
+    req.end();
+  });
+
+  if (res2.data?.access_token) {
+    await saveTokenToMetafields(res2.data.access_token);
+    return { token: res2.data.access_token, refreshed: true };
+  }
+
+  // Fallback : utiliser le token existant même s'il est expiré
+  return { token: currentToken, error: 'Impossible de renouveler le token', refreshed: false };
+}
+
+async function saveTokenToMetafields(token) {
+  const existing = await shopifyReq('GET', '/metafields.json?namespace=vinted_relances&key=access_token&owner_resource=shop');
+  const meta = existing.metafields?.[0];
+  if (meta) {
+    await shopifyReq('PUT', `/metafields/${meta.id}.json`, {
+      metafield: { id: meta.id, value: token, type: 'single_line_text_field' }
+    });
+  } else {
+    await shopifyReq('POST', '/metafields.json', {
+      metafield: { namespace: 'vinted_relances', key: 'access_token', value: token, type: 'single_line_text_field', owner_resource: 'shop' }
+    });
+  }
+}
+
+// ─── Watcher log ─────────────────────────────────────────────────────────────
+
 async function getWatcherLog() {
   const res = await shopifyReq('GET', '/metafields.json?namespace=vinted_relances&key=watcher_log&owner_resource=shop');
   const meta = res.metafields?.[0];
@@ -123,11 +241,12 @@ async function saveWatcherLog(metafieldId, log) {
 
 async function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
+// ─── Main handler ─────────────────────────────────────────────────────────────
+
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  // Sécuriser l'endpoint (appelé par Vercel cron ou manuellement)
   const authHeader = req.headers.authorization;
   const { secret } = req.query;
   const validPassword = process.env.DASHBOARD_PASSWORD || process.env.WEBHOOK_SECRET;
@@ -137,26 +256,19 @@ module.exports = async (req, res) => {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  const token = process.env.VINTED_ACCESS_TOKEN;
   const userId = process.env.VINTED_USER_ID || '3136330750';
 
-  if (!token) return res.status(500).json({ error: 'VINTED_ACCESS_TOKEN non configuré' });
+  // Obtenir/renouveler le token automatiquement
+  const { token, refreshed, error: tokenError } = await getOrRefreshToken();
+  if (!token) {
+    return res.status(401).json({ error: tokenError || 'Token Vinted indisponible' });
+  }
 
-  // Vérifier expiration du token
-  try {
-    const payload = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
-    if (Date.now() > payload.exp * 1000) {
-      return res.status(401).json({ error: 'Token Vinted expiré — renouveler dans le dashboard' });
-    }
-  } catch (e) {}
-
-  const results = { sent: [], skipped: [], errors: [], newWatchers: 0 };
+  const results = { sent: [], skipped: [], errors: [], newWatchers: 0, tokenRefreshed: refreshed };
   const today = new Date().toISOString().slice(0, 10);
 
-  // 1. Charger le log des observateurs depuis Shopify
   const { metafieldId, log } = await getWatcherLog();
 
-  // 2. Récupérer les articles Vinted
   const itemsRes = await vintedGet(`/items?user_id=${userId}&page=1&per_page=${ITEMS_LIMIT}&order=newest_first`, token);
   if (!itemsRes.data.items) {
     return res.status(500).json({ error: 'Impossible de récupérer les articles Vinted', detail: itemsRes.data });
@@ -164,7 +276,6 @@ module.exports = async (req, res) => {
 
   const items = itemsRes.data.items.filter(i => i.status === 'Active' || i.status === 1);
 
-  // 3. Pour chaque article, récupérer les observateurs
   for (const item of items) {
     const watchRes = await vintedGet(`/items/${item.id}/item_watchers?page=1&per_page=50`, token);
     const watchers = watchRes.data.item_watchers || [];
@@ -175,7 +286,6 @@ module.exports = async (req, res) => {
       const watcherLogin = watcher.user?.login || 'inconnu';
 
       if (!log[key]) {
-        // Nouveau observateur — enregistrer la date
         log[key] = {
           first_seen: today,
           item_id: item.id,
@@ -187,12 +297,10 @@ module.exports = async (req, res) => {
         };
         results.newWatchers++;
       } else if (!log[key].messaged) {
-        // Vérifier si 3 jours ont passé
         const firstSeen = new Date(log[key].first_seen);
         const daysPassed = Math.floor((Date.now() - firstSeen) / (1000 * 60 * 60 * 24));
 
         if (daysPassed >= RELANCE_DAYS) {
-          // Envoyer le message de relance
           const convRes = await vintedPost('/conversations', {
             user_id: parseInt(watcherId),
             item_id: parseInt(item.id),
@@ -215,30 +323,27 @@ module.exports = async (req, res) => {
           } else {
             results.errors.push({ item: item.title, watcher: watcherLogin, error: 'Conversation non créée' });
           }
-          await sleep(500); // Respecter les rate limits Vinted
+          await sleep(500);
         } else {
           results.skipped.push({ item: item.title, watcher: watcherLogin, days: daysPassed });
         }
       }
     }
-
-    await sleep(200); // Entre chaque article
+    await sleep(200);
   }
 
-  // 4. Nettoyer les anciens entrées (articles vendus ou observateurs partis) — garder 30 jours
+  // Nettoyage 30 jours
   const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
   for (const key of Object.keys(log)) {
-    if (log[key].first_seen < cutoff && log[key].messaged) {
-      delete log[key];
-    }
+    if (log[key].first_seen < cutoff && log[key].messaged) delete log[key];
   }
 
-  // 5. Sauvegarder le log mis à jour
   await saveWatcherLog(metafieldId, log);
 
   return res.status(200).json({
     ok: true,
     date: today,
+    token_refreshed: refreshed,
     items_checked: items.length,
     new_watchers: results.newWatchers,
     messages_sent: results.sent.length,
