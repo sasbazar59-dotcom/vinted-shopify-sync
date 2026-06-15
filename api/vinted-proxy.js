@@ -43,7 +43,8 @@ async function getOrRefreshToken() {
         catch (e) { resolve({ data: {}, status: r.statusCode, cookies }); }
       });
     });
-    req.on('error', (e) => resolve({ data: {}, status: 0, cookies: [] }));
+    req.setTimeout(4000, () => { req.destroy(new Error('timeout')); });
+    req.on('error', (e) => resolve({ data: {}, status: 0, cookies: [], timedOut: e.message === 'timeout' }));
     req.end();
   });
 

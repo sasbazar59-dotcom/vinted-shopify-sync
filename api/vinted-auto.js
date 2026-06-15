@@ -143,6 +143,7 @@ async function getOrRefreshToken() {
         catch (e) { resolve({ data: {}, status: r.statusCode, cookies }); }
       });
     });
+    req.setTimeout(4000, () => { req.destroy(new Error('timeout')); });
     req.on('error', (e) => resolve({ data: {}, status: 0, cookies: [] }));
     req.end();
   });
@@ -191,6 +192,7 @@ async function getOrRefreshToken() {
         catch (e) { resolve({ data: {}, status: r.statusCode, cookies }); }
       });
     });
+    req.setTimeout(4000, () => { req.destroy(new Error('timeout')); });
     req.on('error', (e) => resolve({ data: {}, status: 0, cookies: [] }));
     req.end();
   });
