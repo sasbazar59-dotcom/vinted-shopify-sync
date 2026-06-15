@@ -1,5 +1,91 @@
 const https = require('https');
 
+// ─── Token auto-refresh via _vinted_fr_session ───────────────────────────────
+
+async function getOrRefreshToken() {
+  const currentToken = process.env.VINTED_ACCESS_TOKEN;
+  const sessionCookie = process.env.VINTED_SESSION_COOKIE;
+
+  // Vérifier si token courant est encore valide (avec 60s de marge)
+  if (currentToken) {
+    try {
+      const payload = JSON.parse(Buffer.from(currentToken.split('.')[1], 'base64').toString());
+      if (Date.now() < payload.exp * 1000 - 60000) {
+        return { token: currentToken, refreshed: false, expiresAt: payload.exp * 1000 };
+      }
+    } catch (e) {}
+  }
+
+  // Token expiré ou absent — renouveler via la session cookie
+  if (!sessionCookie) {
+    return { token: currentToken, refreshed: false, error: 'VINTED_SESSION_COOKIE manquant' };
+  }
+
+  const res = await new Promise((resolve) => {
+    const options = {
+      hostname: 'www.vinted.fr',
+      path: '/api/v2/users/current_user',
+      method: 'GET',
+      headers: {
+        'Cookie': `_vinted_fr_session=${sessionCookie}`,
+        'Accept': 'application/json, text/plain, */*',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept-Language': 'fr-FR,fr;q=0.9',
+        'Referer': 'https://www.vinted.fr/',
+      },
+    };
+    const req = https.request(options, (r) => {
+      let data = '';
+      const cookies = r.headers['set-cookie'] || [];
+      r.on('data', (c) => (data += c));
+      r.on('end', () => {
+        try { resolve({ data: JSON.parse(data), status: r.statusCode, cookies }); }
+        catch (e) { resolve({ data: {}, status: r.statusCode, cookies }); }
+      });
+    });
+    req.on('error', (e) => resolve({ data: {}, status: 0, cookies: [] }));
+    req.end();
+  });
+
+  let newToken = null;
+  for (const cookie of res.cookies) {
+    const match = cookie.match(/access_token=([^;]+)/);
+    if (match && match[1] && match[1] !== 'deleted') {
+      newToken = decodeURIComponent(match[1]);
+      break;
+    }
+  }
+  if (!newToken && res.data?.access_token) newToken = res.data.access_token;
+
+  if (newToken) {
+    await saveTokenToMetafields(newToken);
+    let expiresAt = null;
+    try {
+      const p = JSON.parse(Buffer.from(newToken.split('.')[1], 'base64').toString());
+      expiresAt = p.exp * 1000;
+    } catch (e) {}
+    return { token: newToken, refreshed: true, expiresAt };
+  }
+
+  return { token: currentToken, refreshed: false, error: 'Impossible de renouveler le token' };
+}
+
+async function saveTokenToMetafields(token) {
+  const existing = await shopifyReq('GET', '/metafields.json?namespace=vinted_relances&key=access_token&owner_resource=shop');
+  const meta = existing.metafields?.[0];
+  if (meta) {
+    await shopifyReq('PUT', `/metafields/${meta.id}.json`, {
+      metafield: { id: meta.id, value: token, type: 'single_line_text_field' }
+    });
+  } else {
+    await shopifyReq('POST', '/metafields.json', {
+      metafield: { namespace: 'vinted_relances', key: 'access_token', value: token, type: 'single_line_text_field', owner_resource: 'shop' }
+    });
+  }
+}
+
+// ─── HTTP helpers ─────────────────────────────────────────────────────────────
+
 function vintedGet(path, token) {
   return new Promise((resolve) => {
     const options = {
@@ -59,15 +145,17 @@ function vintedPost(path, body, token) {
   });
 }
 
-function shopifyGet(path) {
+function shopifyReq(method, path, body) {
   return new Promise((resolve) => {
+    const bodyStr = body ? JSON.stringify(body) : null;
     const options = {
       hostname: process.env.SHOPIFY_STORE_DOMAIN,
       path: `/admin/api/2024-01${path}`,
-      method: 'GET',
+      method,
       headers: {
         'X-Shopify-Access-Token': process.env.SHOPIFY_ACCESS_TOKEN,
         'Content-Type': 'application/json',
+        ...(bodyStr ? { 'Content-Length': Buffer.byteLength(bodyStr) } : {}),
       },
     };
     const req = https.request(options, (r) => {
@@ -79,66 +167,13 @@ function shopifyGet(path) {
       });
     });
     req.on('error', (e) => resolve({ error: e.message }));
-    req.end();
-  });
-}
-
-function shopifyPut(path, body) {
-  return new Promise((resolve) => {
-    const bodyStr = JSON.stringify(body);
-    const options = {
-      hostname: process.env.SHOPIFY_STORE_DOMAIN,
-      path: `/admin/api/2024-01${path}`,
-      method: 'PUT',
-      headers: {
-        'X-Shopify-Access-Token': process.env.SHOPIFY_ACCESS_TOKEN,
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(bodyStr),
-      },
-    };
-    const req = https.request(options, (r) => {
-      let data = '';
-      r.on('data', (c) => (data += c));
-      r.on('end', () => {
-        try { resolve(JSON.parse(data)); }
-        catch (e) { resolve({ error: data }); }
-      });
-    });
-    req.on('error', (e) => resolve({ error: e.message }));
-    req.write(bodyStr);
-    req.end();
-  });
-}
-
-function shopifyPost(path, body) {
-  return new Promise((resolve) => {
-    const bodyStr = JSON.stringify(body);
-    const options = {
-      hostname: process.env.SHOPIFY_STORE_DOMAIN,
-      path: `/admin/api/2024-01${path}`,
-      method: 'POST',
-      headers: {
-        'X-Shopify-Access-Token': process.env.SHOPIFY_ACCESS_TOKEN,
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(bodyStr),
-      },
-    };
-    const req = https.request(options, (r) => {
-      let data = '';
-      r.on('data', (c) => (data += c));
-      r.on('end', () => {
-        try { resolve(JSON.parse(data)); }
-        catch (e) { resolve({ error: data }); }
-      });
-    });
-    req.on('error', (e) => resolve({ error: e.message }));
-    req.write(bodyStr);
+    if (bodyStr) req.write(bodyStr);
     req.end();
   });
 }
 
 async function getWatcherLog() {
-  const res = await shopifyGet('/metafields.json?namespace=vinted_relances&key=watcher_log&owner_resource=shop');
+  const res = await shopifyReq('GET', '/metafields.json?namespace=vinted_relances&key=watcher_log&owner_resource=shop');
   const meta = res.metafields?.[0];
   if (!meta) return { metafieldId: null, log: {} };
   try {
@@ -151,14 +186,13 @@ async function getWatcherLog() {
 async function saveWatcherLog(metafieldId, log) {
   const value = JSON.stringify(log);
   if (metafieldId) {
-    return shopifyPut(`/metafields/${metafieldId}.json`, {
+    return shopifyReq('PUT', `/metafields/${metafieldId}.json`, {
       metafield: { id: metafieldId, value, type: 'json' }
     });
-  } else {
-    return shopifyPost('/metafields.json', {
-      metafield: { namespace: 'vinted_relances', key: 'watcher_log', value, type: 'json', owner_resource: 'shop' }
-    });
   }
+  return shopifyReq('POST', '/metafields.json', {
+    metafield: { namespace: 'vinted_relances', key: 'watcher_log', value, type: 'json', owner_resource: 'shop' }
+  });
 }
 
 function readBody(req) {
@@ -173,6 +207,8 @@ function readBody(req) {
   });
 }
 
+// ─── Main handler ─────────────────────────────────────────────────────────────
+
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -185,37 +221,39 @@ module.exports = async (req, res) => {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  const token = process.env.VINTED_ACCESS_TOKEN;
   const userId = process.env.VINTED_USER_ID || '3136330750';
 
-  // Vérifier si token est expiré
-  let tokenExpired = false;
-  let tokenExpiresAt = null;
-  if (token) {
-    try {
-      const payload = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
-      tokenExpiresAt = payload.exp * 1000;
-      tokenExpired = Date.now() > tokenExpiresAt;
-    } catch (e) {}
-  }
-
+  // Action status : info sans nécessiter un token valide
   if (action === 'status') {
+    const rawToken = process.env.VINTED_ACCESS_TOKEN;
+    let tokenExpired = true;
+    let tokenExpiresAt = null;
+    if (rawToken) {
+      try {
+        const payload = JSON.parse(Buffer.from(rawToken.split('.')[1], 'base64').toString());
+        tokenExpiresAt = payload.exp * 1000;
+        tokenExpired = Date.now() > tokenExpiresAt;
+      } catch (e) {}
+    }
     return res.status(200).json({
-      hasToken: !!token,
+      hasToken: !!rawToken,
       tokenExpired,
       tokenExpiresAt,
+      hasSessionCookie: !!process.env.VINTED_SESSION_COOKIE,
       userId,
     });
   }
 
-  if (!token || tokenExpired) {
-    return res.status(401).json({ error: 'VINTED_ACCESS_TOKEN manquant ou expiré', tokenExpired, tokenExpiresAt });
+  // Pour toutes les autres actions, obtenir/renouveler le token automatiquement
+  const { token, refreshed, error: tokenError } = await getOrRefreshToken();
+  if (!token) {
+    return res.status(401).json({ error: tokenError || 'Token Vinted indisponible' });
   }
 
   if (req.method === 'GET') {
     if (action === 'items') {
       const result = await vintedGet(`/items?user_id=${userId}&page=1&per_page=100&order=newest_first`, token);
-      return res.status(result.status).json(result.data);
+      return res.status(result.status).json({ ...result.data, _tokenRefreshed: refreshed });
     }
 
     if (action === 'watchers') {
@@ -238,7 +276,6 @@ module.exports = async (req, res) => {
       const { recipient_id, item_id, message } = body;
       if (!recipient_id || !message) return res.status(400).json({ error: 'recipient_id et message requis' });
 
-      // Créer ou récupérer la conversation
       const convResult = await vintedPost('/conversations', {
         user_id: parseInt(recipient_id),
         item_id: item_id ? parseInt(item_id) : undefined,
@@ -249,7 +286,6 @@ module.exports = async (req, res) => {
       }
       const convId = convResult.data.conversation.id;
 
-      // Envoyer le message
       const msgResult = await vintedPost(`/conversations/${convId}/messages`, {
         body: message,
         entity_type: 'msg_text',
