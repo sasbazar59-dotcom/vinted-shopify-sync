@@ -101,11 +101,30 @@ function shopifyReq(method, path, body) {
 
 // ─── Token auto-refresh via _vinted_fr_session ───────────────────────────────
 
+// Lit le token sauvegardé dans Shopify (mis à jour via bookmarklet ou saisie manuelle)
+async function getStoredToken() {
+  try {
+    const res = await shopifyReq('GET', '/metafields.json?namespace=vinted_relances&key=access_token&owner_resource=shop');
+    return res.metafields?.[0]?.value || null;
+  } catch(e) { return null; }
+}
+
 async function getOrRefreshToken() {
+  // 1. Token sauvegardé dans Shopify (mis à jour via bookmarklet ou saisie manuelle)
+  const storedToken = await getStoredToken();
+  if (storedToken) {
+    try {
+      const payload = JSON.parse(Buffer.from(storedToken.split('.')[1], 'base64').toString());
+      if (Date.now() < payload.exp * 1000 - 60000) {
+        return { token: storedToken, refreshed: false };
+      }
+    } catch(e) {}
+  }
+
+  // 2. Token dans les variables d'environnement Vercel
   const currentToken = process.env.VINTED_ACCESS_TOKEN;
   const sessionCookie = process.env.VINTED_SESSION_COOKIE;
 
-  // Vérifier si token courant est encore valide
   if (currentToken) {
     try {
       const payload = JSON.parse(Buffer.from(currentToken.split('.')[1], 'base64').toString());
@@ -120,7 +139,6 @@ async function getOrRefreshToken() {
     return { token: null, error: 'VINTED_SESSION_COOKIE manquant' };
   }
 
-  // Appeler Vinted avec le cookie de session pour obtenir un nouveau token
   const res = await new Promise((resolve) => {
     const options = {
       hostname: 'www.vinted.fr',
@@ -148,7 +166,6 @@ async function getOrRefreshToken() {
     req.end();
   });
 
-  // Chercher access_token dans les cookies Set-Cookie
   let newToken = null;
   for (const cookie of res.cookies) {
     const match = cookie.match(/access_token=([^;]+)/);
@@ -157,18 +174,14 @@ async function getOrRefreshToken() {
       break;
     }
   }
-
-  // Ou dans le body de la réponse (Vinted encapsule dans user{})
   if (!newToken && res.data?.user?.access_token) newToken = res.data.user.access_token;
   if (!newToken && res.data?.access_token) newToken = res.data.access_token;
 
   if (newToken) {
-    // Sauvegarder le nouveau token dans Shopify metafields pour réutilisation
     await saveTokenToMetafields(newToken);
     return { token: newToken, refreshed: true };
   }
 
-  // Essayer un autre endpoint
   const res2 = await new Promise((resolve) => {
     const options = {
       hostname: 'www.vinted.fr',
@@ -202,7 +215,6 @@ async function getOrRefreshToken() {
     return { token: res2.data.access_token, refreshed: true };
   }
 
-  // Fallback : utiliser le token existant même s'il est expiré
   return {
     token: currentToken,
     error: 'Impossible de renouveler le token',
@@ -270,7 +282,6 @@ module.exports = async (req, res) => {
 
   const userId = process.env.VINTED_USER_ID || '3136330750';
 
-  // Obtenir/renouveler le token automatiquement
   const tokenResult = await getOrRefreshToken();
   const { token, refreshed, error: tokenError, _debug: tokenDebug } = tokenResult;
   if (!token) {
@@ -345,7 +356,6 @@ module.exports = async (req, res) => {
     await sleep(200);
   }
 
-  // Nettoyage 30 jours
   const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
   for (const key of Object.keys(log)) {
     if (log[key].first_seen < cutoff && log[key].messaged) delete log[key];
