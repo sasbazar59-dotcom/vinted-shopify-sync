@@ -1119,76 +1119,88 @@ async function submitManualToken(){
 }
 
 async function runRelancesNow(){
-  if(!confirm('Lancer les relances maintenant ?')) return;
+  if(!confirm('Lancer les relances maintenant ?\n\nVinted va s\'ouvrir dans un nouvel onglet.\nLe script Tampermonkey lancera les relances automatiquement.\n\n⚠️ Assure-toi que le script Tampermonkey est bien installé !')) return;
   const btn = document.querySelector('button[onclick="runRelancesNow()"]');
-  btn.disabled=true; btn.textContent='En cours...';
-  try {
-    const r = await fetch(`/api/vinted-auto?secret=${encodeURIComponent(secret)}`);
-    const data = await r.json();
-    if(data.ok) {
-      alert(`Relances terminÃ©es !
-â¢ ${data.messages_sent} message(s) envoyÃ©(s)
-â¢ ${data.messages_skipped} en attente
-â¢ ${data.new_watchers} nouveau(x) observateur(s)${data.token_refreshed?' (token renouvelÃ©)':''}`);
-      loadRelances();
-    } else {
-      alert('Erreur: ' + (data.error||JSON.stringify(data)));
-    }
-  } catch(e) {
-    alert('Erreur rÃ©seau: ' + e.message);
-  }
-  btn.disabled=false; btn.innerHTML='&#9654; Lancer maintenant';
+  btn.disabled=true; btn.innerHTML='⏳ En cours sur Vinted...';
+  window.open('https://www.vinted.fr/?run_relances=1', '_blank');
+  setTimeout(async () => {
+    await loadRelances();
+    btn.disabled=false; btn.innerHTML='&#9654; Lancer maintenant';
+  }, 35000);
 }
 
 function buildTmScript(){
   var origin=window.location.origin;
   var host=window.location.hostname;
   var s=typeof secret!=='undefined'?secret:'';
-  var apiUrl=origin+'/api/vinted-proxy?action=update_token';
-  var secretSafe=s.replace(/\\/g,'\\\\').replace(/"/g,'\\"');
+  var proxyBase=origin+'/api/vinted-proxy?secret='+encodeURIComponent(s);
+  var relanceDays=3;
+  var userId='3136330750';
+  var msg='Bonjour ! 😊\n\nJ\'ai remarqué que vous avez mis mon article en favoris — il est encore disponible !\n\n✨ N\'hésitez pas si vous avez des questions, je réponds très rapidement.\n📦 Envoi soigné et rapide, articles emballés avec soin.\n\nÀ très bientôt !';
   var lines=[
     '// ==UserScript==',
-    '// @name         Vinted Auto-Refresh Token',
-    '// @namespace    http://tampermonkey.net/',
-    '// @version      1.1',
-    '// @description  Envoie le token Vinted au dashboard BM Shop',
+    '// @name         Vinted Relances Auto',
+    '// @namespace    '+origin,
+    '// @version      3.0',
+    '// @description  Relances Vinted automatiques + envoi token',
     '// @match        https://www.vinted.fr/*',
     '// @grant        GM_xmlhttpRequest',
     '// @connect      '+host,
     '// ==/UserScript==',
-    '(function(){"use strict";',
-    'var API_URL="'+apiUrl+'";',
-    'var SECRET="'+secretSafe+'";',
-    'function sendToken(){',
-    '  var m=document.cookie.match(/access_token_web=([^;]+)/);',
-    '  if(!m)m=document.cookie.match(/access_token=([^;]+)/);',
-    '  var s=document.cookie.match(/_vinted_fr_session=([^;]+)/);',
-    '  if(!m&&!s)return;',
-    '  var payload={secret:SECRET};',
-    '  if(m)payload.token=decodeURIComponent(m[1]);',
-    '  if(s)payload.session_cookie=decodeURIComponent(s[1]);',
-    '  GM_xmlhttpRequest({method:"POST",url:API_URL,',
-    '    headers:{"Content-Type":"application/json"},',
-    '    data:JSON.stringify(payload),',
-    '    onload:function(r){console.log("[VintedSync]",r.status);}',
-    '  });',
+    '(function(){',
+    'var PROXY=\''+proxyBase+'\';',
+    'var USER_ID=\''+userId+'\';',
+    'var RELANCE_DAYS='+relanceDays+';',
+    'var MSG='+JSON.stringify(msg)+';',
+    'function sleep(ms){return new Promise(function(r){setTimeout(r,ms);})}',
+    'function proxyGet(a){return new Promise(function(r){GM_xmlhttpRequest({method:\'GET\',url:PROXY+\'&action=\'+a,onload:function(x){try{r(JSON.parse(x.responseText));}catch(e){r({});}},onerror:function(){r({});}});})}',
+    'function proxyPost(a,d){return new Promise(function(r){GM_xmlhttpRequest({method:\'POST\',url:PROXY+\'&action=\'+a,headers:{\'Content-Type\':\'application/json\'},data:JSON.stringify(d),onload:function(x){try{r(JSON.parse(x.responseText));}catch(e){r({});}},onerror:function(){r({});}});})}',
+    'function getToken(){var m=document.cookie.match(/access_token_web=([^;]+)/);if(!m)m=document.cookie.match(/access_token=([^;]+)/);return m?decodeURIComponent(m[1]):null;}',
+    'function vFetch(path,opts){var tok=getToken();var hdrs=Object.assign({Accept:\'application/json\'},opts&&opts.headers||{});if(tok)hdrs[\'Authorization\']=\'Bearer \'+tok;return fetch(\'/api/v2\'+path,Object.assign({credentials:\'include\'},opts,{headers:hdrs})).then(function(r){return r.json();}).catch(function(){return {};});}',
+    'function sendToken(){var tok=getToken();if(!tok)return;proxyPost(\'update_token\',{token:tok});}',
+    'async function runRelances(){',
+    '  var ld=await proxyGet(\"watcher_log\");var log=ld.log||{};',
+    '  var today=new Date().toISOString().slice(0,10);',
+    '  var id=await vFetch(\'/catalog/items?user_id=\'+USER_ID+\'&page=1&per_page=100&order=newest_first\');',
+    '  if(!id||!id.items){console.log(\'[VR] Erreur articles\');return;}',
+    '  var items=id.items.filter(function(i){return i.status===\'Active\'||i.status===1;});',
+    '  var newW=0,sent=0;',
+    '  for(var i=0;i<items.length;i++){',
+    '    var item=items[i];await sleep(300);',
+    '    try{var wd=await vFetch(\'/items/\'+item.id+\'/item_watchers?page=1&per_page=50\');',
+    '      var watchers=wd.item_watchers||[];',
+    '      for(var j=0;j<watchers.length;j++){',
+    '        var w=watchers[j];var wid=(w.user&&w.user.id)||w.id;var wlogin=(w.user&&w.user.login)||\'inconnu\';',
+    '        var key=item.id+\'_\'+wid;',
+    '        if(!log[key]){log[key]={first_seen:today,item_id:item.id,item_title:item.title,watcher_id:wid,watcher_login:wlogin,messaged:false,message_date:null};newW++;}',
+    '        else if(!log[key].messaged){',
+    '          var days=Math.floor((Date.now()-new Date(log[key].first_seen))/86400000);',
+    '          if(days>=RELANCE_DAYS){',
+    '            var cd=await vFetch(\'/conversations\',{method:\'POST\',headers:{\'Content-Type\':\'application/json\'},body:JSON.stringify({user_id:parseInt(wid),item_id:parseInt(item.id)})});',
+    '            if(cd.conversation&&cd.conversation.id){',
+    '              var md=await vFetch(\'/conversations/\'+cd.conversation.id+\'/messages\',{method:\'POST\',headers:{\'Content-Type\':\'application/json\'},body:JSON.stringify({body:MSG,entity_type:\"msg_text\"})});',
+    '              if(md&&!md.error){log[key].messaged=true;log[key].message_date=today;sent++;}',
+    '            }await sleep(600);',
+    '          }',
+    '        }',
+    '      }',
+    '    }catch(e){console.log(\'[VR] err\',e);}',
+    '  }',
+    '  var cutoff=new Date(Date.now()-30*86400000).toISOString().slice(0,10);',
+    '  Object.keys(log).forEach(function(k){if(log[k].first_seen<cutoff&&log[k].messaged)delete log[k];});',
+    '  await proxyPost(\"update_log\",{log:log});',
+    '  alert(\'✅ Terminé: \'+sent+\" message(s) envoyé(s), \"+newW+\" nouveau(x) observateur(s)\");',
     '}',
-    'sendToken();setInterval(sendToken,240000);',
+    'window.addEventListener(\'load\',function(){setTimeout(function(){sendToken();var delay=window.location.search.indexOf(\'run_relances=1\')>-1?1000:Math.floor(5000+Math.random()*15000);setTimeout(runRelances,delay);},2000);});',
     '})();'
   ].join('\n');
   return new Blob([lines],{type:'text/javascript'});
 }
 function setupTmBtn(){
-  try{
-    var url=URL.createObjectURL(buildTmScript());
-    window._tmScriptUrl=url;
-  }catch(e){}
+  try{var url=URL.createObjectURL(buildTmScript());window._tmScriptUrl=url;}catch(e){}
 }
 function openTmScript(){
-  try{
-    var url=window._tmScriptUrl||URL.createObjectURL(buildTmScript());
-    window.open(url,'_blank');
-  }catch(e){alert('Erreur: '+e.message);}
+  try{var url=window._tmScriptUrl||URL.createObjectURL(buildTmScript());window.open(url,'_blank');}catch(e){alert('Erreur: '+e.message);}
 }
 </script>
 </body>
