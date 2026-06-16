@@ -380,34 +380,25 @@
         <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap">
           <div style="font-size:32px">⚠️</div>
           <div style="flex:1;min-width:220px">
-            <div style="font-weight:800;font-size:15px;margin-bottom:4px;color:#92400e}>Token Vinted expiré — renouvellement requis</div>
-            <div style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.5">
-              Le token expire toutes les ~2h. Installe le script ci-dessous pour un renouvellement <strong>100% automatique</strong> — sans aucune action de ta part.
-            </div>
-
-            <!-- Option 1 : Tampermonkey automatique -->
-            <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:14px;margin-bottom:12px">
-              <div style="font-weight:700;font-size:13px;margin-bottom:8px">🤖 Automatique (recommandé)</div>
-              <ol style="margin:0 0 12px 18px;padding:0;font-size:12px;color:var(--muted);line-height:1.9">
-                <li>Installe <a href="https://www.tampermonkey.net/" target="_blank" style="color:var(--primary);font-weight:600">Tampermonkey</a> (extension Chrome gratuite)</li>
-                <li>Clique sur <strong>"Télécharger le script"</strong> → puis <strong>"Installer"</strong> dans Tampermonkey</li>
-                <li>C'est tout ✅ — le token se met à jour à chaque visite sur Vinted, sans rien faire</li>
-              </ol>
-              <a id="tampermonkeyLink" href="#" download="vinted-auto-sync.user.js" style="display:inline-block;background:#16a34a;color:#fff;padding:9px 18px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none">⬇️ Télécharger le script Tampermonkey</a>
-            </div>
-
-            <!-- Option 2 : Saisie manuelle -->
-            <details style="border-top:1px solid var(--border);padding-top:12px">
-              <summary style="cursor:pointer;font-size:12px;color:var(--muted);font-weight:600;margin-bottom:8px">Ou coller le token manuellement (solution de secours)</summary>
-              <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:12px;margin-top:8px">
-                <div style="font-size:12px;color:var(--muted);margin-bottom:8px">Copie la valeur <code style="background:#e0f2fe;padding:2px 5px;border-radius:4px">access_token</code> depuis tes cookies Vinted.</div>
-                <div style="display:flex;gap:8px;flex-wrap:wrap">
-                  <input id="manualTokenInput" type="text" placeholder="eyJhbGciOi..." style="flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:12px;font-family:monospace;outline:none">
-                  <button onclick="submitManualToken()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;white-space:nowrap">Envoyer</button>
-                </div>
-                <div id="manualTokenMsg" style="font-size:12px;margin-top:8px;min-height:16px"></div>
+            <div style="font-weight:800;font-size:15px;margin-bottom:4px;color:#92400e">Token Vinted expiré — mise à jour requise</div>
+            <div style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.5">Le token expire toutes les ~2h. Vinted bloque le renouvellement automatique depuis les serveurs cloud. Deux options pour le mettre à jour :</div>
+            <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:14px;margin-bottom:12px">
+              <div style="font-weight:700;font-size:13px;margin-bottom:8px">⭐ Option 1 — Bookmarklet (1 clic, depuis Vinted)</div>
+              <div style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.5">Glissez ce lien dans votre barre de favoris. Ensuite, quand vous êtes connecté sur Vinted, cliquez dessus pour mettre à jour le token automatiquement.</div>
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                <a id="bookmarkletLink" href="#" style="display:inline-block;background:var(--vinted);color:#fff;padding:8px 16px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;cursor:grab">🔑 Sync Token Vinted</a>
+                <span style="font-size:12px;color:var(--muted)">← Glissez ce bouton dans vos favoris</span>
               </div>
-            </details>
+            </div>
+            <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:14px">
+              <div style="font-weight:700;font-size:13px;margin-bottom:8px">Option 2 — Coller le token manuellement</div>
+              <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Depuis vos cookies Vinted, copiez la valeur <code style="background:#e0f2fe;padding:2px 5px;border-radius:4px">access_token</code> ou le JWT complet.</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <input id="manualTokenInput" type="text" placeholder="eyJhbGciOi..." style="flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:12px;font-family:monospace;outline:none">
+                <button onclick="submitManualToken()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;white-space:nowrap">Mettre à jour</button>
+              </div>
+              <div id="manualTokenMsg" style="font-size:12px;margin-top:8px;min-height:16px"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -521,6 +512,7 @@ function render(d){
     document.getElementById('alertText').textContent=`${d.summary.outOfStock} article${d.summary.outOfStock>1?'s':''} en rupture de stock`;
   }
   document.getElementById('lastUpd').textContent='Actualisé à '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  setupTmBtn();
 }
 
 function f(n,euro=true){
@@ -986,7 +978,7 @@ window.addEventListener('load',async()=>{
   const saved=sessionStorage.getItem('bm_s');
   if(saved){
     setLoading(true);
-    try{const r=await fetch(`${API}?secret=${encodeURIComponent(saved)}`);if(r.ok){secret=saved;document.getElementById('loginScreen').style.display='none';document.getElementById('app').style.display='block';render(await r.json());}}catch{}
+    try{const r=await fetch(`${API}?secret=${encodeURIComponent(saved)}`);if(r.ok){secret=saved;document.getElementById('loginScreen').style.display='none';document.getElementById('app').style.display='block';render(await r.json());}}catch{}
     setLoading(false);
   }
   // Init status filter counts (for labels even before login)
@@ -1014,10 +1006,180 @@ async function loadRelances(){
     const st = await stRes.json();
     const ks = document.getElementById('relancesStatus');
 
-    // Détermine le meilleur token disponible
     const bestExpired = st.activeSource === 'none';
     const bestExpiresAt = st.activeSource === 'shopify' ? st.storedTokenExpiresAt : st.tokenExpiresAt;
-    const sourceLabel = {'skopify':'Tampermonkey','env':'Vercel env','none':'Aucun'}[st.activeSource] || '—';
+    const sourceLabel = {'shopify':'Bookmarklet','env':'Vercel env','none':'Aucun'}[st.activeSource] || '—';
 
     ks.innerHTML = `
-      <div class="kpi ${bestExpired?'dan
+      <div class="kpi ${bestExpired?'danger':'success'}">
+        <div class="kpi-icon">${bestExpired?'&#9888;':'&#9989;'}</div>
+        <div class="kpi-label">Token Vinted</div>
+        <div class="kpi-value" style="font-size:14px">${bestExpired?'Expiré':'Actif'}</div>
+        <div class="kpi-sub">${bestExpiresAt?'Exp: '+new Date(bestExpiresAt).toLocaleString('fr-FR',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}):''}</div>
+      </div>
+      <div class="kpi ${st.activeSource!=='none'?'success':'warning'}">
+        <div class="kpi-icon">${st.activeSource!=='none'?'&#128994;':'&#128308;'}</div>
+        <div class="kpi-label">Source</div>
+        <div class="kpi-value" style="font-size:14px">${sourceLabel}</div>
+        <div class="kpi-sub">${st.activeSource==='shopify'?'Mis à jour via bookmarklet':(st.activeSource==='env'?'Variable Vercel':'Token expiré partout')}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-icon">&#128100;</div>
+        <div class="kpi-label">Compte Vinted</div>
+        <div class="kpi-value" style="font-size:14px">ID ${st.userId||'-'}</div>
+        <div class="kpi-sub">Relances auto à 9h UTC</div>
+      </div>
+    `;
+
+    const updateCard = document.getElementById('tokenUpdateCard');
+    updateCard.style.display = bestExpired ? 'block' : 'none';
+
+    if (bestExpired) {
+      const origin = window.location.origin;
+      const bmCode = `(async function(){let t=null;try{const s=window.__PRELOADED_STATE__;if(s){const m=JSON.stringify(s).match(/"access_token":"(ey[^"]+)"/);if(m)t=m[1];}}catch(e){}if(!t){try{const r=await fetch('/api/v2/users/current_user',{credentials:'include'});const d=await r.json();t=(d.user&&d.user.access_token)||d.access_token||null;}catch(e){}}if(!t){alert('❌ Token non trouvé. Êtes-vous connecté à Vinted ?');return;}const u='${origin}/api/vinted-proxy?secret=${encodeURIComponent(secret)}&action=update_token';try{const r=await fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:t})});if(r.ok){alert('✅ Token mis à jour ! Le dashboard fonctionnera pendant ~2h.');return;}}catch(e){}new Promise(res=>{const i=new Image();i.onload=i.onerror=res;i.src=u+'&token='+encodeURIComponent(t);setTimeout(res,3000);}).then(()=>alert('✅ Token envoyé !'));})();`;
+      document.getElementById('bookmarkletLink').href = 'javascript:' + bmCode;
+    }
+  } catch(e) {}
+
+  // Load watcher log
+  try {
+    const r = await fetch(`/api/vinted-proxy?secret=${encodeURIComponent(secret)}&action=watcher_log`);
+    const data = await r.json();
+    relancesLog = data.log || {};
+    loading.style.display='none';
+
+    const pending = Object.values(relancesLog).filter(e => !e.messaged);
+    const sent = Object.values(relancesLog).filter(e => e.messaged);
+
+    // Pending table
+    if(pending.length === 0) {
+      empty.style.display='block';
+    } else {
+      wrap.style.display='block';
+      const today = Date.now();
+      document.getElementById('relancesBody').innerHTML = pending
+        .sort((a,b) => new Date(a.first_seen) - new Date(b.first_seen))
+        .map(e => {
+          const days = Math.floor((today - new Date(e.first_seen)) / 86400000);
+          const badge = days >= 3
+            ? `<span class="badge badge-vinted">À relancer</span>`
+            : `<span class="badge" style="background:#f0f0f0;color:#888">${days}j / 3j</span>`;
+          return `<tr>
+            <td>${e.item_title||'-'}</td>
+            <td>@${e.watcher_login||'-'}</td>
+            <td>${new Date(e.first_seen).toLocaleDateString('fr-FR',{day:'2-digit',month:'short'})}</td>
+            <td>${days}j</td>
+            <td>${badge}</td>
+          </tr>`;
+        }).join('');
+    }
+
+    // Sent table
+    if(sent.length === 0) {
+      sentEmpty.style.display='block';
+    } else {
+      sentWrap.style.display='block';
+      document.getElementById('relancesSentBody').innerHTML = sent
+        .sort((a,b) => new Date(b.message_date) - new Date(a.message_date))
+        .map(e => `<tr>
+          <td>${e.item_title||'-'}</td>
+          <td>@${e.watcher_login||'-'}</td>
+          <td>${e.message_date?new Date(e.message_date).toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}):'-'}</td>
+        </tr>`).join('');
+    }
+  } catch(e) {
+    loading.style.display='none';
+    empty.style.display='block';
+  }
+}
+
+async function submitManualToken(){
+  const input = document.getElementById('manualTokenInput');
+  const msg = document.getElementById('manualTokenMsg');
+  const token = input.value.trim();
+  if (!token) { msg.style.color='var(--danger)'; msg.textContent='Veuillez coller le token.'; return; }
+  msg.style.color='var(--muted)'; msg.textContent='Envoi en cours…';
+  try {
+    const r = await fetch(`/api/vinted-proxy?secret=${encodeURIComponent(secret)}&action=update_token`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({token})
+    });
+    const d = await r.json();
+    if (d.ok) {
+      msg.style.color='var(--success)'; msg.textContent='✅ Token mis à jour !';
+      input.value = '';
+      setTimeout(loadRelances, 1000);
+    } else {
+      msg.style.color='var(--danger)'; msg.textContent='Erreur: ' + (d.error||JSON.stringify(d));
+    }
+  } catch(e) {
+    msg.style.color='var(--danger)'; msg.textContent='Erreur réseau: ' + e.message;
+  }
+}
+
+async function runRelancesNow(){
+  if(!confirm('Lancer les relances maintenant ?')) return;
+  const btn = document.querySelector('button[onclick="runRelancesNow()"]');
+  btn.disabled=true; btn.textContent='En cours...';
+  try {
+    const r = await fetch(`/api/vinted-auto?secret=${encodeURIComponent(secret)}`);
+    const data = await r.json();
+    if(data.ok) {
+      alert(`Relances terminées !
+• ${data.messages_sent} message(s) envoyé(s)
+• ${data.messages_skipped} en attente
+• ${data.new_watchers} nouveau(x) observateur(s)${data.token_refreshed?' (token renouvelé)':''}`);
+      loadRelances();
+    } else {
+      alert('Erreur: ' + (data.error||JSON.stringify(data)));
+    }
+  } catch(e) {
+    alert('Erreur réseau: ' + e.message);
+  }
+  btn.disabled=false; btn.innerHTML='&#9654; Lancer maintenant';
+}
+
+function setupTmBtn(){
+  try{
+    var origin=window.location.origin;
+    var host=window.location.hostname;
+    var s=typeof secret!=='undefined'?secret:'';
+    var apiUrl=origin+'/api/vinted-proxy?action=update_token';
+    var lines=[
+      '// ==UserScript==',
+      '// @name         Vinted Auto-Refresh Token',
+      '// @namespace    http://tampermonkey.net/',
+      '// @version      1.1',
+      '// @description  Envoie le token Vinted au dashboard BM Shop',
+      '// @match        https://www.vinted.fr/*',
+      '// @grant        GM_xmlhttpRequest',
+      '// @connect      '+host,
+      '// ==/UserScript==',
+      '(function(){"use strict";',
+      'var API_URL="'+apiUrl+'";',
+      'var SECRET=s;',
+      'function sendToken(){',
+      '  var m=document.cookie.match(/access_token_web=([^;]+)/);',
+      '  if(!m)m=document.cookie.match(/access_token=([^;]+)/);',
+      '  if(!m)return;',
+      '  var t=decodeURIComponent(m[1]);',
+      '  GM_xmlhttpRequest({method:"POST",url:API_URL,',
+      '    headers:{"Content-Type":"application/json"},',
+      '    data:JSON.stringify({token:t,secret:SECRET}),',
+      '    onload:function(r){console.log("[VintedSync]",r.status);}',
+      '  });',
+      '}',
+      'sendToken();setInterval(sendToken,240000);',
+      '})();'
+    ].join('\n').replace(/SECRET=s/,'SECRET="'+s.replace(/\\/g,'\\\\').replace(/"/g,'\\"')+'"');
+    var blob=new Blob([lines],{type:'application/javascript'});
+    var url=URL.createObjectURL(blob);
+    ['tmBtn','tampermonkeyLink'].forEach(function(id){
+      var el=document.getElementById(id);if(el)el.href=url;
+    });
+  }catch(e){}
+}
+</script>
+</body>
+</html>
