@@ -409,7 +409,7 @@
           <div class="table-controls">
             <button class="btn-refresh" onclick="loadRelances()">&#8635; Actualiser</button>
             <button class="btn-save" style="background:#009862;margin-left:6px" onclick="runRelancesNow()">&#9654; Lancer maintenant</button>
-            <a id="tmBtn" href="#" download="vinted-auto-sync.user.js" style="display:inline-block;background:#6366f1;color:#fff;padding:7px 12px;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;margin-left:6px;vertical-align:middle">&#11015; Script auto-refresh</a>
+            <button id="tmBtn" onclick="openTmScript()" style="background:#6366f1;color:#fff;padding:7px 12px;border-radius:8px;font-size:12px;font-weight:600;border:none;cursor:pointer;margin-left:6px;vertical-align:middle">&#11015; Script auto-refresh</button>
           </div>
         </div>
         <div style="padding:16px">
@@ -1140,45 +1140,52 @@ async function runRelancesNow(){
   btn.disabled=false; btn.innerHTML='&#9654; Lancer maintenant';
 }
 
+function buildTmScript(){
+  var origin=window.location.origin;
+  var host=window.location.hostname;
+  var s=typeof secret!=='undefined'?secret:'';
+  var apiUrl=origin+'/api/vinted-proxy?action=update_token';
+  var secretSafe=s.replace(/\\/g,'\\\\').replace(/"/g,'\\"');
+  var lines=[
+    '// ==UserScript==',
+    '// @name         Vinted Auto-Refresh Token',
+    '// @namespace    http://tampermonkey.net/',
+    '// @version      1.1',
+    '// @description  Envoie le token Vinted au dashboard BM Shop',
+    '// @match        https://www.vinted.fr/*',
+    '// @grant        GM_xmlhttpRequest',
+    '// @connect      '+host,
+    '// ==/UserScript==',
+    '(function(){"use strict";',
+    'var API_URL="'+apiUrl+'";',
+    'var SECRET="'+secretSafe+'";',
+    'function sendToken(){',
+    '  var m=document.cookie.match(/access_token_web=([^;]+)/);',
+    '  if(!m)m=document.cookie.match(/access_token=([^;]+)/);',
+    '  if(!m)return;',
+    '  var t=decodeURIComponent(m[1]);',
+    '  GM_xmlhttpRequest({method:"POST",url:API_URL,',
+    '    headers:{"Content-Type":"application/json"},',
+    '    data:JSON.stringify({token:t,secret:SECRET}),',
+    '    onload:function(r){console.log("[VintedSync]",r.status);}',
+    '  });',
+    '}',
+    'sendToken();setInterval(sendToken,240000);',
+    '})();'
+  ].join('\n');
+  return new Blob([lines],{type:'text/javascript'});
+}
 function setupTmBtn(){
   try{
-    var origin=window.location.origin;
-    var host=window.location.hostname;
-    var s=typeof secret!=='undefined'?secret:'';
-    var apiUrl=origin+'/api/vinted-proxy?action=update_token';
-    var lines=[
-      '// ==UserScript==',
-      '// @name         Vinted Auto-Refresh Token',
-      '// @namespace    http://tampermonkey.net/',
-      '// @version      1.1',
-      '// @description  Envoie le token Vinted au dashboard BM Shop',
-      '// @match        https://www.vinted.fr/*',
-      '// @grant        GM_xmlhttpRequest',
-      '// @connect      '+host,
-      '// ==/UserScript==',
-      '(function(){"use strict";',
-      'var API_URL="'+apiUrl+'";',
-      'var SECRET=s;',
-      'function sendToken(){',
-      '  var m=document.cookie.match(/access_token_web=([^;]+)/);',
-      '  if(!m)m=document.cookie.match(/access_token=([^;]+)/);',
-      '  if(!m)return;',
-      '  var t=decodeURIComponent(m[1]);',
-      '  GM_xmlhttpRequest({method:"POST",url:API_URL,',
-      '    headers:{"Content-Type":"application/json"},',
-      '    data:JSON.stringify({token:t,secret:SECRET}),',
-      '    onload:function(r){console.log("[VintedSync]",r.status);}',
-      '  });',
-      '}',
-      'sendToken();setInterval(sendToken,240000);',
-      '})();'
-    ].join('\n').replace(/SECRET=s/,'SECRET="'+s.replace(/\\/g,'\\\\').replace(/"/g,'\\"')+'"');
-    var blob=new Blob([lines],{type:'application/javascript'});
-    var url=URL.createObjectURL(blob);
-    ['tmBtn','tampermonkeyLink'].forEach(function(id){
-      var el=document.getElementById(id);if(el)el.href=url;
-    });
+    var url=URL.createObjectURL(buildTmScript());
+    window._tmScriptUrl=url;
   }catch(e){}
+}
+function openTmScript(){
+  try{
+    var url=window._tmScriptUrl||URL.createObjectURL(buildTmScript());
+    window.open(url,'_blank');
+  }catch(e){alert('Erreur: '+e.message);}
 }
 </script>
 </body>
