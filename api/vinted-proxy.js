@@ -1,8 +1,8 @@
 const https = require('https');
 
-// âââ Token auto-refresh via _vinted_fr_session âââââââââââââââââââââââââââââââ
+// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Token auto-refresh via _vinted_fr_session Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 
-// Lit le token sauvegardÃ© dans Shopify (mis Ã  jour via bookmarklet ou saisie manuelle)
+// Lit le token sauvegardÃÂ© dans Shopify (mis ÃÂ  jour via bookmarklet ou saisie manuelle)
 async function getStoredToken() {
   try {
     const res = await shopifyReq('GET', '/metafields.json?namespace=vinted_relances&key=access_token&owner_resource=shop');
@@ -11,7 +11,7 @@ async function getStoredToken() {
 }
 
 async function getOrRefreshToken() {
-  // 1. Token sauvegardÃ© dans Shopify (mis Ã  jour via bookmarklet ou saisie manuelle)
+  // 1. Token sauvegardÃÂ© dans Shopify (mis ÃÂ  jour via bookmarklet ou saisie manuelle)
   const storedToken = await getStoredToken();
   if (storedToken) {
     try {
@@ -35,7 +35,7 @@ async function getOrRefreshToken() {
     } catch (e) {}
   }
 
-  // Token expirÃ© ou absent â renouveler via la session cookie
+  // Token expirÃÂ© ou absent Ã¢ÂÂ renouveler via la session cookie
   if (!sessionCookie) {
     return { token: currentToken, refreshed: false, error: 'VINTED_SESSION_COOKIE manquant' };
   }
@@ -110,7 +110,48 @@ async function saveTokenToMetafields(token) {
   }
 }
 
-// âââ HTTP helpers âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ HTTP helpers Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+
+
+async function forceRefreshToken() {
+  const sessionCookie = process.env.VINTED_SESSION_COOKIE;
+  if (!sessionCookie) return { token: null, error: 'No session cookie' };
+  const res = await new Promise((resolve) => {
+    const options = {
+      hostname: 'www.vinted.fr',
+      path: '/api/v2/users/current_user',
+      method: 'GET',
+      headers: {
+        'Cookie': `_vinted_fr_session=${sessionCookie}`,
+        'Accept': 'application/json, text/plain, */*',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept-Language': 'fr-FR,fr;q=0.9',
+        'Referer': 'https://www.vinted.fr/',
+      },
+    };
+    const req = https.request(options, (r) => {
+      let data = '';
+      const cookies = r.headers['set-cookie'] || [];
+      r.on('data', (c) => (data += c));
+      r.on('end', () => {
+        try { resolve({ data: JSON.parse(data), status: r.statusCode, cookies }); }
+        catch (e) { resolve({ data: {}, status: r.statusCode, cookies }); }
+      });
+    });
+    req.setTimeout(5000, () => { req.destroy(new Error('timeout')); });
+    req.on('error', (e) => resolve({ data: {}, status: 0, cookies: [] }));
+    req.end();
+  });
+  let newToken = null;
+  for (const cookie of res.cookies) {
+    const match = cookie.match(/access_token=([^;]+)/);
+    if (match && match[1] && match[1] !== 'deleted') { newToken = decodeURIComponent(match[1]); break; }
+  }
+  if (!newToken && res.data?.user?.access_token) newToken = res.data.user.access_token;
+  if (!newToken && res.data?.access_token) newToken = res.data.access_token;
+  if (newToken) { await saveTokenToMetafields(newToken); return { token: newToken }; }
+  return { token: null, error: 'Session cookie expired' };
+}
 
 function vintedGet(path, token) {
   return new Promise((resolve) => {
@@ -233,7 +274,7 @@ function readBody(req) {
   });
 }
 
-// âââ Main handler âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Main handler Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -249,7 +290,7 @@ module.exports = async (req, res) => {
 
   const userId = process.env.VINTED_USER_ID || '3136330750';
 
-  // Action status : info sans nÃ©cessiter un token valide
+  // Action status : info sans nÃÂ©cessiter un token valide
   if (action === 'status') {
     const rawToken = process.env.VINTED_ACCESS_TOKEN;
     let tokenExpired = true;
@@ -285,7 +326,7 @@ module.exports = async (req, res) => {
     });
   }
 
-  // Action update_token : mise Ã  jour du token depuis le bookmarklet ou la saisie manuelle
+  // Action update_token : mise ÃÂ  jour du token depuis le bookmarklet ou la saisie manuelle
   if (action === 'update_token') {
     let newTok = null;
     if (req.method === 'POST') {
@@ -296,7 +337,7 @@ module.exports = async (req, res) => {
     }
     if (!newTok) return res.status(400).json({ error: 'token requis' });
     await saveTokenToMetafields(newTok);
-    return res.status(200).json({ ok: true, message: 'Token mis Ã  jour avec succÃ¨s' });
+    return res.status(200).json({ ok: true, message: 'Token mis ÃÂ  jour avec succÃÂ¨s' });
   }
 
   // Pour toutes les autres actions, obtenir/renouveler le token automatiquement
@@ -307,8 +348,15 @@ module.exports = async (req, res) => {
 
   if (req.method === 'GET') {
     if (action === 'items') {
-      const result = await vintedGet(`/catalog/items?user_id=${userId}&page=1&per_page=100&order=newest_first`, token);
-      return res.status(result.status).json({ ...result.data, _tokenRefreshed: refreshed });
+      let itemResult = await vintedGet(`/catalog/items?user_id=${userId}&page=1&per_page=100&order=newest_first`, token);
+      if (itemResult.status === 401 || itemResult.data?.code === 100) {
+        const forced = await forceRefreshToken();
+        if (forced.token) {
+          itemResult = await vintedGet(`/catalog/items?user_id=${userId}&page=1&per_page=100&order=newest_first`, forced.token);
+          refreshed = true;
+        }
+      }
+      return res.status(itemResult.status).json({ ...itemResult.data, _tokenRefreshed: refreshed });
     }
 
     if (action === 'watchers') {
@@ -337,7 +385,7 @@ module.exports = async (req, res) => {
       }, token);
 
       if (!convResult.data.conversation?.id) {
-        return res.status(convResult.status).json({ error: 'Impossible de crÃ©er la conversation', detail: convResult.data });
+        return res.status(convResult.status).json({ error: 'Impossible de crÃÂ©er la conversation', detail: convResult.data });
       }
       const convId = convResult.data.conversation.id;
 
