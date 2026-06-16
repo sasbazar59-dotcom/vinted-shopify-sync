@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BM Shop — Tableau de bord</title>
+  <title>BM Shop â Tableau de bord</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
@@ -74,7 +74,7 @@
     @media(max-width:700px){.charts-row{grid-template-columns:1fr}}
     .chart-card{background:var(--card);border-radius:14px;padding:20px;box-shadow:var(--shadow);border:1px solid var(--border)}
     .chart-wrap{position:relative;height:230px}
-    /* Widget dernières ventes / chart tabs */
+    /* Widget derniÃ¨res ventes / chart tabs */
     .card-tabs{display:flex;gap:4px;margin-bottom:14px}
     .ctab{padding:6px 12px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--muted);transition:all .15s}
     .ctab.active{background:var(--vinted);color:#fff;border-color:var(--vinted)}
@@ -193,7 +193,7 @@
 <div class="modal-overlay" id="objectifModal">
   <div class="modal">
     <h3>&#127919; Objectif mensuel</h3>
-    <div class="modal-sub">Définir votre objectif de chiffre d'affaires pour ce mois (ventes Vinted finalisées + Shopify).</div>
+    <div class="modal-sub">DÃ©finir votre objectif de chiffre d'affaires pour ce mois (ventes Vinted finalisÃ©es + Shopify).</div>
     <input type="number" id="objectifInput" placeholder="500" step="10" min="0">
     <div class="modal-btns">
       <button class="btn-cancel" onclick="closeObjectifModal()">Annuler</button>
@@ -202,11 +202,11 @@
   </div>
 </div>
 
-<!-- Modal détail vente -->
+<!-- Modal dÃ©tail vente -->
 <div class="modal-overlay" id="saleDetailModal">
   <div class="modal">
     <div class="sale-detail-header">
-      <h3 id="saleDetailTitle" style="flex:1">Détail</h3>
+      <h3 id="saleDetailTitle" style="flex:1">DÃ©tail</h3>
       <span class="sale-detail-badge" id="saleDetailBadge"></span>
     </div>
     <div class="sale-detail-rows" id="saleDetailRows"></div>
@@ -222,7 +222,7 @@
     <div class="nav-right">
       <span class="last-upd" id="lastUpd"></span>
       <button class="btn-refresh" onclick="refresh()">Actualiser</button>
-      <button class="btn-logout" onclick="logout()" title="Déconnexion">&#128088;</button>
+      <button class="btn-logout" onclick="logout()" title="DÃ©connexion">&#128088;</button>
     </div>
   </nav>
   <div class="view-tabs">
@@ -232,10 +232,10 @@
   </div>
 
   <main>
-    <!-- ── DASHBOARD ── -->
+    <!-- ââ DASHBOARD ââ -->
     <div id="viewDashboard">
       <div class="alert-banner" id="alertBanner" style="display:none"><span id="alertText"></span></div>
-      <div class="section-title">Résumé</div>
+      <div class="section-title">RÃ©sumÃ©</div>
       <div class="kpi-grid" id="kpiGrid"></div>
       <div class="charts-row">
         <div class="chart-card">
@@ -244,8 +244,8 @@
         </div>
         <div class="chart-card">
           <div class="card-tabs">
-            <button class="ctab active" onclick="switchCard('recent',this)">&#128994; 10 dernières ventes</button>
-            <button class="ctab" onclick="switchCard('evolution',this)">&#128200; Évolution Vinted</button>
+            <button class="ctab active" onclick="switchCard('recent',this)">&#128994; 10 derniÃ¨res ventes</button>
+            <button class="ctab" onclick="switchCard('evolution',this)">&#128200; Ãvolution Vinted</button>
           </div>
           <div id="cardRecent">
             <div class="recent-sales-list" id="recentSalesList"></div>
@@ -271,12 +271,12 @@
           </div>
         </div>
         <div class="tbl-wrap">
-          <table><thead><tr><th>Article</th><th>Prix vente</th><th>Prix achat</th><th>Marge</th><th>Qté</th><th>Valeur stock</th></tr></thead>
+          <table><thead><tr><th>Article</th><th>Prix vente</th><th>Prix achat</th><th>Marge</th><th>QtÃ©</th><th>Valeur stock</th></tr></thead>
           <tbody id="stockBody"></tbody></table>
         </div>
       </div>
       <div class="orders-card">
-        <div class="orders-header"><div class="section-title" style="margin:0">Dernières commandes Shopify (90j)</div></div>
+        <div class="orders-header"><div class="section-title" style="margin:0">DerniÃ¨res commandes Shopify (90j)</div></div>
         <div class="tbl-wrap">
           <table><thead><tr><th>Commande</th><th>Date</th><th>Articles</th><th>Total</th></tr></thead>
           <tbody id="ordersBody"></tbody></table>
@@ -284,7 +284,7 @@
       </div>
     </div>
 
-    <!-- ── VENTES & RAPPORTS ── -->
+    <!-- ââ VENTES & RAPPORTS ââ -->
     <div id="viewVentes" style="display:none">
       <div class="source-tabs">
         <button class="stab shopify active" id="stabShopify" onclick="setSource('shopify')">&#128230; Shopify</button>
@@ -292,7 +292,7 @@
       </div>
 
       <div class="period-bar">
-        <span class="period-bar-label">Période :</span>
+        <span class="period-bar-label">PÃ©riode :</span>
         <div class="ptabs">
           <button class="ptab" onclick="setPeriod(7,this)">7j</button>
           <button class="ptab" onclick="setPeriod(30,this)">30j</button>
@@ -316,16 +316,16 @@
       <!-- Vinted sub-views -->
       <div id="vintedViews" style="display:none">
         <div class="vview-tabs">
-          <button class="vvtab active" onclick="setVView('detail',this)">&#128203; Détail des ventes</button>
+          <button class="vvtab active" onclick="setVView('detail',this)">&#128203; DÃ©tail des ventes</button>
           <button class="vvtab" onclick="setVView('rapport',this)">&#128197; Rapport mensuel comptable</button>
         </div>
         <!-- Detail view -->
         <div id="vDetailView">
           <div class="status-filter">
             <button class="sfil active" onclick="setStatusFilter('all',this)">Toutes (155)</button>
-            <button class="sfil" onclick="setStatusFilter('finalisé',this)" id="sfBtnFin"></button>
+            <button class="sfil" onclick="setStatusFilter('finalisÃ©',this)" id="sfBtnFin"></button>
             <button class="sfil" onclick="setStatusFilter('en_attente',this)" id="sfBtnWait"></button>
-            <button class="sfil" onclick="setStatusFilter('retourné',this)">&#9940; Retournées (1)</button>
+            <button class="sfil" onclick="setStatusFilter('retournÃ©',this)">&#9940; RetournÃ©es (1)</button>
           </div>
           <div class="sales-header">
             <div><div class="sales-title" id="salesTitle">Ventes Vinted</div><div class="sales-count" id="salesCount"></div></div>
@@ -341,16 +341,16 @@
         <!-- Monthly report view -->
         <div id="vRapportView" style="display:none">
           <div style="background:var(--card);border-radius:14px;padding:20px;box-shadow:var(--shadow);border:1px solid var(--border);margin-bottom:22px">
-            <div class="section-title" style="margin-bottom:16px">&#128200; Évolution mensuelle — Ventes finalisées</div>
+            <div class="section-title" style="margin-bottom:16px">&#128200; Ãvolution mensuelle â Ventes finalisÃ©es</div>
             <div class="month-chart-wrap"><canvas id="chartVintedRapport"></canvas></div>
           </div>
           <div class="sales-header" style="border-radius:14px 14px 0 0">
-            <div><div class="sales-title">Rapport mensuel comptable</div><div class="sales-count" id="rapportCount">Ventes finalisées uniquement</div></div>
+            <div><div class="sales-title">Rapport mensuel comptable</div><div class="sales-count" id="rapportCount">Ventes finalisÃ©es uniquement</div></div>
             <button class="btn-csv" onclick="exportMonthlyCSV()">&#11015; Export CSV comptable</button>
           </div>
           <div class="sales-table-wrap">
             <div class="tbl-wrap">
-              <table><thead><tr><th>Mois</th><th>Ventes finalisées</th><th>CA encaissé</th><th>Date finalisation</th></tr></thead>
+              <table><thead><tr><th>Mois</th><th>Ventes finalisÃ©es</th><th>CA encaissÃ©</th><th>Date finalisation</th></tr></thead>
               <tbody id="rapportBody"></tbody></table>
             </div>
           </div>
@@ -371,31 +371,31 @@
         </div>
       </div>
     </div>
-    <!-- ── RELANCES VINTED ── -->
+    <!-- ââ RELANCES VINTED ââ -->
     <div id="viewRelances" style="display:none">
       <div class="kpi-grid" id="relancesStatus" style="margin-bottom:22px"></div>
 
-      <!-- Bandeau token expiré / mise à jour -->
+      <!-- Bandeau token expirÃ© / mise Ã  jour -->
       <div id="tokenUpdateCard" style="display:none;background:#fff;border:2px solid var(--warning);border-radius:14px;padding:20px 24px;margin-bottom:22px;box-shadow:var(--shadow)">
         <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap">
-          <div style="font-size:32px">⚠️</div>
+          <div style="font-size:32px">â ï¸</div>
           <div style="flex:1;min-width:220px">
-            <div style="font-weight:800;font-size:15px;margin-bottom:4px;color:#92400e">Token Vinted expiré — mise à jour requise</div>
-            <div style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.5">Le token expire toutes les ~2h. Vinted bloque le renouvellement automatique depuis les serveurs cloud. Deux options pour le mettre à jour :</div>
+            <div style="font-weight:800;font-size:15px;margin-bottom:4px;color:#92400e">Token Vinted expirÃ© â mise Ã  jour requise</div>
+            <div style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.5">Le token expire toutes les ~2h. Vinted bloque le renouvellement automatique depuis les serveurs cloud. Deux options pour le mettre Ã  jour :</div>
             <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:14px;margin-bottom:12px">
-              <div style="font-weight:700;font-size:13px;margin-bottom:8px">⭐ Option 1 — Bookmarklet (1 clic, depuis Vinted)</div>
-              <div style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.5">Glissez ce lien dans votre barre de favoris. Ensuite, quand vous êtes connecté sur Vinted, cliquez dessus pour mettre à jour le token automatiquement.</div>
+              <div style="font-weight:700;font-size:13px;margin-bottom:8px">â­ Option 1 â Bookmarklet (1 clic, depuis Vinted)</div>
+              <div style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.5">Glissez ce lien dans votre barre de favoris. Ensuite, quand vous Ãªtes connectÃ© sur Vinted, cliquez dessus pour mettre Ã  jour le token automatiquement.</div>
               <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-                <a id="bookmarkletLink" href="#" style="display:inline-block;background:var(--vinted);color:#fff;padding:8px 16px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;cursor:grab">🔑 Sync Token Vinted</a>
-                <span style="font-size:12px;color:var(--muted)">← Glissez ce bouton dans vos favoris</span>
+                <a id="bookmarkletLink" href="#" style="display:inline-block;background:var(--vinted);color:#fff;padding:8px 16px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;cursor:grab">ð Sync Token Vinted</a>
+                <span style="font-size:12px;color:var(--muted)">â Glissez ce bouton dans vos favoris</span>
               </div>
             </div>
             <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:14px">
-              <div style="font-weight:700;font-size:13px;margin-bottom:8px">Option 2 — Coller le token manuellement</div>
+              <div style="font-weight:700;font-size:13px;margin-bottom:8px">Option 2 â Coller le token manuellement</div>
               <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Depuis vos cookies Vinted, copiez la valeur <code style="background:#e0f2fe;padding:2px 5px;border-radius:4px">access_token</code> ou le JWT complet.</div>
               <div style="display:flex;gap:8px;flex-wrap:wrap">
                 <input id="manualTokenInput" type="text" placeholder="eyJhbGciOi..." style="flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:12px;font-family:monospace;outline:none">
-                <button onclick="submitManualToken()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;white-space:nowrap">Mettre à jour</button>
+                <button onclick="submitManualToken()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;white-space:nowrap">Mettre Ã  jour</button>
               </div>
               <div id="manualTokenMsg" style="font-size:12px;margin-top:8px;min-height:16px"></div>
             </div>
@@ -416,8 +416,8 @@
           <div id="relancesLoading" style="display:none;color:var(--muted);text-align:center;padding:20px">Chargement...</div>
           <div id="relancesEmpty" style="display:none;color:var(--muted);text-align:center;padding:30px">
             <div style="font-size:40px;margin-bottom:12px">&#128279;</div>
-            <div>Aucun observateur enregistré pour l'instant.</div>
-            <div style="font-size:12px;margin-top:8px">Le cron tourne chaque jour à 9h et découvre automatiquement les nouveaux favoris.</div>
+            <div>Aucun observateur enregistrÃ© pour l'instant.</div>
+            <div style="font-size:12px;margin-top:8px">Le cron tourne chaque jour Ã  9h et dÃ©couvre automatiquement les nouveaux favoris.</div>
           </div>
           <div id="relancesTableWrap">
             <table>
@@ -429,13 +429,13 @@
       </div>
       <div class="table-card" style="margin-top:22px">
         <div class="table-header">
-          <div class="section-title" style="margin:0">&#9989; Relances envoyées</div>
+          <div class="section-title" style="margin:0">&#9989; Relances envoyÃ©es</div>
         </div>
         <div style="padding:16px">
-          <div id="relancesSentEmpty" style="display:none;color:var(--muted);text-align:center;padding:20px">Aucun message envoyé pour l'instant.</div>
+          <div id="relancesSentEmpty" style="display:none;color:var(--muted);text-align:center;padding:20px">Aucun message envoyÃ© pour l'instant.</div>
           <div id="relancesSentWrap">
             <table>
-              <thead><tr><th>Article</th><th>Observateur</th><th>Contacté le</th></tr></thead>
+              <thead><tr><th>Article</th><th>Observateur</th><th>ContactÃ© le</th></tr></thead>
               <tbody id="relancesSentBody"></tbody>
             </table>
           </div>
@@ -446,16 +446,16 @@
 </div>
 
 <script>
-/* ═══════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââ
    VINTED SALES DATA  (source: emails Gmail)
-   status: "finalisé" = argent bien reçu
+   status: "finalisÃ©" = argent bien reÃ§u
            "en_attente" = en cours de livraison/validation
-           "retourné" = colis retourné, non encaissé
+           "retournÃ©" = colis retournÃ©, non encaissÃ©
    finDate: date de finalisation (argent dispo)
-═══════════════════════════════════════════ */
-const VINTED_SALES = [{"date":"2026-06-11","buyer":"shio13","article":"Collier hippocampe","price":14.99,"status":"en_attente"},{"date":"2026-06-09","buyer":"bellecolombe","article":"Pantoufle pâte patrouille","price":12.0,"status":"en_attente"},{"date":"2026-06-09","buyer":"nell_chg10","article":"Set de manucure Élina 18 pièce","price":4.5,"status":"en_attente"},{"date":"2026-06-08","buyer":"fanny150134","article":"Parfum bakara","price":7.0,"status":"en_attente"},{"date":"2026-06-07","buyer":"adriennebanffy","article":"Lot de 5 gant de toilette","price":4.0,"status":"en_attente"},{"date":"2026-06-07","buyer":"gramolax","article":"Honor 600 5g 256 go","price":320.0,"status":"en_attente"},{"date":"2026-06-07","buyer":"ljl2424","article":"Lot de 6 rouleaux de scotch","price":6.7,"status":"en_attente"},{"date":"2026-06-07","buyer":"giraudeau1127","article":"Lames de scie sauteuse 5 pièces","price":2.25,"status":"en_attente"},{"date":"2026-06-06","buyer":"fabrice","article":"Lames de scie sauteuse 5 pièces","price":1.95,"status":"en_attente"},{"date":"2026-06-06","buyer":"assou_10","article":"Coque pour iPhone 15","price":3.5,"status":"en_attente"},{"date":"2026-06-03","buyer":"sarah11021613","article":"Parfum sucre rose","price":6.0,"status":"en_attente"},{"date":"2026-06-02","buyer":"amelie203040","article":"Pèse-personne intelligent MAX 180 KG","price":10.1,"status":"en_attente"},{"date":"2026-06-02","buyer":"dolcefarniente02","article":"Arène avec Toupie Brigamo Strom Gyro","price":11.1,"status":"en_attente"},{"date":"2026-05-31","buyer":"pkb89","article":"Pèse-personne intelligent MAX 180 KG","price":13.45,"status":"retourné"},{"date":"2026-05-30","buyer":"couette77680","article":"Lot 2 articles","price":11.0,"status":"en_attente"},{"date":"2026-05-30","buyer":"karasuyakuza","article":"Pistolet à bulle rose","price":3.45,"status":"en_attente"},{"date":"2026-05-29","buyer":"margheritaronca","article":"Coque pour iPhone 16 Plus","price":3.5,"status":"en_attente"},{"date":"2026-05-28","buyer":"fefi32","article":"Pistolet à bulle Spiderman","price":3.45,"status":"en_attente"},{"date":"2026-05-22","buyer":"yanmok1","article":"Parfum savage et moula","price":12.0,"status":"en_attente"},{"date":"2026-05-22","buyer":"magpayot","article":"Coque Xiaomi Redmi Note 13 Pro 4G","price":3.5,"status":"retourné"},{"date":"2026-05-19","buyer":"lea28240","article":"Parfum interdit","price":7.0,"status":"en_attente"},{"date":"2026-05-18","buyer":"laurent3623","article":"Parfum savage","price":6.0,"status":"finalisé","finDate":"2026-06-08"},{"date":"2026-05-18","buyer":"inxognito09","article":"Lot 2 articles","price":12.0,"status":"en_attente"},{"date":"2026-05-18","buyer":"inxognito09","article":"Parfum sauvage","price":7.0,"status":"finalisé","finDate":"2026-06-08"},{"date":"2026-05-18","buyer":"damien_bzn","article":"Parfum me and you","price":6.0,"status":"finalisé","finDate":"2026-06-04"},{"date":"2026-05-18","buyer":"maelann09","article":"Parfum bois intense","price":6.0,"status":"en_attente"},{"date":"2026-05-17","buyer":"03shshop","article":"Parfum si","price":5.6,"status":"finalisé","finDate":"2026-06-04"},{"date":"2026-05-17","buyer":"gd_95200","article":"Parfum moula","price":7.0,"status":"finalisé","finDate":"2026-06-04"},{"date":"2026-05-14","buyer":"ethanghr","article":"Parfum rose vanille","price":7.0,"status":"finalisé","finDate":"2026-06-05"},{"date":"2026-05-14","buyer":"tom43383","article":"Lot 2 articles","price":12.0,"status":"en_attente"},{"date":"2026-05-14","buyer":"brad-2602","article":"Parfum Savage","price":6.0,"status":"finalisé","finDate":"2026-06-01"},{"date":"2026-05-14","buyer":"laulonneux","article":"Parfum Invictus","price":7.0,"status":"finalisé","finDate":"2026-06-02"},{"date":"2026-05-13","buyer":"margotg33","article":"Parfum rose vanille","price":6.0,"status":"finalisé","finDate":"2026-06-01"},{"date":"2026-05-12","buyer":"user62312","article":"Parfum bois intense","price":7.0,"status":"finalisé","finDate":"2026-06-08"},{"date":"2026-05-12","buyer":"seaz_ty","article":"Parfum marshmallow","price":6.0,"status":"finalisé","finDate":"2026-06-04"},{"date":"2026-05-11","buyer":"frankie92100","article":"Parfum bois intense","price":7.0,"status":"finalisé","finDate":"2026-06-01"},{"date":"2026-05-10","buyer":"ed5687","article":"Parfum Savage","price":7.0,"status":"finalisé","finDate":"2026-06-01"},{"date":"2026-05-08","buyer":"annina1987","article":"Plateau en bambou 3 niveaux 34 cm","price":13.6,"status":"finalisé","finDate":"2026-05-27"},{"date":"2026-05-04","buyer":"matheobailly21","article":"Parfum bois intense","price":7.0,"status":"retourné"},{"date":"2026-05-04","buyer":"pascale97705","article":"Jogging Y&D fashion","price":10.0,"status":"finalisé","finDate":"2026-06-02"},{"date":"2026-04-30","buyer":"bw1246","article":"Parfum Savage","price":7.0,"status":"finalisé","finDate":"2026-05-21"},{"date":"2026-04-30","buyer":"luc-s12","article":"Parfum Savage","price":7.0,"status":"finalisé","finDate":"2026-06-01"},{"date":"2026-04-30","buyer":"popol20","article":"Parfum bois intense","price":6.0,"status":"finalisé","finDate":"2026-05-18"},{"date":"2026-04-30","buyer":"amandineparfum","article":"Parfum bois intense","price":7.0,"status":"finalisé","finDate":"2026-05-18"},{"date":"2026-04-27","buyer":"loreeeaaaa","article":"Bitty POP! Disney Princesse Ariel (pack 4)","price":9.5,"status":"finalisé","finDate":"2026-05-22"},{"date":"2026-04-25","buyer":"valcheva80","article":"Jogging Jordan enfant","price":11.0,"status":"finalisé","finDate":"2026-05-15"},{"date":"2026-04-22","buyer":"bebouwww","article":"Parfum bois intense","price":7.0,"status":"finalisé","finDate":"2026-05-11"},{"date":"2026-04-22","buyer":"hortysly","article":"Ensemble sac à main","price":13.55,"status":"finalisé","finDate":"2026-05-12"},{"date":"2026-04-21","buyer":"urianastar","article":"Robe pour enfant","price":6.0,"status":"finalisé","finDate":"2026-05-12"},{"date":"2026-04-20","buyer":"trillofb","article":"Pull Nike","price":13.0,"status":"finalisé","finDate":"2026-05-04"},{"date":"2026-04-20","buyer":"beryll43","article":"Parfum bakara","price":6.0,"status":"retourné"},{"date":"2026-04-20","buyer":"yamina54b","article":"Parfum bois intense","price":7.0,"status":"finalisé","finDate":"2026-05-04"},{"date":"2026-04-19","buyer":"auroreahah1829","article":"Sonic le gobelet hérisson","price":1.35,"status":"finalisé","finDate":"2026-05-05"},{"date":"2026-04-15","buyer":"franckc582","article":"Collier croix","price":6.4,"status":"finalisé","finDate":"2026-05-06"},{"date":"2026-04-15","buyer":"mohamed78710","article":"Parfum Savage","price":7.0,"status":"finalisé","finDate":"2026-05-19"},{"date":"2026-04-14","buyer":"bkpill","article":"Veste Nike","price":12.0,"status":"finalisé","finDate":"2026-05-11"},{"date":"2026-04-14","buyer":"manute1983","article":"Veste adidas","price":17.55,"status":"finalisé","finDate":"2026-04-28"},{"date":"2026-04-13","buyer":"hannibal51","article":"Veste Reebok","price":12.55,"status":"finalisé","finDate":"2026-04-29"},{"date":"2026-04-13","buyer":"wiss04","article":"Parfum Yara","price":6.0,"status":"finalisé","finDate":"2026-05-07"},{"date":"2026-04-12","buyer":"pascal060686","article":"Parfum bakara + Rouge Trafalgar + Bois d'argent","price":17.5,"status":"finalisé","finDate":"2026-04-26"},{"date":"2026-04-12","buyer":"ktiout10","article":"Parfum bois intense","price":6.0,"status":"finalisé","finDate":"2026-05-04"},{"date":"2026-04-12","buyer":"ermgz","article":"Lot de 5 parfums","price":29.0,"status":"finalisé","finDate":"2026-04-26"},{"date":"2026-04-11","buyer":"bibi43700","article":"Parfum bois intense","price":6.3,"status":"finalisé","finDate":"2026-04-29"},{"date":"2026-04-10","buyer":"sp3kan","article":"Parfum bakara","price":6.0,"status":"finalisé","finDate":"2026-04-28"},{"date":"2026-04-10","buyer":"anonyrixck40","article":"Parfum bakara","price":7.0,"status":"finalisé","finDate":"2026-04-29"},{"date":"2026-04-10","buyer":"adibou.zidi","article":"Parfum bakara","price":7.0,"status":"finalisé","finDate":"2026-04-30"},{"date":"2026-04-10","buyer":"lucas098768","article":"Parfum bakara","price":7.0,"status":"finalisé","finDate":"2026-05-04"},{"date":"2026-04-10","buyer":"gigi9704","article":"Lot 3 articles","price":43.0,"status":"finalisé","finDate":"2026-04-24"},{"date":"2026-04-09","buyer":"clara010575","article":"Étagère d'angle cuisine en bois 2 niveaux","price":20.0,"status":"finalisé","finDate":"2026-05-07"},{"date":"2026-04-08","buyer":"artemm176501","article":"24 huile essentielle","price":10.0,"status":"finalisé","finDate":"2026-04-22"},{"date":"2026-04-07","buyer":"bastfr41","article":"Kit de réparation de vélos","price":2.5,"status":"finalisé","finDate":"2026-04-28"},{"date":"2026-04-04","buyer":"briceg75","article":"Pèse-personne LCD","price":10.0,"status":"finalisé","finDate":"2026-05-04"},{"date":"2026-04-04","buyer":"sandra210880","article":"Mug Minecraft","price":7.85,"status":"finalisé","finDate":"2026-04-24"},{"date":"2026-04-03","buyer":"sor_7","article":"Tableau double face en bois Kruzzel","price":15.0,"status":"finalisé","finDate":"2026-04-22"},{"date":"2026-04-03","buyer":"moustique68","article":"Lot 2 articles","price":5.25,"status":"finalisé","finDate":"2026-04-17"},{"date":"2026-03-28","buyer":"menthealo45","article":"Pantalon Décontracté Bleu","price":13.99,"status":"finalisé","finDate":"2026-04-16"},{"date":"2026-03-28","buyer":"maisontarot","article":"Collier","price":10.99,"status":"finalisé","finDate":"2026-04-17"},{"date":"2026-03-28","buyer":"amaghrabi","article":"Parfum Savage","price":6.0,"status":"finalisé","finDate":"2026-05-11"},{"date":"2026-03-28","buyer":"steven6000","article":"Parfum Invictus","price":7.0,"status":"finalisé","finDate":"2026-04-09"},{"date":"2026-03-28","buyer":"akakmuha688","article":"Parfum bois intense","price":7.0,"status":"finalisé","finDate":"2026-04-08"},{"date":"2026-03-27","buyer":"pablo193","article":"Bague solitaire zoura","price":45.99,"status":"finalisé","finDate":"2026-04-14"},{"date":"2026-03-27","buyer":"gengen2217","article":"Maillot Exquiss'S Paris","price":10.4,"status":"finalisé","finDate":"2026-04-14"},{"date":"2026-03-26","buyer":"issa67100","article":"Ensemble de bijoux","price":12.0,"status":"finalisé","finDate":"2026-04-09"},{"date":"2026-03-24","buyer":"marce_rw0","article":"Parfum rose vanille","price":3.0,"status":"finalisé","finDate":"2026-03-30"},{"date":"2026-03-24","buyer":"sophie-54680","article":"Lot de faux ongles","price":6.0,"status":"finalisé","finDate":"2026-04-30"},{"date":"2026-03-24","buyer":"patg5108","article":"Jogging Y&D Fashion","price":10.0,"status":"finalisé","finDate":"2026-04-07"},{"date":"2026-03-24","buyer":"oumardmb","article":"Parfum rose vanille","price":14.0,"status":"finalisé","finDate":"2026-04-03"},{"date":"2026-03-24","buyer":"cricrile","article":"Gilet Belle Copine","price":10.8,"status":"finalisé","finDate":"2026-04-10"},{"date":"2026-03-23","buyer":"miabk23","article":"Parfum musc blanc","price":6.0,"status":"finalisé","finDate":"2026-03-31"},{"date":"2026-03-23","buyer":"mathisa65","article":"Lot 4 articles","price":23.0,"status":"finalisé","finDate":"2026-04-06"},{"date":"2026-03-22","buyer":"introuvable.4kss","article":"Parfum bois intense","price":6.0,"status":"finalisé","finDate":"2026-03-30"},{"date":"2026-03-22","buyer":"youyou1110","article":"Parfum bakara","price":6.0,"status":"finalisé","finDate":"2026-03-31"},{"date":"2026-03-22","buyer":"gatuso69","article":"Parfum bakara","price":6.0,"status":"finalisé","finDate":"2026-04-02"},{"date":"2026-03-22","buyer":"delph69","article":"Parfum Daoud","price":6.0,"status":"finalisé","finDate":"2026-04-13"},{"date":"2026-03-22","buyer":"titouan877","article":"Parfum Musc Blanc Gold Edition","price":7.0,"status":"finalisé","finDate":"2026-03-30"},{"date":"2026-03-14","buyer":"stephieestrella","article":"Coffret senteur","price":6.0,"status":"finalisé","finDate":"2026-03-28"},{"date":"2026-03-14","buyer":"stephieestrella","article":"Coffret senteur","price":6.0,"status":"finalisé","finDate":"2026-03-28"},{"date":"2026-03-14","buyer":"flo-69440","article":"Parfum bois intense","price":7.0,"status":"finalisé","finDate":"2026-03-25"},{"date":"2026-03-14","buyer":"leopeugeot","article":"Parfum moula","price":7.0,"status":"finalisé","finDate":"2026-04-02"},{"date":"2026-03-14","buyer":"a_ya212","article":"Parfum Aisha","price":6.3,"status":"finalisé","finDate":"2026-04-02"},{"date":"2026-03-13","buyer":"omart222","article":"Parfum krypto","price":7.0,"status":"finalisé","finDate":"2026-03-25"},{"date":"2026-03-13","buyer":"vintagebyjas","article":"Parfum Savage","price":23.2,"status":"finalisé","finDate":"2026-04-13"},{"date":"2026-03-12","buyer":"william88230","article":"Parfum million","price":5.5,"status":"finalisé","finDate":"2026-04-10"},{"date":"2026-03-10","buyer":"sofiadokce75","article":"Eau de Parfum Daoud","price":7.0,"status":"finalisé","finDate":"2026-03-27"},{"date":"2026-03-10","buyer":"mouadhm5","article":"Parfum million","price":6.0,"status":"finalisé","finDate":"2026-04-03"},{"date":"2026-03-10","buyer":"ryadryry44","article":"Lot 2 articles","price":11.0,"status":"finalisé","finDate":"2026-03-24"},{"date":"2026-03-10","buyer":"lli125","article":"Lot 3 articles","price":21.0,"status":"finalisé","finDate":"2026-03-24"},{"date":"2026-03-10","buyer":"django13110","article":"Lot 4 articles","price":28.0,"status":"finalisé","finDate":"2026-03-24"},{"date":"2026-03-09","buyer":"helirox626","article":"Parfum bakara","price":7.0,"status":"finalisé","finDate":"2026-03-25"},{"date":"2026-03-09","buyer":"enzo.b813","article":"Parfum bakara","price":6.0,"status":"finalisé","finDate":"2026-03-27"},{"date":"2026-03-09","buyer":"dono190","article":"Parfum coco","price":5.9,"status":"finalisé","finDate":"2026-03-31"},{"date":"2026-03-09","buyer":"nourlgs","article":"Parfum bakara","price":6.0,"status":"finalisé","finDate":"2026-03-30"},{"date":"2026-03-07","buyer":"kays_278182","article":"Parfum suprême","price":6.0,"status":"finalisé","finDate":"2026-03-25"},{"date":"2026-03-07","buyer":"didi45220","article":"Bar led","price":6.4,"status":"finalisé","finDate":"2026-03-27"},{"date":"2026-03-07","buyer":"cristianodu91","article":"Lot 4 articles","price":21.0,"status":"finalisé","finDate":"2026-03-21"},{"date":"2026-03-07","buyer":"lina2285","article":"Parfum bakara","price":7.0,"status":"finalisé","finDate":"2026-03-16"},{"date":"2026-03-07","buyer":"zakaria4666","article":"Parfum bakara","price":7.0,"status":"finalisé","finDate":"2026-03-16"},{"date":"2026-03-06","buyer":"melanie.cccc","article":"Parfum Kirké","price":7.0,"status":"finalisé","finDate":"2026-03-24"},{"date":"2026-03-04","buyer":"mariiebltx","article":"Lot 4 articles","price":23.0,"status":"finalisé","finDate":"2026-03-18"},{"date":"2026-03-02","buyer":"stanschmitt57","article":"Parfum Golden Madawi","price":5.0,"status":"finalisé","finDate":"2026-03-16"},{"date":"2026-02-27","buyer":"co78920504","article":"Boîte en velours","price":3.5,"status":"finalisé","finDate":"2026-03-20"},{"date":"2026-02-27","buyer":"matoshkaa","article":"Parfum rouge Baki","price":6.0,"status":"finalisé","finDate":"2026-03-23"},{"date":"2026-02-26","buyer":"in873","article":"Parfum bakara","price":null,"status":"finalisé","finDate":"2026-03-16"},{"date":"2026-02-26","buyer":"delliaa_a","article":"Parfum marshmallow","price":7.0,"status":"finalisé","finDate":"2026-03-11"},{"date":"2026-02-25","buyer":"alban20102011","article":"Parfum bakara","price":null,"status":"finalisé","finDate":"2026-03-13"},{"date":"2026-02-25","buyer":"zipon","article":"Parfum vaillant + Parfum krypto + Parfum marshmallow","price":null,"status":"finalisé","finDate":"2026-03-05"},{"date":"2026-02-24","buyer":"tiyainaya","article":"Parfum Kirké","price":null,"status":"finalisé","finDate":"2026-03-17"},{"date":"2026-02-23","buyer":"julienmild17","article":"Lot 2 articles","price":14.0,"status":"finalisé","finDate":"2026-03-09"},{"date":"2026-02-22","buyer":"axellemrtz10","article":"Mug magique","price":7.0,"status":"finalisé","finDate":"2026-03-08"},{"date":"2026-02-22","buyer":"juuuuulieeeeee","article":"Parfum Yara","price":7.0,"status":"finalisé","finDate":"2026-03-05"},{"date":"2026-02-22","buyer":"junel59","article":"Parfum bakara","price":7.0,"status":"finalisé","finDate":"2026-03-10"},{"date":"2026-02-22","buyer":"ayman2920000","article":"Parfum million","price":7.0,"status":"finalisé","finDate":"2026-03-16"},{"date":"2026-02-21","buyer":"minnie930","article":"Lot 2 articles","price":12.0,"status":"finalisé","finDate":"2026-03-07"},{"date":"2026-02-21","buyer":"asz_555","article":"Collier pour femme","price":13.5,"status":"finalisé","finDate":"2026-03-10"},{"date":"2026-02-19","buyer":"rsllosko31k","article":"Parfum bakara","price":5.2,"status":"finalisé","finDate":"2026-03-05"},{"date":"2026-02-19","buyer":"ericsoukia","article":"Souris Gamer","price":8.0,"status":"finalisé","finDate":"2026-03-12"},{"date":"2026-02-19","buyer":"lauratssn","article":"Lot 3 articles","price":21.0,"status":"finalisé","finDate":"2026-03-05"},{"date":"2026-02-19","buyer":"chi.pq266","article":"C'est Jessy & Co","price":9.0,"status":"finalisé","finDate":"2026-03-12"},{"date":"2026-02-19","buyer":"alvesmachadoj","article":"Eau de parfum Oud Is","price":7.0,"status":"finalisé","finDate":"2026-03-12"},{"date":"2026-02-18","buyer":"franklin_99","article":"Parfum rouge Baki","price":7.0,"status":"finalisé","finDate":"2026-03-12"},{"date":"2026-02-18","buyer":"leandro394","article":"Lot 2 articles","price":14.0,"status":"finalisé","finDate":"2026-03-04"},{"date":"2026-02-16","buyer":"marlonlcd1","article":"Lot 2 articles","price":10.0,"status":"finalisé","finDate":"2026-03-02"},{"date":"2026-02-16","buyer":"lazer38k.8","article":"Lot 5 articles","price":30.0,"status":"finalisé","finDate":"2026-03-02"},{"date":"2026-02-16","buyer":"bigoudis2.0","article":"Parfum bakara","price":5.0,"status":"finalisé","finDate":"2026-03-05"},{"date":"2026-02-16","buyer":"minnie930","article":"Parfum sucre rose","price":6.0,"status":"finalisé","finDate":"2026-03-10"},{"date":"2026-02-16","buyer":"minnie930","article":"Parfum marshmallow","price":6.0,"status":"finalisé","finDate":"2026-03-09"},{"date":"2026-02-15","buyer":"gigi71670","article":"36 huile essentielle","price":10.99,"status":"finalisé","finDate":"2026-03-01"},{"date":"2026-02-15","buyer":"pumpkinki","article":"Kit pour bébé","price":5.0,"status":"finalisé","finDate":"2026-03-01"},{"date":"2026-02-15","buyer":"francklanvier","article":"Transmetteur FM","price":5.0,"status":"finalisé","finDate":"2026-03-09"},{"date":"2026-02-15","buyer":"clara.khr494321","article":"Parfum bois intense","price":6.3,"status":"finalisé","finDate":"2026-03-06"},{"date":"2026-02-14","buyer":"n0emie072","article":"Ours en verre","price":4.0,"status":"finalisé","finDate":"2026-02-28"},{"date":"2026-02-14","buyer":"prosugar","article":"Spray anti-stress","price":9.0,"status":"finalisé","finDate":"2026-03-06"},{"date":"2026-02-14","buyer":"july03000","article":"Portefeuille Projet X Paris","price":8.0,"status":"finalisé","finDate":"2026-03-06"},{"date":"2026-02-14","buyer":"bobsoso5","article":"Fond de teint Revlon","price":13.5,"status":"finalisé","finDate":"2026-02-28"},{"date":"2026-02-13","buyer":"soraya.poisson723","article":"Lot de 12 voitures","price":4.0,"status":"finalisé","finDate":"2026-03-09"}];
+âââââââââââââââââââââââââââââââââââââââââââ */
+const VINTED_SALES = [{"date":"2026-06-11","buyer":"shio13","article":"Collier hippocampe","price":14.99,"status":"en_attente"},{"date":"2026-06-09","buyer":"bellecolombe","article":"Pantoufle pÃ¢te patrouille","price":12.0,"status":"en_attente"},{"date":"2026-06-09","buyer":"nell_chg10","article":"Set de manucure Ãlina 18 piÃ¨ce","price":4.5,"status":"en_attente"},{"date":"2026-06-08","buyer":"fanny150134","article":"Parfum bakara","price":7.0,"status":"en_attente"},{"date":"2026-06-07","buyer":"adriennebanffy","article":"Lot de 5 gant de toilette","price":4.0,"status":"en_attente"},{"date":"2026-06-07","buyer":"gramolax","article":"Honor 600 5g 256 go","price":320.0,"status":"en_attente"},{"date":"2026-06-07","buyer":"ljl2424","article":"Lot de 6 rouleaux de scotch","price":6.7,"status":"en_attente"},{"date":"2026-06-07","buyer":"giraudeau1127","article":"Lames de scie sauteuse 5 piÃ¨ces","price":2.25,"status":"en_attente"},{"date":"2026-06-06","buyer":"fabrice","article":"Lames de scie sauteuse 5 piÃ¨ces","price":1.95,"status":"en_attente"},{"date":"2026-06-06","buyer":"assou_10","article":"Coque pour iPhone 15","price":3.5,"status":"en_attente"},{"date":"2026-06-03","buyer":"sarah11021613","article":"Parfum sucre rose","price":6.0,"status":"en_attente"},{"date":"2026-06-02","buyer":"amelie203040","article":"PÃ¨se-personne intelligent MAX 180 KG","price":10.1,"status":"en_attente"},{"date":"2026-06-02","buyer":"dolcefarniente02","article":"ArÃ¨ne avec Toupie Brigamo Strom Gyro","price":11.1,"status":"en_attente"},{"date":"2026-05-31","buyer":"pkb89","article":"PÃ¨se-personne intelligent MAX 180 KG","price":13.45,"status":"retournÃ©"},{"date":"2026-05-30","buyer":"couette77680","article":"Lot 2 articles","price":11.0,"status":"en_attente"},{"date":"2026-05-30","buyer":"karasuyakuza","article":"Pistolet Ã  bulle rose","price":3.45,"status":"en_attente"},{"date":"2026-05-29","buyer":"margheritaronca","article":"Coque pour iPhone 16 Plus","price":3.5,"status":"en_attente"},{"date":"2026-05-28","buyer":"fefi32","article":"Pistolet Ã  bulle Spiderman","price":3.45,"status":"en_attente"},{"date":"2026-05-22","buyer":"yanmok1","article":"Parfum savage et moula","price":12.0,"status":"en_attente"},{"date":"2026-05-22","buyer":"magpayot","article":"Coque Xiaomi Redmi Note 13 Pro 4G","price":3.5,"status":"retournÃ©"},{"date":"2026-05-19","buyer":"lea28240","article":"Parfum interdit","price":7.0,"status":"en_attente"},{"date":"2026-05-18","buyer":"laurent3623","article":"Parfum savage","price":6.0,"status":"finalisÃ©","finDate":"2026-06-08"},{"date":"2026-05-18","buyer":"inxognito09","article":"Lot 2 articles","price":12.0,"status":"en_attente"},{"date":"2026-05-18","buyer":"inxognito09","article":"Parfum sauvage","price":7.0,"status":"finalisÃ©","finDate":"2026-06-08"},{"date":"2026-05-18","buyer":"damien_bzn","article":"Parfum me and you","price":6.0,"status":"finalisÃ©","finDate":"2026-06-04"},{"date":"2026-05-18","buyer":"maelann09","article":"Parfum bois intense","price":6.0,"status":"en_attente"},{"date":"2026-05-17","buyer":"03shshop","article":"Parfum si","price":5.6,"status":"finalisÃ©","finDate":"2026-06-04"},{"date":"2026-05-17","buyer":"gd_95200","article":"Parfum moula","price":7.0,"status":"finalisÃ©","finDate":"2026-06-04"},{"date":"2026-05-14","buyer":"ethanghr","article":"Parfum rose vanille","price":7.0,"status":"finalisÃ©","finDate":"2026-06-05"},{"date":"2026-05-14","buyer":"tom43383","article":"Lot 2 articles","price":12.0,"status":"en_attente"},{"date":"2026-05-14","buyer":"brad-2602","article":"Parfum Savage","price":6.0,"status":"finalisÃ©","finDate":"2026-06-01"},{"date":"2026-05-14","buyer":"laulonneux","article":"Parfum Invictus","price":7.0,"status":"finalisÃ©","finDate":"2026-06-02"},{"date":"2026-05-13","buyer":"margotg33","article":"Parfum rose vanille","price":6.0,"status":"finalisÃ©","finDate":"2026-06-01"},{"date":"2026-05-12","buyer":"user62312","article":"Parfum bois intense","price":7.0,"status":"finalisÃ©","finDate":"2026-06-08"},{"date":"2026-05-12","buyer":"seaz_ty","article":"Parfum marshmallow","price":6.0,"status":"finalisÃ©","finDate":"2026-06-04"},{"date":"2026-05-11","buyer":"frankie92100","article":"Parfum bois intense","price":7.0,"status":"finalisÃ©","finDate":"2026-06-01"},{"date":"2026-05-10","buyer":"ed5687","article":"Parfum Savage","price":7.0,"status":"finalisÃ©","finDate":"2026-06-01"},{"date":"2026-05-08","buyer":"annina1987","article":"Plateau en bambou 3 niveaux 34 cm","price":13.6,"status":"finalisÃ©","finDate":"2026-05-27"},{"date":"2026-05-04","buyer":"matheobailly21","article":"Parfum bois intense","price":7.0,"status":"retournÃ©"},{"date":"2026-05-04","buyer":"pascale97705","article":"Jogging Y&D fashion","price":10.0,"status":"finalisÃ©","finDate":"2026-06-02"},{"date":"2026-04-30","buyer":"bw1246","article":"Parfum Savage","price":7.0,"status":"finalisÃ©","finDate":"2026-05-21"},{"date":"2026-04-30","buyer":"luc-s12","article":"Parfum Savage","price":7.0,"status":"finalisÃ©","finDate":"2026-06-01"},{"date":"2026-04-30","buyer":"popol20","article":"Parfum bois intense","price":6.0,"status":"finalisÃ©","finDate":"2026-05-18"},{"date":"2026-04-30","buyer":"amandineparfum","article":"Parfum bois intense","price":7.0,"status":"finalisÃ©","finDate":"2026-05-18"},{"date":"2026-04-27","buyer":"loreeeaaaa","article":"Bitty POP! Disney Princesse Ariel (pack 4)","price":9.5,"status":"finalisÃ©","finDate":"2026-05-22"},{"date":"2026-04-25","buyer":"valcheva80","article":"Jogging Jordan enfant","price":11.0,"status":"finalisÃ©","finDate":"2026-05-15"},{"date":"2026-04-22","buyer":"bebouwww","article":"Parfum bois intense","price":7.0,"status":"finalisÃ©","finDate":"2026-05-11"},{"date":"2026-04-22","buyer":"hortysly","article":"Ensemble sac Ã  main","price":13.55,"status":"finalisÃ©","finDate":"2026-05-12"},{"date":"2026-04-21","buyer":"urianastar","article":"Robe pour enfant","price":6.0,"status":"finalisÃ©","finDate":"2026-05-12"},{"date":"2026-04-20","buyer":"trillofb","article":"Pull Nike","price":13.0,"status":"finalisÃ©","finDate":"2026-05-04"},{"date":"2026-04-20","buyer":"beryll43","article":"Parfum bakara","price":6.0,"status":"retournÃ©"},{"date":"2026-04-20","buyer":"yamina54b","article":"Parfum bois intense","price":7.0,"status":"finalisÃ©","finDate":"2026-05-04"},{"date":"2026-04-19","buyer":"auroreahah1829","article":"Sonic le gobelet hÃ©risson","price":1.35,"status":"finalisÃ©","finDate":"2026-05-05"},{"date":"2026-04-15","buyer":"franckc582","article":"Collier croix","price":6.4,"status":"finalisÃ©","finDate":"2026-05-06"},{"date":"2026-04-15","buyer":"mohamed78710","article":"Parfum Savage","price":7.0,"status":"finalisÃ©","finDate":"2026-05-19"},{"date":"2026-04-14","buyer":"bkpill","article":"Veste Nike","price":12.0,"status":"finalisÃ©","finDate":"2026-05-11"},{"date":"2026-04-14","buyer":"manute1983","article":"Veste adidas","price":17.55,"status":"finalisÃ©","finDate":"2026-04-28"},{"date":"2026-04-13","buyer":"hannibal51","article":"Veste Reebok","price":12.55,"status":"finalisÃ©","finDate":"2026-04-29"},{"date":"2026-04-13","buyer":"wiss04","article":"Parfum Yara","price":6.0,"status":"finalisÃ©","finDate":"2026-05-07"},{"date":"2026-04-12","buyer":"pascal060686","article":"Parfum bakara + Rouge Trafalgar + Bois d'argent","price":17.5,"status":"finalisÃ©","finDate":"2026-04-26"},{"date":"2026-04-12","buyer":"ktiout10","article":"Parfum bois intense","price":6.0,"status":"finalisÃ©","finDate":"2026-05-04"},{"date":"2026-04-12","buyer":"ermgz","article":"Lot de 5 parfums","price":29.0,"status":"finalisÃ©","finDate":"2026-04-26"},{"date":"2026-04-11","buyer":"bibi43700","article":"Parfum bois intense","price":6.3,"status":"finalisÃ©","finDate":"2026-04-29"},{"date":"2026-04-10","buyer":"sp3kan","article":"Parfum bakara","price":6.0,"status":"finalisÃ©","finDate":"2026-04-28"},{"date":"2026-04-10","buyer":"anonyrixck40","article":"Parfum bakara","price":7.0,"status":"finalisÃ©","finDate":"2026-04-29"},{"date":"2026-04-10","buyer":"adibou.zidi","article":"Parfum bakara","price":7.0,"status":"finalisÃ©","finDate":"2026-04-30"},{"date":"2026-04-10","buyer":"lucas098768","article":"Parfum bakara","price":7.0,"status":"finalisÃ©","finDate":"2026-05-04"},{"date":"2026-04-10","buyer":"gigi9704","article":"Lot 3 articles","price":43.0,"status":"finalisÃ©","finDate":"2026-04-24"},{"date":"2026-04-09","buyer":"clara010575","article":"ÃtagÃ¨re d'angle cuisine en bois 2 niveaux","price":20.0,"status":"finalisÃ©","finDate":"2026-05-07"},{"date":"2026-04-08","buyer":"artemm176501","article":"24 huile essentielle","price":10.0,"status":"finalisÃ©","finDate":"2026-04-22"},{"date":"2026-04-07","buyer":"bastfr41","article":"Kit de rÃ©paration de vÃ©los","price":2.5,"status":"finalisÃ©","finDate":"2026-04-28"},{"date":"2026-04-04","buyer":"briceg75","article":"PÃ¨se-personne LCD","price":10.0,"status":"finalisÃ©","finDate":"2026-05-04"},{"date":"2026-04-04","buyer":"sandra210880","article":"Mug Minecraft","price":7.85,"status":"finalisÃ©","finDate":"2026-04-24"},{"date":"2026-04-03","buyer":"sor_7","article":"Tableau double face en bois Kruzzel","price":15.0,"status":"finalisÃ©","finDate":"2026-04-22"},{"date":"2026-04-03","buyer":"moustique68","article":"Lot 2 articles","price":5.25,"status":"finalisÃ©","finDate":"2026-04-17"},{"date":"2026-03-28","buyer":"menthealo45","article":"Pantalon DÃ©contractÃ© Bleu","price":13.99,"status":"finalisÃ©","finDate":"2026-04-16"},{"date":"2026-03-28","buyer":"maisontarot","article":"Collier","price":10.99,"status":"finalisÃ©","finDate":"2026-04-17"},{"date":"2026-03-28","buyer":"amaghrabi","article":"Parfum Savage","price":6.0,"status":"finalisÃ©","finDate":"2026-05-11"},{"date":"2026-03-28","buyer":"steven6000","article":"Parfum Invictus","price":7.0,"status":"finalisÃ©","finDate":"2026-04-09"},{"date":"2026-03-28","buyer":"akakmuha688","article":"Parfum bois intense","price":7.0,"status":"finalisÃ©","finDate":"2026-04-08"},{"date":"2026-03-27","buyer":"pablo193","article":"Bague solitaire zoura","price":45.99,"status":"finalisÃ©","finDate":"2026-04-14"},{"date":"2026-03-27","buyer":"gengen2217","article":"Maillot Exquiss'S Paris","price":10.4,"status":"finalisÃ©","finDate":"2026-04-14"},{"date":"2026-03-26","buyer":"issa67100","article":"Ensemble de bijoux","price":12.0,"status":"finalisÃ©","finDate":"2026-04-09"},{"date":"2026-03-24","buyer":"marce_rw0","article":"Parfum rose vanille","price":3.0,"status":"finalisÃ©","finDate":"2026-03-30"},{"date":"2026-03-24","buyer":"sophie-54680","article":"Lot de faux ongles","price":6.0,"status":"finalisÃ©","finDate":"2026-04-30"},{"date":"2026-03-24","buyer":"patg5108","article":"Jogging Y&D Fashion","price":10.0,"status":"finalisÃ©","finDate":"2026-04-07"},{"date":"2026-03-24","buyer":"oumardmb","article":"Parfum rose vanille","price":14.0,"status":"finalisÃ©","finDate":"2026-04-03"},{"date":"2026-03-24","buyer":"cricrile","article":"Gilet Belle Copine","price":10.8,"status":"finalisÃ©","finDate":"2026-04-10"},{"date":"2026-03-23","buyer":"miabk23","article":"Parfum musc blanc","price":6.0,"status":"finalisÃ©","finDate":"2026-03-31"},{"date":"2026-03-23","buyer":"mathisa65","article":"Lot 4 articles","price":23.0,"status":"finalisÃ©","finDate":"2026-04-06"},{"date":"2026-03-22","buyer":"introuvable.4kss","article":"Parfum bois intense","price":6.0,"status":"finalisÃ©","finDate":"2026-03-30"},{"date":"2026-03-22","buyer":"youyou1110","article":"Parfum bakara","price":6.0,"status":"finalisÃ©","finDate":"2026-03-31"},{"date":"2026-03-22","buyer":"gatuso69","article":"Parfum bakara","price":6.0,"status":"finalisÃ©","finDate":"2026-04-02"},{"date":"2026-03-22","buyer":"delph69","article":"Parfum Daoud","price":6.0,"status":"finalisÃ©","finDate":"2026-04-13"},{"date":"2026-03-22","buyer":"titouan877","article":"Parfum Musc Blanc Gold Edition","price":7.0,"status":"finalisÃ©","finDate":"2026-03-30"},{"date":"2026-03-14","buyer":"stephieestrella","article":"Coffret senteur","price":6.0,"status":"finalisÃ©","finDate":"2026-03-28"},{"date":"2026-03-14","buyer":"stephieestrella","article":"Coffret senteur","price":6.0,"status":"finalisÃ©","finDate":"2026-03-28"},{"date":"2026-03-14","buyer":"flo-69440","article":"Parfum bois intense","price":7.0,"status":"finalisÃ©","finDate":"2026-03-25"},{"date":"2026-03-14","buyer":"leopeugeot","article":"Parfum moula","price":7.0,"status":"finalisÃ©","finDate":"2026-04-02"},{"date":"2026-03-14","buyer":"a_ya212","article":"Parfum Aisha","price":6.3,"status":"finalisÃ©","finDate":"2026-04-02"},{"date":"2026-03-13","buyer":"omart222","article":"Parfum krypto","price":7.0,"status":"finalisÃ©","finDate":"2026-03-25"},{"date":"2026-03-13","buyer":"vintagebyjas","article":"Parfum Savage","price":23.2,"status":"finalisÃ©","finDate":"2026-04-13"},{"date":"2026-03-12","buyer":"william88230","article":"Parfum million","price":5.5,"status":"finalisÃ©","finDate":"2026-04-10"},{"date":"2026-03-10","buyer":"sofiadokce75","article":"Eau de Parfum Daoud","price":7.0,"status":"finalisÃ©","finDate":"2026-03-27"},{"date":"2026-03-10","buyer":"mouadhm5","article":"Parfum million","price":6.0,"status":"finalisÃ©","finDate":"2026-04-03"},{"date":"2026-03-10","buyer":"ryadryry44","article":"Lot 2 articles","price":11.0,"status":"finalisÃ©","finDate":"2026-03-24"},{"date":"2026-03-10","buyer":"lli125","article":"Lot 3 articles","price":21.0,"status":"finalisÃ©","finDate":"2026-03-24"},{"date":"2026-03-10","buyer":"django13110","article":"Lot 4 articles","price":28.0,"status":"finalisÃ©","finDate":"2026-03-24"},{"date":"2026-03-09","buyer":"helirox626","article":"Parfum bakara","price":7.0,"status":"finalisÃ©","finDate":"2026-03-25"},{"date":"2026-03-09","buyer":"enzo.b813","article":"Parfum bakara","price":6.0,"status":"finalisÃ©","finDate":"2026-03-27"},{"date":"2026-03-09","buyer":"dono190","article":"Parfum coco","price":5.9,"status":"finalisÃ©","finDate":"2026-03-31"},{"date":"2026-03-09","buyer":"nourlgs","article":"Parfum bakara","price":6.0,"status":"finalisÃ©","finDate":"2026-03-30"},{"date":"2026-03-07","buyer":"kays_278182","article":"Parfum suprÃªme","price":6.0,"status":"finalisÃ©","finDate":"2026-03-25"},{"date":"2026-03-07","buyer":"didi45220","article":"Bar led","price":6.4,"status":"finalisÃ©","finDate":"2026-03-27"},{"date":"2026-03-07","buyer":"cristianodu91","article":"Lot 4 articles","price":21.0,"status":"finalisÃ©","finDate":"2026-03-21"},{"date":"2026-03-07","buyer":"lina2285","article":"Parfum bakara","price":7.0,"status":"finalisÃ©","finDate":"2026-03-16"},{"date":"2026-03-07","buyer":"zakaria4666","article":"Parfum bakara","price":7.0,"status":"finalisÃ©","finDate":"2026-03-16"},{"date":"2026-03-06","buyer":"melanie.cccc","article":"Parfum KirkÃ©","price":7.0,"status":"finalisÃ©","finDate":"2026-03-24"},{"date":"2026-03-04","buyer":"mariiebltx","article":"Lot 4 articles","price":23.0,"status":"finalisÃ©","finDate":"2026-03-18"},{"date":"2026-03-02","buyer":"stanschmitt57","article":"Parfum Golden Madawi","price":5.0,"status":"finalisÃ©","finDate":"2026-03-16"},{"date":"2026-02-27","buyer":"co78920504","article":"BoÃ®te en velours","price":3.5,"status":"finalisÃ©","finDate":"2026-03-20"},{"date":"2026-02-27","buyer":"matoshkaa","article":"Parfum rouge Baki","price":6.0,"status":"finalisÃ©","finDate":"2026-03-23"},{"date":"2026-02-26","buyer":"in873","article":"Parfum bakara","price":null,"status":"finalisÃ©","finDate":"2026-03-16"},{"date":"2026-02-26","buyer":"delliaa_a","article":"Parfum marshmallow","price":7.0,"status":"finalisÃ©","finDate":"2026-03-11"},{"date":"2026-02-25","buyer":"alban20102011","article":"Parfum bakara","price":null,"status":"finalisÃ©","finDate":"2026-03-13"},{"date":"2026-02-25","buyer":"zipon","article":"Parfum vaillant + Parfum krypto + Parfum marshmallow","price":null,"status":"finalisÃ©","finDate":"2026-03-05"},{"date":"2026-02-24","buyer":"tiyainaya","article":"Parfum KirkÃ©","price":null,"status":"finalisÃ©","finDate":"2026-03-17"},{"date":"2026-02-23","buyer":"julienmild17","article":"Lot 2 articles","price":14.0,"status":"finalisÃ©","finDate":"2026-03-09"},{"date":"2026-02-22","buyer":"axellemrtz10","article":"Mug magique","price":7.0,"status":"finalisÃ©","finDate":"2026-03-08"},{"date":"2026-02-22","buyer":"juuuuulieeeeee","article":"Parfum Yara","price":7.0,"status":"finalisÃ©","finDate":"2026-03-05"},{"date":"2026-02-22","buyer":"junel59","article":"Parfum bakara","price":7.0,"status":"finalisÃ©","finDate":"2026-03-10"},{"date":"2026-02-22","buyer":"ayman2920000","article":"Parfum million","price":7.0,"status":"finalisÃ©","finDate":"2026-03-16"},{"date":"2026-02-21","buyer":"minnie930","article":"Lot 2 articles","price":12.0,"status":"finalisÃ©","finDate":"2026-03-07"},{"date":"2026-02-21","buyer":"asz_555","article":"Collier pour femme","price":13.5,"status":"finalisÃ©","finDate":"2026-03-10"},{"date":"2026-02-19","buyer":"rsllosko31k","article":"Parfum bakara","price":5.2,"status":"finalisÃ©","finDate":"2026-03-05"},{"date":"2026-02-19","buyer":"ericsoukia","article":"Souris Gamer","price":8.0,"status":"finalisÃ©","finDate":"2026-03-12"},{"date":"2026-02-19","buyer":"lauratssn","article":"Lot 3 articles","price":21.0,"status":"finalisÃ©","finDate":"2026-03-05"},{"date":"2026-02-19","buyer":"chi.pq266","article":"C'est Jessy & Co","price":9.0,"status":"finalisÃ©","finDate":"2026-03-12"},{"date":"2026-02-19","buyer":"alvesmachadoj","article":"Eau de parfum Oud Is","price":7.0,"status":"finalisÃ©","finDate":"2026-03-12"},{"date":"2026-02-18","buyer":"franklin_99","article":"Parfum rouge Baki","price":7.0,"status":"finalisÃ©","finDate":"2026-03-12"},{"date":"2026-02-18","buyer":"leandro394","article":"Lot 2 articles","price":14.0,"status":"finalisÃ©","finDate":"2026-03-04"},{"date":"2026-02-16","buyer":"marlonlcd1","article":"Lot 2 articles","price":10.0,"status":"finalisÃ©","finDate":"2026-03-02"},{"date":"2026-02-16","buyer":"lazer38k.8","article":"Lot 5 articles","price":30.0,"status":"finalisÃ©","finDate":"2026-03-02"},{"date":"2026-02-16","buyer":"bigoudis2.0","article":"Parfum bakara","price":5.0,"status":"finalisÃ©","finDate":"2026-03-05"},{"date":"2026-02-16","buyer":"minnie930","article":"Parfum sucre rose","price":6.0,"status":"finalisÃ©","finDate":"2026-03-10"},{"date":"2026-02-16","buyer":"minnie930","article":"Parfum marshmallow","price":6.0,"status":"finalisÃ©","finDate":"2026-03-09"},{"date":"2026-02-15","buyer":"gigi71670","article":"36 huile essentielle","price":10.99,"status":"finalisÃ©","finDate":"2026-03-01"},{"date":"2026-02-15","buyer":"pumpkinki","article":"Kit pour bÃ©bÃ©","price":5.0,"status":"finalisÃ©","finDate":"2026-03-01"},{"date":"2026-02-15","buyer":"francklanvier","article":"Transmetteur FM","price":5.0,"status":"finalisÃ©","finDate":"2026-03-09"},{"date":"2026-02-15","buyer":"clara.khr494321","article":"Parfum bois intense","price":6.3,"status":"finalisÃ©","finDate":"2026-03-06"},{"date":"2026-02-14","buyer":"n0emie072","article":"Ours en verre","price":4.0,"status":"finalisÃ©","finDate":"2026-02-28"},{"date":"2026-02-14","buyer":"prosugar","article":"Spray anti-stress","price":9.0,"status":"finalisÃ©","finDate":"2026-03-06"},{"date":"2026-02-14","buyer":"july03000","article":"Portefeuille Projet X Paris","price":8.0,"status":"finalisÃ©","finDate":"2026-03-06"},{"date":"2026-02-14","buyer":"bobsoso5","article":"Fond de teint Revlon","price":13.5,"status":"finalisÃ©","finDate":"2026-02-28"},{"date":"2026-02-13","buyer":"soraya.poisson723","article":"Lot de 12 voitures","price":4.0,"status":"finalisÃ©","finDate":"2026-03-09"}];
 
-/* ═══════════════ ÉTAT ═══════════════ */
+/* âââââââââââââââ ÃTAT âââââââââââââââ */
 const API='/api/dashboard-data';
 let secret='',allStock=[],currentFilter='all',editingId=null;
 let chartRev=null,chartVintedM=null,chartVintedR=null;
@@ -464,7 +464,7 @@ let currentPeriodDays=90,currentPeriodFrom=null,currentPeriodTo=null;
 let currentSalesOrders=[],currentStatusFilter='all',currentVView='detail';
 let objectif = parseInt(localStorage.getItem('bm_objectif')||'0',10)||0;
 
-/* ═══════════════ AUTH ═══════════════ */
+/* âââââââââââââââ AUTH âââââââââââââââ */
 async function login(){
   const pwd=document.getElementById('pwdInput').value.trim();
   if(!pwd)return;
@@ -477,7 +477,7 @@ async function login(){
       document.getElementById('app').style.display='block';
       render(await r.json());
     }else{document.getElementById('loginErr').textContent='Mot de passe incorrect';}
-  }catch{document.getElementById('loginErr').textContent='Erreur réseau';}
+  }catch{document.getElementById('loginErr').textContent='Erreur rÃ©seau';}
   setLoading(false);
 }
 function logout(){sessionStorage.removeItem('bm_s');location.reload();}
@@ -487,7 +487,7 @@ async function refresh(){
   setLoading(false);
 }
 
-/* ═══════════════ VUES ═══════════════ */
+/* âââââââââââââââ VUES âââââââââââââââ */
 function showView(v){
   currentView=v;
   document.getElementById('viewDashboard').style.display=v==='dashboard'?'':'none';
@@ -499,7 +499,7 @@ function showView(v){
 }
 function goToVinted(){showView('ventes');setSource('vinted');}
 
-/* ═══════════════ DASHBOARD RENDER ═══════════════ */
+/* âââââââââââââââ DASHBOARD RENDER âââââââââââââââ */
 function render(d){
   renderKPIs(d.summary);
   renderChartRev(d.chart);
@@ -511,36 +511,36 @@ function render(d){
     document.getElementById('alertBanner').style.display='flex';
     document.getElementById('alertText').textContent=`${d.summary.outOfStock} article${d.summary.outOfStock>1?'s':''} en rupture de stock`;
   }
-  document.getElementById('lastUpd').textContent='Actualisé à '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('lastUpd').textContent='ActualisÃ© Ã  '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
   setupTmBtn();
 }
 
 function f(n,euro=true){
-  if(n==null)return'—';
+  if(n==null)return'â';
   const s=parseFloat(n).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2});
   return euro?s+' EUR':s;
 }
 
 function getThisMonthVintedCA(){
   const now=new Date(),ym=now.toISOString().slice(0,7);
-  return VINTED_SALES.filter(s=>s.status==='finalisé'&&(s.finDate||'').startsWith(ym))
+  return VINTED_SALES.filter(s=>s.status==='finalisÃ©'&&(s.finDate||'').startsWith(ym))
     .reduce((t,s)=>t+(s.price||0),0);
 }
 
 function renderKPIs(s){
-  const vintedCA=VINTED_SALES.filter(x=>x.status==='finalisé').reduce((t,x)=>t+(x.price||0),0);
-  const finCount=VINTED_SALES.filter(x=>x.status==='finalisé').length;
+  const vintedCA=VINTED_SALES.filter(x=>x.status==='finalisÃ©').reduce((t,x)=>t+(x.price||0),0);
+  const finCount=VINTED_SALES.filter(x=>x.status==='finalisÃ©').length;
   const thisMonthCA=getThisMonthVintedCA();
   const objPct=objectif>0?Math.min(100,Math.round(thisMonthCA/objectif*100)):0;
 
   const cards=[
-    {icon:'&#128218;',label:'Articles en vente',value:s.inStock,sub:`${s.totalProducts} références`,cls:''},
-    {icon:'&#128178;',label:'Valeur du stock',value:f(s.totalStockValue),sub:'Prix vente × quantité',cls:''},
-    {icon:'&#128248;',label:'Coût du stock',value:f(s.totalCostValue),sub:s.costCoverage!=='0/0'?`${s.costCoverage} renseignés`:'+ Ajouter prix',cls:''},
+    {icon:'&#128218;',label:'Articles en vente',value:s.inStock,sub:`${s.totalProducts} rÃ©fÃ©rences`,cls:''},
+    {icon:'&#128178;',label:'Valeur du stock',value:f(s.totalStockValue),sub:'Prix vente Ã quantitÃ©',cls:''},
+    {icon:'&#128248;',label:'CoÃ»t du stock',value:f(s.totalCostValue),sub:s.costCoverage!=='0/0'?`${s.costCoverage} renseignÃ©s`:'+ Ajouter prix',cls:''},
     {icon:'&#128200;',label:'Marge potentielle',value:f(s.potentialMargin),sub:'Si tout se vend',cls:s.potentialMargin>0?'success':''},
     {icon:'&#128202;',label:'CA Shopify (90j)',value:f(s.periodRevenue||s.revenue90d),sub:`${s.periodOrders||s.orders90d} commandes`,cls:'success',click:"showView('ventes')"},
-    {icon:'&#128994;',label:'CA Vinted finalisé',value:f(vintedCA),sub:`${finCount} ventes encaissées`,cls:'vinted-accent',click:'goToVinted()'},
-    {icon:'&#9940;',label:'Ruptures',value:s.outOfStock,sub:'Articles épuisés',cls:s.outOfStock>0?'danger':'success'},
+    {icon:'&#128994;',label:'CA Vinted finalisÃ©',value:f(vintedCA),sub:`${finCount} ventes encaissÃ©es`,cls:'vinted-accent',click:'goToVinted()'},
+    {icon:'&#9940;',label:'Ruptures',value:s.outOfStock,sub:'Articles Ã©puisÃ©s',cls:s.outOfStock>0?'danger':'success'},
   ];
 
   let html=cards.map(c=>`
@@ -555,7 +555,7 @@ function renderKPIs(s){
   html+=`<div class="kpi clickable" style="--accent:#f59e0b" onclick="openObjectifModal()">
     <div class="kpi-icon">&#127919;</div>
     <div class="kpi-label">Objectif mensuel</div>
-    <div class="kpi-value" style="font-size:18px">${objectif>0?f(objectif):'Définir...'}</div>
+    <div class="kpi-value" style="font-size:18px">${objectif>0?f(objectif):'DÃ©finir...'}</div>
     <div class="kpi-sub">Ce mois : ${f(thisMonthCA)}</div>
     ${objectif>0?`<div class="obj-progress-bar"><div class="obj-progress-fill" style="width:${objPct}%"></div></div><div class="obj-pct">${objPct}% atteint</div>`:''}
   </div>`;
@@ -563,7 +563,7 @@ function renderKPIs(s){
   document.getElementById('kpiGrid').innerHTML=html;
 }
 
-/* ═══════════════ CHARTS ═══════════════ */
+/* âââââââââââââââ CHARTS âââââââââââââââ */
 function renderChartRev(data){
   if(chartRev)chartRev.destroy();
   const ctx=document.getElementById('chartRevenue').getContext('2d');
@@ -573,7 +573,7 @@ function renderChartRev(data){
       labels:data.map(d=>{const[y,m]=d.month.split('-');return new Date(y,m-1).toLocaleDateString('fr-FR',{month:'short',year:'2-digit'});}),
       datasets:[{data:data.map(d=>d.revenue),borderColor:'#6366f1',backgroundColor:'rgba(99,102,241,.08)',borderWidth:2.5,fill:true,tension:.4,pointBackgroundColor:'#6366f1',pointRadius:5}]
     },
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>f(ctx.raw)}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+' €'},grid:{color:'#f3f4f6'}},x:{grid:{display:false}}}}
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>f(ctx.raw)}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+' â¬'},grid:{color:'#f3f4f6'}},x:{grid:{display:false}}}}
   });
 }
 
@@ -590,7 +590,7 @@ function getVintedMonthlyData(useFinDate=false){
 
 function getVintedFinalizedMonthly(){
   const monthly={};
-  VINTED_SALES.filter(s=>s.status==='finalisé').forEach(s=>{
+  VINTED_SALES.filter(s=>s.status==='finalisÃ©').forEach(s=>{
     const key=(s.finDate||s.date).slice(0,7);
     if(!monthly[key])monthly[key]={ca:0,count:0,sales:[]};
     monthly[key].ca+=(s.price||0);
@@ -615,11 +615,11 @@ function renderVintedMonthlyChart(){
       labels:data.map(([ym])=>monthLabel(ym)),
       datasets:[{label:'CA ventes',data:data.map(([,v])=>v.ca),backgroundColor:'rgba(9,177,186,.7)',borderColor:'#09b1ba',borderWidth:1,borderRadius:4}]
     },
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${f(ctx.raw)} (${data[ctx.dataIndex][1].count} ventes)`}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+' €'},grid:{color:'#f3f4f6'}},x:{grid:{display:false}}}}
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${f(ctx.raw)} (${data[ctx.dataIndex][1].count} ventes)`}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+' â¬'},grid:{color:'#f3f4f6'}},x:{grid:{display:false}}}}
   });
 }
 
-/* ═══════════════ CARD TABS (dashboard right) ═══════════════ */
+/* âââââââââââââââ CARD TABS (dashboard right) âââââââââââââââ */
 function switchCard(card,btn){
   document.querySelectorAll('.ctab').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
@@ -627,10 +627,10 @@ function switchCard(card,btn){
   document.getElementById('cardEvolution').style.display=card==='evolution'?'':'none';
 }
 
-/* ═══════════════ WIDGET 10 DERNIÈRES VENTES ═══════════════ */
+/* âââââââââââââââ WIDGET 10 DERNIÃRES VENTES âââââââââââââââ */
 function renderRecentSalesWidget(){
   const recent=VINTED_SALES.slice(0,10);
-  const statusColor={'finalisé':'var(--success)','en_attente':'var(--warning)','retourné':'var(--danger)'};
+  const statusColor={'finalisÃ©':'var(--success)','en_attente':'var(--warning)','retournÃ©':'var(--danger)'};
   document.getElementById('recentSalesList').innerHTML=recent.map((s,i)=>`
     <div class="rs-item" onclick="openSaleDetail(${i})">
       <div class="rs-dot" style="background:${statusColor[s.status]||'var(--vinted)'}"></div>
@@ -639,31 +639,31 @@ function renderRecentSalesWidget(){
         <div class="rs-buyer">@${s.buyer}</div>
       </div>
       <div class="rs-right">
-        <div class="rs-price">${s.price!=null?f(s.price):'—'}</div>
+        <div class="rs-price">${s.price!=null?f(s.price):'â'}</div>
         <div class="rs-date">${new Date(s.date).toLocaleDateString('fr-FR',{day:'2-digit',month:'short'})}</div>
       </div>
     </div>`).join('');
 }
 
-/* ═══════════════ DETAIL VENTE ═══════════════ */
+/* âââââââââââââââ DETAIL VENTE âââââââââââââââ */
 function openSaleDetail(idx){
   const s=VINTED_SALES[idx];
   document.getElementById('saleDetailTitle').textContent=s.article;
-  const stColors={'finalisé':'background:#d1fae5;color:#065f46','en_attente':'background:#fef3c7;color:#92400e','retourné':'background:#fee2e2;color:#991b1b'};
-  const stLabels={'finalisé':'✅ Finalisée — argent reçu','en_attente':'⏳ En attente de livraison','retourné':'❌ Colis retourné'};
+  const stColors={'finalisÃ©':'background:#d1fae5;color:#065f46','en_attente':'background:#fef3c7;color:#92400e','retournÃ©':'background:#fee2e2;color:#991b1b'};
+  const stLabels={'finalisÃ©':'â FinalisÃ©e â argent reÃ§u','en_attente':'â³ En attente de livraison','retournÃ©':'â Colis retournÃ©'};
   document.getElementById('saleDetailBadge').setAttribute('style',stColors[s.status]||'');
   document.getElementById('saleDetailBadge').textContent=stLabels[s.status]||s.status;
   document.getElementById('saleDetailRows').innerHTML=`
     <div class="sale-detail-row"><span class="sale-detail-label">Date vente</span><span class="sale-detail-value">${new Date(s.date).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})}</span></div>
     <div class="sale-detail-row"><span class="sale-detail-label">Acheteur</span><span class="sale-detail-value">@${s.buyer}</span></div>
     <div class="sale-detail-row"><span class="sale-detail-label">Article</span><span class="sale-detail-value">${s.article}</span></div>
-    <div class="sale-detail-row"><span class="sale-detail-label">Montant</span><span class="sale-detail-value" style="color:var(--success);font-size:20px">${s.price!=null?f(s.price):'Prix à compléter'}</span></div>
-    ${s.finDate?`<div class="sale-detail-row"><span class="sale-detail-label">Finalisée le</span><span class="sale-detail-value">${new Date(s.finDate).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})}</span></div>`:''}
+    <div class="sale-detail-row"><span class="sale-detail-label">Montant</span><span class="sale-detail-value" style="color:var(--success);font-size:20px">${s.price!=null?f(s.price):'Prix Ã  complÃ©ter'}</span></div>
+    ${s.finDate?`<div class="sale-detail-row"><span class="sale-detail-label">FinalisÃ©e le</span><span class="sale-detail-value">${new Date(s.finDate).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})}</span></div>`:''}
     <div class="sale-detail-row"><span class="sale-detail-label">Source</span><span class="sale-detail-value"><span class="badge badge-vinted">Vinted email</span></span></div>`;
   document.getElementById('saleDetailModal').style.display='flex';
 }
 
-/* ═══════════════ STOCK ═══════════════ */
+/* âââââââââââââââ STOCK âââââââââââââââ */
 function setFilter(f,btn){currentFilter=f;document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderStock();}
 function filterStock(){renderStock();}
 function renderStock(){
@@ -682,9 +682,9 @@ function renderStock(){
       <td><strong>${f(s.price)}</strong></td>
       <td><button class="btn-cost" onclick="openModal(${s.inventoryItemId},'${s.title.replace(/'/g,"\\'")}',${s.cost??''})">
         ${s.cost!=null?'&#9998; '+f(s.cost):'+ Ajouter'}</button></td>
-      <td><span class="${mgC}">${s.marginPct!=null?s.marginPct.toFixed(0)+'%':'—'}</span></td>
-      <td>${s.stock>0?`<span class="badge badge-in">${s.stock}</span>`:'<span class="badge badge-out">Épuisé</span>'}</td>
-      <td>${s.stock>0?f(s.totalValue):'—'}</td>
+      <td><span class="${mgC}">${s.marginPct!=null?s.marginPct.toFixed(0)+'%':'â'}</span></td>
+      <td>${s.stock>0?`<span class="badge badge-in">${s.stock}</span>`:'<span class="badge badge-out">ÃpuisÃ©</span>'}</td>
+      <td>${s.stock>0?f(s.totalValue):'â'}</td>
     </tr>`;
   }).join('');
 }
@@ -698,7 +698,7 @@ function renderOrders(orders){
     <td><strong style="color:var(--success)">${f(o.total)}</strong></td></tr>`).join('');
 }
 
-/* ═══════════════ MODAL PRIX ACHAT ═══════════════ */
+/* âââââââââââââââ MODAL PRIX ACHAT âââââââââââââââ */
 function openModal(invId,title,currentCost){
   editingId=invId;
   document.getElementById('modalSub').textContent=title;
@@ -718,7 +718,7 @@ async function saveCost(){
   setLoading(false);
 }
 
-/* ═══════════════ MODAL OBJECTIF ═══════════════ */
+/* âââââââââââââââ MODAL OBJECTIF âââââââââââââââ */
 function openObjectifModal(){
   document.getElementById('objectifInput').value=objectif||'';
   document.getElementById('objectifModal').style.display='flex';
@@ -737,7 +737,7 @@ function saveObjectif(){
   refresh();
 }
 
-/* ═══════════════ VENTES VIEW ═══════════════ */
+/* âââââââââââââââ VENTES VIEW âââââââââââââââ */
 function setSource(src){
   currentSource=src;
   document.getElementById('stabShopify').className='stab shopify'+(src==='shopify'?' active':'');
@@ -770,10 +770,10 @@ function renderSalesView(){
 }
 
 function updateStatusFilterCounts(){
-  const finCount=VINTED_SALES.filter(s=>s.status==='finalisé').length;
+  const finCount=VINTED_SALES.filter(s=>s.status==='finalisÃ©').length;
   const waitCount=VINTED_SALES.filter(s=>s.status==='en_attente').length;
-  document.getElementById('sfBtnFin').textContent=`✅ Finalisées (${finCount})`;
-  document.getElementById('sfBtnWait').textContent=`⏳ En attente (${waitCount})`;
+  document.getElementById('sfBtnFin').textContent=`â FinalisÃ©es (${finCount})`;
+  document.getElementById('sfBtnWait').textContent=`â³ En attente (${waitCount})`;
 }
 
 function filterVintedByPeriod(arr){
@@ -793,40 +793,40 @@ function getPeriodLabel(){
 
 function renderVintedKPIs(){
   const filtered=filterVintedByPeriod(VINTED_SALES);
-  const finalized=filtered.filter(s=>s.status==='finalisé');
+  const finalized=filtered.filter(s=>s.status==='finalisÃ©');
   const totalFin=finalized.reduce((t,s)=>t+(s.price||0),0);
   const totalAll=filtered.reduce((t,s)=>t+(s.price||0),0);
   document.getElementById('salesKpiGrid').innerHTML=[
-    {icon:'&#10003;',label:'CA finalisé (encaissé)',value:f(totalFin),sub:`${finalized.length} ventes confirmées`,cls:'vinted-accent'},
+    {icon:'&#10003;',label:'CA finalisÃ© (encaissÃ©)',value:f(totalFin),sub:`${finalized.length} ventes confirmÃ©es`,cls:'vinted-accent'},
     {icon:'&#128722;',label:'Total ventes',value:filtered.length,sub:`dont ${filtered.filter(s=>s.status==='en_attente').length} en attente`,cls:''},
-    {icon:'&#128202;',label:'Panier moyen',value:finalized.length>0?f(totalFin/finalized.length):'—',sub:'Sur ventes finalisées',cls:''},
+    {icon:'&#128202;',label:'Panier moyen',value:finalized.length>0?f(totalFin/finalized.length):'â',sub:'Sur ventes finalisÃ©es',cls:''},
   ].map(c=>`<div class="kpi ${c.cls}"><div class="kpi-icon">${c.icon}</div><div class="kpi-label">${c.label}</div><div class="kpi-value">${c.value}</div><div class="kpi-sub">${c.sub}</div></div>`).join('');
 }
 
 function renderVintedDetail(){
   let filtered=filterVintedByPeriod(VINTED_SALES);
   if(currentStatusFilter!=='all')filtered=filtered.filter(s=>s.status===currentStatusFilter);
-  document.getElementById('salesTitle').textContent='Ventes Vinted — '+getPeriodLabel();
+  document.getElementById('salesTitle').textContent='Ventes Vinted â '+getPeriodLabel();
   document.getElementById('salesCount').textContent=filtered.length+' vente(s)';
   currentSalesOrders=filtered;
-  const stBadge={'finalisé':'badge-fin','en_attente':'badge-wait','retourné':'badge-ret'};
-  const stLabel={'finalisé':'✅ Finalisé','en_attente':'⏳ En attente','retourné':'❌ Retourné'};
-  if(!filtered.length){document.getElementById('salesBody').innerHTML='<tr><td colspan="5" class="empty">Aucune vente sur cette période</td></tr>';return;}
+  const stBadge={'finalisÃ©':'badge-fin','en_attente':'badge-wait','retournÃ©':'badge-ret'};
+  const stLabel={'finalisÃ©':'â FinalisÃ©','en_attente':'â³ En attente','retournÃ©':'â RetournÃ©'};
+  if(!filtered.length){document.getElementById('salesBody').innerHTML='<tr><td colspan="5" class="empty">Aucune vente sur cette pÃ©riode</td></tr>';return;}
   document.getElementById('salesBody').innerHTML=filtered.map((s,i)=>`
     <tr class="clickable-row" onclick="openSaleDetail(${VINTED_SALES.indexOf(s)})">
       <td>${new Date(s.date).toLocaleDateString('fr-FR')}</td>
       <td><span class="badge badge-vinted">@${s.buyer}</span></td>
       <td>${s.article}</td>
-      <td><strong style="color:var(--success)">${s.price!=null?f(s.price):'<span style=color:var(--warning)>À compléter</span>'}</strong></td>
+      <td><strong style="color:var(--success)">${s.price!=null?f(s.price):'<span style=color:var(--warning)>Ã complÃ©ter</span>'}</strong></td>
       <td><span class="badge ${stBadge[s.status]||''}">${stLabel[s.status]||s.status}</span></td>
     </tr>`).join('');
 }
 
-/* ═══════════════ RAPPORT MENSUEL COMPTABLE ═══════════════ */
+/* âââââââââââââââ RAPPORT MENSUEL COMPTABLE âââââââââââââââ */
 function renderMonthlyReport(){
   if(chartVintedR)chartVintedR.destroy();
   const data=getVintedFinalizedMonthly();
-  document.getElementById('rapportCount').textContent=`${VINTED_SALES.filter(s=>s.status==='finalisé').length} ventes finalisées — ${f(VINTED_SALES.filter(s=>s.status==='finalisé').reduce((t,s)=>t+(s.price||0),0))} de CA encaissé`;
+  document.getElementById('rapportCount').textContent=`${VINTED_SALES.filter(s=>s.status==='finalisÃ©').length} ventes finalisÃ©es â ${f(VINTED_SALES.filter(s=>s.status==='finalisÃ©').reduce((t,s)=>t+(s.price||0),0))} de CA encaissÃ©`;
 
   // Chart
   const ctx=document.getElementById('chartVintedRapport').getContext('2d');
@@ -834,9 +834,9 @@ function renderMonthlyReport(){
     type:'bar',
     data:{
       labels:data.map(([ym])=>monthLabel(ym)),
-      datasets:[{label:'CA finalisé',data:data.map(([,v])=>v.ca),backgroundColor:'rgba(16,185,129,.75)',borderColor:'#10b981',borderWidth:1,borderRadius:5}]
+      datasets:[{label:'CA finalisÃ©',data:data.map(([,v])=>v.ca),backgroundColor:'rgba(16,185,129,.75)',borderColor:'#10b981',borderWidth:1,borderRadius:5}]
     },
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${f(ctx.raw)} (${data[ctx.dataIndex][1].count} ventes)`}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+' €'},grid:{color:'#f3f4f6'}},x:{grid:{display:false}}}}
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${f(ctx.raw)} (${data[ctx.dataIndex][1].count} ventes)`}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+' â¬'},grid:{color:'#f3f4f6'}},x:{grid:{display:false}}}}
   });
 
   // Table
@@ -846,12 +846,12 @@ function renderMonthlyReport(){
       <td><strong>${monthLabel(ym)}</strong></td>
       <td><span class="badge badge-fin">${m.count} ventes</span></td>
       <td><strong style="color:var(--success);font-size:16px">${f(m.ca)}</strong></td>
-      <td style="font-size:12px;color:var(--muted)">${new Date(dates[0]).toLocaleDateString('fr-FR')} → ${new Date(dates[dates.length-1]).toLocaleDateString('fr-FR')}</td>
+      <td style="font-size:12px;color:var(--muted)">${new Date(dates[0]).toLocaleDateString('fr-FR')} â ${new Date(dates[dates.length-1]).toLocaleDateString('fr-FR')}</td>
     </tr>`;
   }).join('');
 }
 
-/* ═══════════════ SHOPIFY VENTES ═══════════════ */
+/* âââââââââââââââ SHOPIFY VENTES âââââââââââââââ */
 async function loadShopifySales(days,from,to){
   setLoading(true);
   try{
@@ -872,23 +872,23 @@ function renderShopifyKPIs(s){
   const rev=s.periodRevenue||0,count=s.periodOrders||0;
   document.getElementById('salesKpiGrid').innerHTML=[
     {icon:'&#128176;',label:'CA Shopify',value:f(rev),sub:getPeriodLabel(),cls:'success'},
-    {icon:'&#128722;',label:'Commandes',value:count,sub:'commandes payées',cls:''},
+    {icon:'&#128722;',label:'Commandes',value:count,sub:'commandes payÃ©es',cls:''},
     {icon:'&#128202;',label:'Panier moyen',value:f(count>0?rev/count:0),sub:'par commande',cls:''},
   ].map(c=>`<div class="kpi ${c.cls}"><div class="kpi-icon">${c.icon}</div><div class="kpi-label">${c.label}</div><div class="kpi-value">${c.value}</div><div class="kpi-sub">${c.sub}</div></div>`).join('');
 }
 
 function renderShopifyTable(){
-  document.getElementById('shopifySalesTitle').textContent='Commandes Shopify — '+getPeriodLabel();
+  document.getElementById('shopifySalesTitle').textContent='Commandes Shopify â '+getPeriodLabel();
   document.getElementById('shopifySalesCount').textContent=currentSalesOrders.length+' commande(s)';
   if(!currentSalesOrders.length){document.getElementById('shopifySalesBody').innerHTML='<tr><td colspan="4" class="empty">Aucune commande</td></tr>';return;}
   document.getElementById('shopifySalesBody').innerHTML=currentSalesOrders.map(o=>`
     <tr><td>${new Date(o.date).toLocaleDateString('fr-FR')}</td>
     <td><strong>${o.name}</strong></td>
-    <td style="font-size:12px">${o.products||'—'}</td>
+    <td style="font-size:12px">${o.products||'â'}</td>
     <td><strong style="color:var(--success)">${f(o.total)}</strong></td></tr>`).join('');
 }
 
-/* ═══════════════ PÉRIODE ═══════════════ */
+/* âââââââââââââââ PÃRIODE âââââââââââââââ */
 function setPeriod(days,btn){
   document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active'));
   if(btn)btn.classList.add('active');
@@ -910,11 +910,11 @@ function applyCustomRange(){
   renderSalesView();
 }
 
-/* ═══════════════ CSV EXPORTS ═══════════════ */
+/* âââââââââââââââ CSV EXPORTS âââââââââââââââ */
 function exportCSV(){
   const isVinted=currentSource==='vinted';
   const rows=isVinted?currentSalesOrders:currentSalesOrders;
-  if(!rows.length){alert('Aucune donnée');return;}
+  if(!rows.length){alert('Aucune donnÃ©e');return;}
   const sep=';';
   let lines;
   if(isVinted){
@@ -922,7 +922,7 @@ function exportCSV(){
       ['"Date vente"','"Date finalisation"','"Acheteur"','"Article"','"Montant TTC (EUR)"','"Statut"'].join(sep),
       ...rows.map(s=>[
         `"${new Date(s.date).toLocaleDateString('fr-FR')}"`,
-        `"${s.finDate?new Date(s.finDate).toLocaleDateString('fr-FR'):'—'}"`,
+        `"${s.finDate?new Date(s.finDate).toLocaleDateString('fr-FR'):'â'}"`,
         `"@${s.buyer}"`,`"${s.article.replace(/"/g,'""')}"`,
         `"${s.price!=null?s.price.toFixed(2).replace('.',','):'A COMPLETER'}"`,
         `"${s.status}"`].join(sep)),
@@ -941,7 +941,7 @@ function exportMonthlyCSV(){
   const data=getVintedFinalizedMonthly();
   const sep=';';
   const lines=[
-    ['"Mois"','"Ventes finalisées"','"CA encaissé (EUR)"','"Première fin."','"Dernière fin."'].join(sep),
+    ['"Mois"','"Ventes finalisÃ©es"','"CA encaissÃ© (EUR)"','"PremiÃ¨re fin."','"DerniÃ¨re fin."'].join(sep),
     ...data.map(([ym,m])=>{
       const dates=m.sales.map(s=>s.finDate||s.date).sort();
       return[
@@ -958,14 +958,14 @@ function exportMonthlyCSV(){
 }
 
 function downloadCSV(csv,name){
-  const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'});
+  const blob=new Blob(['ï»¿'+csv],{type:'text/csv;charset=utf-8'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
   a.href=url;a.download=`${name}-${new Date().toISOString().split('T')[0]}.csv`;
   document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
 }
 
-/* ═══════════════ UTILS ═══════════════ */
+/* âââââââââââââââ UTILS âââââââââââââââ */
 function setLoading(v){document.getElementById('loading').style.display=v?'flex':'none';}
 document.getElementById('costModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
 document.getElementById('objectifModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeObjectifModal();});
@@ -985,7 +985,7 @@ window.addEventListener('load',async()=>{
   updateStatusFilterCounts();
 });
 
-/* ═══════════════ RELANCES ═══════════════ */
+/* âââââââââââââââ RELANCES âââââââââââââââ */
 let relancesLog = {};
 
 async function loadRelances(){
@@ -1008,26 +1008,26 @@ async function loadRelances(){
 
     const bestExpired = st.activeSource === 'none';
     const bestExpiresAt = st.activeSource === 'shopify' ? st.storedTokenExpiresAt : st.tokenExpiresAt;
-    const sourceLabel = {'shopify':'Bookmarklet','env':'Vercel env','none':'Aucun'}[st.activeSource] || '—';
+    const sourceLabel = {'shopify':'Bookmarklet','env':'Vercel env','none':'Aucun'}[st.activeSource] || 'â';
 
     ks.innerHTML = `
       <div class="kpi ${bestExpired?'danger':'success'}">
         <div class="kpi-icon">${bestExpired?'&#9888;':'&#9989;'}</div>
         <div class="kpi-label">Token Vinted</div>
-        <div class="kpi-value" style="font-size:14px">${bestExpired?'Expiré':'Actif'}</div>
+        <div class="kpi-value" style="font-size:14px">${bestExpired?'ExpirÃ©':'Actif'}</div>
         <div class="kpi-sub">${bestExpiresAt?'Exp: '+new Date(bestExpiresAt).toLocaleString('fr-FR',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}):''}</div>
       </div>
       <div class="kpi ${st.activeSource!=='none'?'success':'warning'}">
         <div class="kpi-icon">${st.activeSource!=='none'?'&#128994;':'&#128308;'}</div>
         <div class="kpi-label">Source</div>
         <div class="kpi-value" style="font-size:14px">${sourceLabel}</div>
-        <div class="kpi-sub">${st.activeSource==='shopify'?'Mis à jour via bookmarklet':(st.activeSource==='env'?'Variable Vercel':'Token expiré partout')}</div>
+        <div class="kpi-sub">${st.activeSource==='shopify'?'Mis Ã  jour via bookmarklet':(st.activeSource==='env'?'Variable Vercel':'Token expirÃ© partout')}</div>
       </div>
       <div class="kpi">
         <div class="kpi-icon">&#128100;</div>
         <div class="kpi-label">Compte Vinted</div>
         <div class="kpi-value" style="font-size:14px">ID ${st.userId||'-'}</div>
-        <div class="kpi-sub">Relances auto à 9h UTC</div>
+        <div class="kpi-sub">Relances auto Ã  9h UTC</div>
       </div>
     `;
 
@@ -1036,7 +1036,7 @@ async function loadRelances(){
 
     if (bestExpired) {
       const origin = window.location.origin;
-      const bmCode = `(async function(){let t=null;try{const s=window.__PRELOADED_STATE__;if(s){const m=JSON.stringify(s).match(/"access_token":"(ey[^"]+)"/);if(m)t=m[1];}}catch(e){}if(!t){try{const r=await fetch('/api/v2/users/current_user',{credentials:'include'});const d=await r.json();t=(d.user&&d.user.access_token)||d.access_token||null;}catch(e){}}if(!t){alert('❌ Token non trouvé. Êtes-vous connecté à Vinted ?');return;}const u='${origin}/api/vinted-proxy?secret=${encodeURIComponent(secret)}&action=update_token';try{const r=await fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:t})});if(r.ok){alert('✅ Token mis à jour ! Le dashboard fonctionnera pendant ~2h.');return;}}catch(e){}new Promise(res=>{const i=new Image();i.onload=i.onerror=res;i.src=u+'&token='+encodeURIComponent(t);setTimeout(res,3000);}).then(()=>alert('✅ Token envoyé !'));})();`;
+      const bmCode = `(async function(){let t=null;try{const s=window.__PRELOADED_STATE__;if(s){const m=JSON.stringify(s).match(/"access_token":"(ey[^"]+)"/);if(m)t=m[1];}}catch(e){}if(!t){try{const r=await fetch('/api/v2/users/current_user',{credentials:'include'});const d=await r.json();t=(d.user&&d.user.access_token)||d.access_token||null;}catch(e){}}if(!t){alert('â Token non trouvÃ©. Ãtes-vous connectÃ© Ã  Vinted ?');return;}const u='${origin}/api/vinted-proxy?secret=${encodeURIComponent(secret)}&action=update_token';try{const r=await fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:t})});if(r.ok){alert('â Token mis Ã  jour ! Le dashboard fonctionnera pendant ~2h.');return;}}catch(e){}new Promise(res=>{const i=new Image();i.onload=i.onerror=res;i.src=u+'&token='+encodeURIComponent(t);setTimeout(res,3000);}).then(()=>alert('â Token envoyÃ© !'));})();`;
       document.getElementById('bookmarkletLink').href = 'javascript:' + bmCode;
     }
   } catch(e) {}
@@ -1062,7 +1062,7 @@ async function loadRelances(){
         .map(e => {
           const days = Math.floor((today - new Date(e.first_seen)) / 86400000);
           const badge = days >= 3
-            ? `<span class="badge badge-vinted">À relancer</span>`
+            ? `<span class="badge badge-vinted">Ã relancer</span>`
             : `<span class="badge" style="background:#f0f0f0;color:#888">${days}j / 3j</span>`;
           return `<tr>
             <td>${e.item_title||'-'}</td>
@@ -1098,7 +1098,7 @@ async function submitManualToken(){
   const msg = document.getElementById('manualTokenMsg');
   const token = input.value.trim();
   if (!token) { msg.style.color='var(--danger)'; msg.textContent='Veuillez coller le token.'; return; }
-  msg.style.color='var(--muted)'; msg.textContent='Envoi en cours…';
+  msg.style.color='var(--muted)'; msg.textContent='Envoi en coursâ¦';
   try {
     const r = await fetch(`/api/vinted-proxy?secret=${encodeURIComponent(secret)}&action=update_token`, {
       method: 'POST',
@@ -1107,14 +1107,14 @@ async function submitManualToken(){
     });
     const d = await r.json();
     if (d.ok) {
-      msg.style.color='var(--success)'; msg.textContent='✅ Token mis à jour !';
+      msg.style.color='var(--success)'; msg.textContent='â Token mis Ã  jour !';
       input.value = '';
       setTimeout(loadRelances, 1000);
     } else {
       msg.style.color='var(--danger)'; msg.textContent='Erreur: ' + (d.error||JSON.stringify(d));
     }
   } catch(e) {
-    msg.style.color='var(--danger)'; msg.textContent='Erreur réseau: ' + e.message;
+    msg.style.color='var(--danger)'; msg.textContent='Erreur rÃ©seau: ' + e.message;
   }
 }
 
@@ -1126,16 +1126,16 @@ async function runRelancesNow(){
     const r = await fetch(`/api/vinted-auto?secret=${encodeURIComponent(secret)}`);
     const data = await r.json();
     if(data.ok) {
-      alert(`Relances terminées !
-• ${data.messages_sent} message(s) envoyé(s)
-• ${data.messages_skipped} en attente
-• ${data.new_watchers} nouveau(x) observateur(s)${data.token_refreshed?' (token renouvelé)':''}`);
+      alert(`Relances terminÃ©es !
+â¢ ${data.messages_sent} message(s) envoyÃ©(s)
+â¢ ${data.messages_skipped} en attente
+â¢ ${data.new_watchers} nouveau(x) observateur(s)${data.token_refreshed?' (token renouvelÃ©)':''}`);
       loadRelances();
     } else {
       alert('Erreur: ' + (data.error||JSON.stringify(data)));
     }
   } catch(e) {
-    alert('Erreur réseau: ' + e.message);
+    alert('Erreur rÃ©seau: ' + e.message);
   }
   btn.disabled=false; btn.innerHTML='&#9654; Lancer maintenant';
 }
@@ -1162,11 +1162,14 @@ function buildTmScript(){
     'function sendToken(){',
     '  var m=document.cookie.match(/access_token_web=([^;]+)/);',
     '  if(!m)m=document.cookie.match(/access_token=([^;]+)/);',
-    '  if(!m)return;',
-    '  var t=decodeURIComponent(m[1]);',
+    '  var s=document.cookie.match(/_vinted_fr_session=([^;]+)/);',
+    '  if(!m&&!s)return;',
+    '  var payload={secret:SECRET};',
+    '  if(m)payload.token=decodeURIComponent(m[1]);',
+    '  if(s)payload.session_cookie=decodeURIComponent(s[1]);',
     '  GM_xmlhttpRequest({method:"POST",url:API_URL,',
     '    headers:{"Content-Type":"application/json"},',
-    '    data:JSON.stringify({token:t,secret:SECRET}),',
+    '    data:JSON.stringify(payload),',
     '    onload:function(r){console.log("[VintedSync]",r.status);}',
     '  });',
     '}',
