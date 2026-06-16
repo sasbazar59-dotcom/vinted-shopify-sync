@@ -1163,7 +1163,7 @@ function buildTmScript(){
     '  var today=new Date().toISOString().slice(0,10);',
     '  var id=await vFetch(\'/catalog/items?user_id=\'+USER_ID+\'&page=1&per_page=100&order=newest_first\');',
     '  if(!id||!id.items){console.log(\'[VR] Erreur articles\');return;}',
-    '  var items=id.items.filter(function(i){return i.status===\'Active\'||i.status===1;});',
+    '  var items=id.items||[];',
     '  var newW=0,sent=0;',
     '  for(var i=0;i<items.length;i++){',
     '    var item=items[i];await sleep(300);',
