@@ -1,8 +1,8 @@
 const https = require('https');
 
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Token auto-refresh via _vinted_fr_session Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Token auto-refresh via _vinted_fr_session ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 
-// Lit le token sauvegardÃÂ© dans Shopify (mis ÃÂ  jour via bookmarklet ou saisie manuelle)
+// Lit le token sauvegardÃÂÃÂ© dans Shopify (mis ÃÂÃÂ  jour via bookmarklet ou saisie manuelle)
 async function getStoredToken() {
   try {
     const res = await shopifyReq('GET', '/metafields.json?namespace=vinted_relances&key=access_token&owner_resource=shop');
@@ -11,7 +11,7 @@ async function getStoredToken() {
 }
 
 async function getOrRefreshToken() {
-  // 1. Token sauvegardÃÂ© dans Shopify (mis ÃÂ  jour via bookmarklet ou saisie manuelle)
+  // 1. Token sauvegardÃÂÃÂ© dans Shopify (mis ÃÂÃÂ  jour via bookmarklet ou saisie manuelle)
   const storedToken = await getStoredToken();
   if (storedToken) {
     try {
@@ -35,7 +35,7 @@ async function getOrRefreshToken() {
     } catch (e) {}
   }
 
-  // Token expirÃÂ© ou absent Ã¢ÂÂ renouveler via la session cookie
+  // Token expirÃÂÃÂ© ou absent ÃÂ¢ÃÂÃÂ renouveler via la session cookie
   if (!sessionCookie) {
     return { token: currentToken, refreshed: false, error: 'VINTED_SESSION_COOKIE manquant' };
   }
@@ -110,9 +110,28 @@ async function saveTokenToMetafields(token) {
   }
 }
 
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ HTTP helpers Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ HTTP helpers ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 
 
+
+async function getStoredSessionCookie() {
+  try {
+    const res = await shopifyReq('GET', '/metafields.json?namespace=vinted_relances&key=session_cookie&owner_resource=shop');
+    return res.metafields?.[0]?.value || null;
+  } catch(e) { return null; }
+}
+
+async function saveSessionCookieToMetafields(cookie) {
+  try {
+    const existing = await shopifyReq('GET', '/metafields.json?namespace=vinted_relances&key=session_cookie&owner_resource=shop');
+    const meta = existing.metafields?.[0];
+    if (meta) {
+      await shopifyReq('PUT', `/metafields/${meta.id}.json`, { metafield: { id: meta.id, value: cookie, type: 'single_line_text_field' } });
+    } else {
+      await shopifyReq('POST', '/metafields.json', { metafield: { namespace: 'vinted_relances', key: 'session_cookie', value: cookie, type: 'single_line_text_field', owner_resource: 'shop' } });
+    }
+  } catch(e) {}
+}
 async function forceRefreshToken() {
   const sessionCookie = process.env.VINTED_SESSION_COOKIE;
   if (!sessionCookie) return { token: null, error: 'No session cookie' };
@@ -161,6 +180,7 @@ function vintedGet(path, token) {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + token,
+        ...(process.env.VINTED_SESSION_COOKIE ? { 'Cookie': `_vinted_fr_session=${process.env.VINTED_SESSION_COOKIE}` } : {}),
         'Accept': 'application/json, text/plain, */*',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Accept-Language': 'fr-FR,fr;q=0.9,en;q=0.8',
@@ -274,7 +294,7 @@ function readBody(req) {
   });
 }
 
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Main handler Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Main handler ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -290,7 +310,7 @@ module.exports = async (req, res) => {
 
   const userId = process.env.VINTED_USER_ID || '3136330750';
 
-  // Action status : info sans nÃÂ©cessiter un token valide
+  // Action status : info sans nÃÂÃÂ©cessiter un token valide
   if (action === 'status') {
     const rawToken = process.env.VINTED_ACCESS_TOKEN;
     let tokenExpired = true;
@@ -326,7 +346,7 @@ module.exports = async (req, res) => {
     });
   }
 
-  // Action update_token : mise ÃÂ  jour du token depuis le bookmarklet ou la saisie manuelle
+  // Action update_token : mise ÃÂÃÂ  jour du token depuis le bookmarklet ou la saisie manuelle
   if (action === 'update_token') {
     let newTok = null;
     if (req.method === 'POST') {
@@ -337,7 +357,7 @@ module.exports = async (req, res) => {
     }
     if (!newTok) return res.status(400).json({ error: 'token requis' });
     await saveTokenToMetafields(newTok);
-    return res.status(200).json({ ok: true, message: 'Token mis ÃÂ  jour avec succÃÂ¨s' });
+    return res.status(200).json({ ok: true, message: 'Token mis ÃÂÃÂ  jour avec succÃÂÃÂ¨s' });
   }
 
   // Pour toutes les autres actions, obtenir/renouveler le token automatiquement
@@ -385,7 +405,7 @@ module.exports = async (req, res) => {
       }, token);
 
       if (!convResult.data.conversation?.id) {
-        return res.status(convResult.status).json({ error: 'Impossible de crÃÂ©er la conversation', detail: convResult.data });
+        return res.status(convResult.status).json({ error: 'Impossible de crÃÂÃÂ©er la conversation', detail: convResult.data });
       }
       const convId = convResult.data.conversation.id;
 
